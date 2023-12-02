@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+
+<defs>
+</defs>
+<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+	<path d="M 87 62.362 v 17.949 c 0 2.35 -1.905 4.256 -4.256 4.256 H 7.256 C 4.905 84.567 3 82.662 3 80.311 V 62.362 l 42 -22.526 L 87 62.362 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(188,97,21); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+	<path d="M 55.348 18.082 v -5.888 c 0 -0.521 -0.423 -0.944 -0.944 -0.944 H 35.596 c -0.521 0 -0.944 0.423 -0.944 0.944 v 5.888 c 0 0.795 -5.769 0.898 -5.769 0 l 0 -9.649 c 0 -1.657 1.343 -3 3 -3 h 26.236 c 1.657 0 3 1.343 3 3 v 9.649 C 61.118 19.563 55.349 19.871 55.348 18.082 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(136,70,14); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+	<path d="M 49.54 66.625 l 35.371 -3.624 C 87.802 62.705 90 60.27 90 57.365 V 23.748 c 0 -3.129 -2.537 -5.666 -5.666 -5.666 H 5.666 C 2.537 18.082 0 20.619 0 23.748 v 33.617 c 0 2.906 2.198 5.34 5.089 5.637 l 35.371 3.624 H 49.54 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(225,122,23); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+	<path d="M 45 72.902 L 45 72.902 c -2.508 0 -4.54 -2.033 -4.54 -4.54 v -6.857 c 0 -2.508 2.033 -4.54 4.54 -4.54 h 0 c 2.508 0 4.54 2.033 4.54 4.54 v 4.903 v 1.954 C 49.54 70.87 47.508 72.902 45 72.902 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(136,70,14); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+</g>
+</svg>

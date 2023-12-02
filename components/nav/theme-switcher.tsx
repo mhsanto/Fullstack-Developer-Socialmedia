@@ -15,9 +15,9 @@ import Image from "next/image";
 const ThemeSwitcher = () => {
   const { mode, setMode } = useTheme();
   return (
-    <Menubar className="bg-transparent shadow-none relative border-0">
+    <Menubar className="bg-transparent shadow-none relative border-0 outline-none">
       <MenubarMenu>
-        <MenubarTrigger>
+        <MenubarTrigger >
           {mode === "light" ? (
             <Image
               src="/assets/icons/lightmode.svg"
