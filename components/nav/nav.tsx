@@ -2,6 +2,7 @@ import { SignedIn, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import ThemeSwitcher from "./theme-switcher";
 import MobileNav from "./mobile-nav";
+import GlobalSearchBar from "../search/global-searchbar";
 
 const Navbar = () => {
   return (
@@ -13,7 +14,8 @@ const Navbar = () => {
           DEV
         </p>
       </Link>
-      Global Seach
+   {/* //Global Search Bar */}
+   <GlobalSearchBar />
       <div className="flex-between gap-5">
         <ThemeSwitcher />
         <SignedIn>
