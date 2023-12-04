@@ -12,7 +12,7 @@ const LeftSidebar = () => {
     const pathname = usePathname();
 
     return (
-      <section className="flex flex-col h-full gap-2 ">
+      <section className="flex flex-col h-full gap-3.5 ">
         {sidebarLinks.map((link) => {
           const isActive =
             (pathname.includes(link.route) && link.route.length > 1) ||
@@ -37,8 +37,8 @@ const LeftSidebar = () => {
               />
               <p
                 className={cn(
-                  isActive ? "font-bold " : "font-medium",
-                  "text-dark-100 dark:text-light-900 font-spaceGrotesk  text-lg max-lg:hidden "
+                  "text-dark-100 dark:text-light-900 font-spaceGrotesk  text-lg max-lg:hidden ",
+                  isActive ? "font-bold " : "font-normal"
                 )}
               >
                 {link.label}
@@ -50,7 +50,7 @@ const LeftSidebar = () => {
     );
   };
   return (
-    <div className="background-light800_darkgradient light-border custom-scrollbar fixed left-0 top-0  bottom-0 flex flex-col justify-between overflow-y-hidden border-r lg:p-6 max-lg:px-2 pt-32 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px] items-center">
+    <div className="background-light800_darkgradient light-border custom-scrollbar fixed left-0 top-0  bottom-0 flex flex-col justify-between overflow-y-auto border-r p-6 max-lg:px-2 pt-32 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px] items-center">
       <NavContent />
 
       <SignedOut>
