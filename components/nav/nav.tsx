@@ -14,8 +14,8 @@ const Navbar = () => {
           DEV
         </p>
       </Link>
-   {/* //Global Search Bar */}
-   <GlobalSearchBar />
+      {/* //Global Search Bar */}
+      <GlobalSearchBar />
       <div className="flex-between gap-5">
         <ThemeSwitcher />
         <SignedIn>
@@ -26,13 +26,12 @@ const Navbar = () => {
                 avatarBox: "h-7 w-7",
               },
               variables: {
-                colorPrimary: "#0000ffc1",
+                colorPrimary: "text-primary-500",
               },
             }}
-         
           />
         </SignedIn>
-        <MobileNav/>
+        <MobileNav />
       </div>
     </nav>
   );

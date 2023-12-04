@@ -28,7 +28,7 @@ const topTags = [
 ];
 const RightSidebar = () => {
   return (
-    <div className="background-light800_darkgradient light-border custom-scrollbar text-dark300_light900 fixed right-0 top-0  bottom-0 flex flex-col items-start overflow-y-auto border-l p-6 max-lg:px-2 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden lg:w-[290px] ">
+    <div className="background-light800_darkgradient light-border custom-scrollbar text-dark300_light900 sticky right-0 top-0  flex flex-col items-start overflow-y-auto border-l p-6 max-lg:px-2 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden lg:w-[290px] ">
       <div>
         <h2 className="h2-bold ">Top Questions</h2>
         <div className="flex flex-col pt-5 gap-5 ">

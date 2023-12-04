@@ -23,9 +23,9 @@ const LeftSidebar = () => {
               href={link.route}
               className={cn(
                 isActive
-                  ? "bg-blue-500/70 text-light-900  rounded-lg hover:ring-0 "
-                  : "text-dark300_light900 bg-transparent",
-                "flex items-center text-lg justify-start gap-3  py-2 px-3 hover:ring-2 rounded-lg "
+                  ? "bg-blue-500/70  rounded-lg "
+                  : "bg-transparent",
+                "flex items-center text-lg justify-start gap-3 py-2 px-3 hover:ring-2 rounded-lg cursor-pointer "
               )}
             >
               <Image
@@ -33,12 +33,11 @@ const LeftSidebar = () => {
                 width={20}
                 height={20}
                 alt={link.label}
-                className="cursor-pointer"
               />
               <p
                 className={cn(
                   "text-dark-100 dark:text-light-900 font-spaceGrotesk  text-lg max-lg:hidden ",
-                  isActive ? "font-bold " : "font-normal"
+                  isActive ? "font-semibold " : "font-normal"
                 )}
               >
                 {link.label}
@@ -50,21 +49,24 @@ const LeftSidebar = () => {
     );
   };
   return (
-    <div className="background-light800_darkgradient light-border custom-scrollbar fixed left-0 top-0  bottom-0 flex flex-col justify-between overflow-y-auto border-r p-6 max-lg:px-2 pt-32 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px] items-center">
+    <div className="background-light800_darkgradient light-border custom-scrollbar sticky left-0 top-0  bottom-0 flex flex-col justify-between overflow-y-auto border-r p-6 max-lg:px-2 pt-32 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px] items-center">
       <NavContent />
 
       <SignedOut>
         <div className="flex flex-col gap-3 w-full">
           <Link className="w-full" href="/sign-in">
-            <Button className="small-medium btn-secondary hover:btn-tertiary min-h-[41px] w-full rounded-lg  py-4 shadow-none">
+            <Button className="small-medium 
+            bg-blue-500/30 hover:btn-tertiary min-h-[41px] w-full rounded-lg  py-4 shadow-none">
               <User size={20} className="dark:invert lg:hidden" />
-              <span className="text-blue-400 text-sm base-normal max-lg:hidden">
+              <span className=" text-sm base-normal max-lg:hidden">
                 Sign In
               </span>
             </Button>
           </Link>
           <Link href="/sign-up">
-            <Button className="small-medium light-border-2 btn-tertiary hover:btn-secondary lg:text-dark400_light900 min-h-[41px] w-full rounded-lg  py-4 shadow-none">
+            <Button className="small-medium 
+            background-light800_dark400 light-border-2 btn-tertiary btn-secondary 
+            lg:text-dark400_light900 min-h-[41px] w-full rounded-lg  py-4 shadow-none">
               <User2Icon
                 size={20}
                 className="dark:invert opacity-60 lg:hidden"
