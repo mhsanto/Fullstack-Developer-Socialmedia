@@ -35,9 +35,15 @@ const Home = () => {
           containerClasses=""
         />
       </div>
-
+      <div className="w-full">
+        <NotFoundPage
+          href="ask-question"
+          title="No Question Found"
+          body="Be the first one to create a Question.Break the silence with your presence."
+          linkText="Ask a question"
+        />
+      </div>
       {/* filters by user selection */}
-      <NotFoundPage />
     </>
   );
 };
