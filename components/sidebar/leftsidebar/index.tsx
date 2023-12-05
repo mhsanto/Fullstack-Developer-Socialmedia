@@ -49,7 +49,7 @@ const LeftSidebar = () => {
     );
   };
   return (
-    <div className="background-light800_darkgradient light-border custom-scrollbar sticky left-0 top-0  bottom-0 flex flex-col justify-between overflow-y-auto border-r p-6 max-lg:px-2 pt-32 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px] items-center">
+    <div className="background-light800_darkgradient light-border custom-scrollbar sticky h-screen left-0 top-0 flex flex-col justify-between overflow-y-auto border-r p-6 max-lg:px-2 pt-32 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px] items-center">
       <NavContent />
 
       <SignedOut>
