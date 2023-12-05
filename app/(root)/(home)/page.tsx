@@ -1,5 +1,8 @@
+import SelectFilter from "@/components/filters/select-filter";
+import NotFoundPage from "@/components/not-found";
 import LocalSearchBar from "@/components/search/local-searchbar";
 import { Button } from "@/components/ui/button";
+import { HomePageFilters } from "@/constants/filters";
 import { SearchCode } from "lucide-react";
 import Link from "next/link";
 
@@ -18,7 +21,7 @@ const Home = () => {
           <Button className="max-w-max">Ask a question</Button>
         </Link>
       </div>
-      <div className="mt-10">
+      <div className="mt-10 flex items-center gap-3 ">
         <LocalSearchBar
           route="/"
           iconsPosition="left"
@@ -26,7 +29,15 @@ const Home = () => {
           placeholder="Search your questions"
           otherClasses=""
         />
+        <SelectFilter
+          filters={HomePageFilters}
+          otherClasses=""
+          containerClasses=""
+        />
       </div>
+
+      {/* filters by user selection */}
+      <NotFoundPage />
     </>
   );
 };

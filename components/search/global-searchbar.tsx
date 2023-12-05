@@ -11,6 +11,7 @@ const GlobalSearchBar = () => {
        focus-visible:ring-offset-0 bg-transparent shadow-none outline-none"
           placeholder="search here"
           value=""
+          onChange={() => {}}
           type="text"
         />
       </div>

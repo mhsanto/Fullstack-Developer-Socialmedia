@@ -17,7 +17,7 @@ const LocalSearchBar: React.FC<LocalSearchBarProps> = ({
   return (
     <div
       className="flex items-center
-    gap-2 background-light800_darkgradient px-3 min-h-max py-2 w-full rounded-lg"
+    gap-2 background-light800_darkgradient px-3 py-1  h-full w-full rounded-lg"
     >
       {iconsPosition === "left" && searchIcons}
       <Input
