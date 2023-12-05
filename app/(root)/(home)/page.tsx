@@ -1,10 +1,52 @@
 import SelectFilter from "@/components/filters/select-filter";
 import NotFoundPage from "@/components/not-found";
+import Question from "@/components/card/question";
 import LocalSearchBar from "@/components/search/local-searchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import { SearchCode } from "lucide-react";
 import Link from "next/link";
+const questions = [
+  {
+    _id: 1,
+    question: "How to use react-query?",
+    tags: [
+      { _id: 1, name: "react" },
+      { _id: 2, name: "react-query" },
+    ],
+    upvotes: 10,
+    answers: 2,
+    views: 10,
+    author: { _id: 101, authorName: "John Doe" },
+    createdAt: "2 days ago",
+  },
+  {
+    _id: 2,
+    question: "How to use CLSX in Tailwind",
+    tags: [
+      { _id: 2, name: "tailwind" },
+      { _id: 2, name: "clsx" },
+    ],
+    upvotes: 10,
+    answers: 2,
+    views: 10,
+    author: { _id: 101, authorName: "John Doe" },
+    createdAt: "2 days ago",
+  },
+  {
+    _id: 3,
+    question: "How to use react-router-dom?",
+    tags: [
+      { _id: 3, name: "react" },
+      { _id: 2, name: "react-router-dom" },
+    ],
+    upvotes: 10,
+    answers: 2,
+    views: 10,
+    author: { _id: 101, authorName: "John Doe" },
+    createdAt: "2 days ago",
+  },
+];
 
 const Home = () => {
   return (
@@ -35,13 +77,29 @@ const Home = () => {
           containerClasses=""
         />
       </div>
-      <div className="w-full">
-        <NotFoundPage
-          href="ask-question"
-          title="No Question Found"
-          body="Be the first one to create a Question.Break the silence with your presence."
-          linkText="Ask a question"
-        />
+      <div className="w-full mt-8">
+        {questions.length > 0 ? (
+          questions.map((question) => (
+            <Question
+              key={question._id}
+              _id={question._id}
+              question={question.question}
+              tags={question.tags}
+              upvotes={question.upvotes}
+              answers={question.answers}
+              views={question.views}
+              author={question.author}
+              createdAt={question.createdAt}
+            />
+          ))
+        ) : (
+          <NotFoundPage
+            href="ask-question"
+            title="No Questions to show"
+            body="Be the first one to create a Question.Break the silence with your presence."
+            linkText="Ask a question"
+          />
+        )}
       </div>
       {/* filters by user selection */}
     </>
