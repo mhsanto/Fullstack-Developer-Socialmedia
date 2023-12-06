@@ -16,7 +16,7 @@ const NavContent = () => {
   const pathname = usePathname();
 
   return (
-    <section className="flex flex-col h-full gap-2 pt-16 pb-4">
+    <section className="flex flex-col h-full gap-2 pt-16 pb-8">
       {sidebarLinks.map((link) => {
         const isActive =
           (pathname.includes(link.route) && link.route.length > 1) ||
@@ -41,8 +41,8 @@ const NavContent = () => {
               />
               <p
                 className={cn(
-                  isActive ? "font-bold " : "font-medium",
-                  "text-dark-100 dark:text-light-900 font-spaceGrotesk  text-sm "
+                  isActive ? "font-bold  " : "font-medium",
+                  "text-dark-100 dark:text-light-900 font-spaceGrotesk  text-lg "
                 )}
               >
                 {link.label}
@@ -68,7 +68,7 @@ const MobileNav = () => {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="background-light900_dark200 border-none"
+        className="h-full background-light900_dark200 border-none py-6"
       >
         <Link href="/" className="flex items-center gap-1 ">
           <p className="h2-bold font-spaceGrotesk text-dark-100 tracking-tighter dark:text-light-900 ">
@@ -77,7 +77,7 @@ const MobileNav = () => {
             DEV
           </p>
         </Link>
-        <div>
+        <div className="">
           <SheetClose asChild>
             <NavContent />
           </SheetClose>
@@ -86,7 +86,7 @@ const MobileNav = () => {
               <SheetClose asChild>
                 <Link href="/sign-in">
                   <Button className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-4 shadow-none">
-                    <span className="text-blue-400 text-sm base-normal">
+                    <span className="text-blue-500 text-sm base-normal">
                       Sign In
                     </span>
                   </Button>

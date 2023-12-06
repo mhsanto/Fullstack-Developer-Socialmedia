@@ -23,9 +23,9 @@ const LeftSidebar = () => {
               href={link.route}
               className={cn(
                 isActive
-                  ? "bg-blue-500/70  rounded-lg "
+                  ? "bg-blue-500/80  rounded-lg "
                   : "bg-transparent",
-                "flex items-center text-lg justify-start gap-3 py-2 px-3 hover:ring-2 rounded-lg cursor-pointer "
+                "flex items-center text-lg justify-start gap-3 py-2 px-2.5 hover:ring-2 rounded-lg cursor-pointer "
               )}
             >
               <Image
@@ -56,22 +56,22 @@ const LeftSidebar = () => {
         <div className="flex flex-col gap-3 w-full">
           <Link className="w-full" href="/sign-in">
             <Button className="small-medium 
-            bg-blue-500/30 hover:btn-tertiary min-h-[41px] w-full rounded-lg  py-4 shadow-none">
+            bg-blue-500  hover:bg-blue-500/30  min-h-[41px] w-full rounded-lg  py-4 shadow-none">
               <User size={20} className="dark:invert lg:hidden" />
-              <span className=" text-sm base-normal max-lg:hidden">
+              <span className=" text-sm base-normal max-lg:hidden dark:text-white ">
                 Sign In
               </span>
             </Button>
           </Link>
           <Link href="/sign-up">
             <Button className="small-medium 
-            background-light800_dark400 light-border-2 btn-tertiary btn-secondary 
+            background-light800_dark400 light-border-2 btn-secondary  btn-tertiary dark:text-white
             lg:text-dark400_light900 min-h-[41px] w-full rounded-lg  py-4 shadow-none">
               <User2Icon
                 size={20}
                 className="dark:invert opacity-60 lg:hidden"
               />
-              <span className="text-blue-600  text-sm base-normal max-lg:hidden ">
+              <span className=" text-sm base-normal max-lg:hidden dark:text-white">
                 Sign up
               </span>
             </Button>
