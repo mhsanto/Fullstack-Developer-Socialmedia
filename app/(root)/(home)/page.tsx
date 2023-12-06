@@ -18,7 +18,7 @@ const questions = [
     answers: 2,
     views: 10,
     author: { _id: 101, authorName: "John Doe" },
-    createdAt: "2 days ago",
+    createdAt: new Date('2023-01-01T12:00:00'),
   },
   {
     _id: 2,
@@ -31,7 +31,7 @@ const questions = [
     answers: 2,
     views: 10,
     author: { _id: 101, authorName: "John Doe" },
-    createdAt: "2 days ago",
+    createdAt: new Date('2023-01-01T12:00:00'),
   },
   {
     _id: 3,
@@ -44,7 +44,7 @@ const questions = [
     answers: 2,
     views: 10,
     author: { _id: 101, authorName: "John Doe" },
-    createdAt: "2 days ago",
+    createdAt: new Date('2023-01-01T12:00:00'),
   },
 ];
 

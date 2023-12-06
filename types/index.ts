@@ -50,5 +50,5 @@ export type QuestionProps = {
     _id: number;
     authorName: string;
   };
-  createdAt: string;
+  createdAt: Date;
 };
