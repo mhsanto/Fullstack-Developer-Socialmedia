@@ -20,6 +20,7 @@ import React, { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
+import { createQuestion } from "@/lib/actions/question.action";
 
 export default function QuestionAskSection() {
   const editorRef = useRef(null);
@@ -33,33 +34,52 @@ export default function QuestionAskSection() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await createQuestion({})
     console.log(values);
   }
+
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>, field: any) {
-    if (e.key === "Enter" && field.name === "tags") {
+    // Extracting key and target from the event for easier access
+    const { key, target } = e;
+    // Casting target to HTMLInputElement for type safety
+    const tagInput = target as HTMLInputElement;
+    // Extracting and trimming the tag value
+    const tagValue = tagInput.value.trim();
+  
+    // Checking if the Enter key is pressed and the field name is "tags"
+    if (key === "Enter" && field.name === "tags") {
+      // Preventing the default Enter key behavior
       e.preventDefault();
-      const tagInput = e.target as HTMLInputElement;
-      const tagValue = tagInput.value.trim();
-      if (tagValue !== "") {
-        if (tagValue.length > 15) {
-          return form.setError("tags", {
-            type: "required",
-            message: "Tags must be less than 15 characters",
-          });
-        }
+  
+      // Ensuring the tag value is not empty
+      if (tagValue === "") {
+        return;
       }
+  
+      // Checking if the tag value exceeds the maximum length
+      if (tagValue.length > 15) {
+        // Setting an error if the tag length is too long
+        return form.setError("tags", {
+          type: "required",
+          message: "Tags must be less than 15 characters",
+        });
+      }
+  
+      // Checking if the tag value is not already in the list
       if (!field.value.includes(tagValue as never)) {
+        // Adding the tag value to the list and clearing input
         form.setValue("tags", [...field.value, tagValue]);
         tagInput.value = "";
         form.clearErrors("tags");
       } else {
+        // Triggering form validation if the tag is already present
         form.trigger();
       }
     }
   }
+  
+
   // remove tags from the list
   const handleRemove = (tag: any, field: any) => {
     const newTags = field.value.filter((t: string) => t !== tag);
@@ -110,6 +130,8 @@ export default function QuestionAskSection() {
                     // @ts-ignore
                     (editorRef.current = editor)
                   }
+                  onBlur={field.onBlur}
+                  onEditorChange={(content)=>field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,
