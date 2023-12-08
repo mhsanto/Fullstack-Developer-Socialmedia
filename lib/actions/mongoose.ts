@@ -11,11 +11,11 @@ export const connectToDatabase = async () => {
     return console.log("ALREADY CONNECTED");
   }
   try {
-    await mongoose.connect(process.env.MONGODB_URI,{
-        dbName:"santo-developer-media"
-    })
+    await mongoose.connect(process.env.MONGODB_URI, {
+      dbName: "santo-developer-media",
+    });
     isConnected = true;
-  } catch (error) {
-    
+  } catch (error: any) {
+    console.log(error.message);
   }
 };
