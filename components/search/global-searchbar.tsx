@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Input } from "../ui/input";
 import { Search } from "lucide-react";
 const GlobalSearchBar = () => {
@@ -11,8 +11,7 @@ const GlobalSearchBar = () => {
        no-focus 
        focus-visible:ring-offset-0 bg-transparent shadow-none outline-none"
           placeholder="search here"
-          value=""
-          onChange={() => {}}
+   
           type="text"
         />
       </div>

@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("NEXT_PUBLIC_MONGODB_URI")
+}
+
+model User {
+  id               String     @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId          String
+  name             String
+  username         String     @unique
+  email            String     @unique
+  password         String?
+  bio              String?
+  picture          String
+  location         String?
+  portfolioWebsite String?
+  reputation       Int        @default(0)
+  savedQuestions   Question[] @relation("SavedQuestions")
+  joinedAt         DateTime   @default(now())
+}
+
+model Question {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String
+  tags      Tag[]    @relation("TagQuestions")
+  views     Int      @default(0)
+  upvotes   User[]
+  downvotes User[]
+  author    Answer   @relation("QuestionAuthor", fields: [authorId], references: [id])
+  authorId  String   @db.ObjectId
+  answers   Answer[] @relation("QuestionAnswers")
+  createdAt DateTime @default(now()) @map("createdAt")
+}
+
+model Tag {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String     @unique
+  description String
+  questions   Question[] @relation("TagQuestions")
+  followers   User[]     @relation("TagFollowers")
+  createdOn   DateTime   @default(now()) @map("createdOn")
+}
+
+model Answer {
+  // other fields for Answer model
+}

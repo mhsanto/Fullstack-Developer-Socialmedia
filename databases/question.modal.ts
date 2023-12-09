@@ -2,6 +2,7 @@ import { model } from "mongoose";
 import { Document, models } from "mongoose";
 import { Schema } from "mongoose";
 export interface IQuestion extends Document {
+  _id: Schema.Types.ObjectId;
   title: string;
   content: string;
   tags: Schema.Types.ObjectId[];
@@ -13,6 +14,7 @@ export interface IQuestion extends Document {
   createdAt: Date;
 }
 const QuestionSchema = new Schema({
+  _id: Schema.Types.ObjectId,
   title: { type: String, required: true },
   content: { type: String, required: true },
   tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],

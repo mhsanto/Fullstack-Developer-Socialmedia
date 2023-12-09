@@ -4,6 +4,25 @@
         "light800_darkgradient"
     ],
     "cSpell.ignoreWords": [
-        "upvotes"
+        "advlist",
+        "aligncenter",
+        "alignjustify",
+        "alignleft",
+        "alignright",
+        "bullist",
+        "charmap",
+        "codesample",
+        "forecolor",
+        "formatselect",
+        "hookform",
+        "insertdatetime",
+        "lucide",
+        "numlist",
+        "outdent",
+        "removeformat",
+        "searchreplace",
+        "tinymce",
+        "upvotes",
+        "visualblocks"
     ]
 }

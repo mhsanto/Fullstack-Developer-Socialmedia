@@ -16,13 +16,23 @@ import { Input } from "@/components/ui/input";
 import { formSchema } from "@/types/validations";
 
 // tinymce editor component
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+// end
+
 import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
 import { createQuestion } from "@/lib/actions/question.action";
-
-export default function QuestionAskSection() {
+import { usePathname, useRouter } from "next/navigation";
+const type: any = "create";
+export default function QuestionAskSection({
+  mongoUserId,
+}: {
+  mongoUserId?: string | undefined;
+}) {
+  const router = useRouter();
+  const pathName = usePathname();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRef = useRef(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,10 +45,22 @@ export default function QuestionAskSection() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await createQuestion({})
-    console.log(values);
+    try {
+      setIsSubmitting(true);
+      await createQuestion({
+        title: values.title,
+        explanation: values.explanation,
+        tags: values.tags,
+        // author: JSON.parse(mongoUserId!),
+      });
+      router.push("/");
+    } catch (error) {
+      console.log("AskQuestionPage -> error", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
-
+  // add tags to ui
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>, field: any) {
     // Extracting key and target from the event for easier access
     const { key, target } = e;
@@ -46,17 +68,17 @@ export default function QuestionAskSection() {
     const tagInput = target as HTMLInputElement;
     // Extracting and trimming the tag value
     const tagValue = tagInput.value.trim();
-  
+
     // Checking if the Enter key is pressed and the field name is "tags"
     if (key === "Enter" && field.name === "tags") {
       // Preventing the default Enter key behavior
       e.preventDefault();
-  
+
       // Ensuring the tag value is not empty
       if (tagValue === "") {
         return;
       }
-  
+
       // Checking if the tag value exceeds the maximum length
       if (tagValue.length > 15) {
         // Setting an error if the tag length is too long
@@ -65,7 +87,7 @@ export default function QuestionAskSection() {
           message: "Tags must be less than 15 characters",
         });
       }
-  
+
       // Checking if the tag value is not already in the list
       if (!field.value.includes(tagValue as never)) {
         // Adding the tag value to the list and clearing input
@@ -78,7 +100,6 @@ export default function QuestionAskSection() {
       }
     }
   }
-  
 
   // remove tags from the list
   const handleRemove = (tag: any, field: any) => {
@@ -131,7 +152,7 @@ export default function QuestionAskSection() {
                     (editorRef.current = editor)
                   }
                   onBlur={field.onBlur}
-                  onEditorChange={(content)=>field.onChange(content)}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,
@@ -191,7 +212,7 @@ export default function QuestionAskSection() {
                       {field.value.map((tag) => (
                         <Badge
                           key={tag}
-                          className="text-dark300_light700 bg-primary-500/80 flex items-center gap-1 py-1 text-sm capitalize justify-center"
+                          className="text-dark300_light700 bg-primary-500/80 flex items-center text-white gap-1 py-1 text-sm capitalize justify-center"
                         >
                           {tag}
                           <X
@@ -213,7 +234,13 @@ export default function QuestionAskSection() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button className="bg-primary-500 w-fit !text-light-900 " type="submit">
+          {isSubmitting ? (
+            <>{type === "edit" ? "Editing..." : "Posting"}</>
+          ) : (
+            <>{type === "edit" ? "Edit a Question" : "Ask a Question"}</>
+          )}
+        </Button>
       </form>
     </Form>
   );
