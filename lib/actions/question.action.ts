@@ -3,12 +3,13 @@
 import Question from "@/databases/question.modal";
 import { connectToDatabase } from "./mongoose";
 import Tag from "@/databases/tag.model";
+import prisma from "../prisma";
 
 export async function createQuestion(params: any) {
   try {
-    connectToDatabase();
     const { title, content, tags, author, path } = params;
     // Create question
+    const question = await prisma.
     const question = await Question.create({
       title,
       content,
