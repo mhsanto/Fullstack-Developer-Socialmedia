@@ -42,7 +42,7 @@ export default function QuestionAskSection({
       tags: [],
     },
   });
-
+console.log(mongoUserId)
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -51,7 +51,7 @@ export default function QuestionAskSection({
         title: values.title,
         explanation: values.explanation,
         tags: values.tags,
-        // author: JSON.parse(mongoUserId!),
+        author: JSON.parse(mongoUserId!),
       });
       router.push("/");
     } catch (error) {

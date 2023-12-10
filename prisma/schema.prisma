@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id               String     @id @default(auto()) @map("_id") @db.ObjectId
-  clerkId          String
+  title            String
   name             String
   username         String     @unique
   email            String     @unique
@@ -22,33 +22,43 @@ model User {
   location         String?
   portfolioWebsite String?
   reputation       Int        @default(0)
-  savedQuestions   Question[] @relation("SavedQuestions")
+  saved            Question[] @relation("UserToQuestion")
   joinedAt         DateTime   @default(now())
+  upVotes          Upvote[]   @relation("UpvoteToUser")
+  downVotes        DownVote[] @relation("DownvoteToUser")
 }
 
 model Question {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  authorId  String     @db.ObjectId
+  author    User       @relation("UserToQuestion", fields: [authorId], references: [id])
   title     String
   content   String
-  tags      Tag[]    @relation("TagQuestions")
-  views     Int      @default(0)
-  upvotes   User[]
-  downvotes User[]
-  author    Answer   @relation("QuestionAuthor", fields: [authorId], references: [id])
-  authorId  String   @db.ObjectId
-  answers   Answer[] @relation("QuestionAnswers")
-  createdAt DateTime @default(now()) @map("createdAt")
+  tags      Tag[]      @relation("QuestionToTag")
+  views     Int        @default(0)
+  upVotes   Upvote[]   @relation("UpvoteToQuestion")
+  downVotes DownVote[] @relation("DownvoteToQuestion")
+  createdAt DateTime   @default(now())
+}
+
+model DownVote {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  questionId String   @db.ObjectId
+  questions  Question @relation("DownvoteToQuestion", fields: [questionId], references: [id])
+  userId     String   @db.ObjectId
+  user       User     @relation("DownvoteToUser", fields: [userId], references: [id])
+}
+
+model Upvote {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  questionId String   @db.ObjectId
+  questions  Question @relation("UpvoteToQuestion", fields: [questionId], references: [id])
+  userId     String   @db.ObjectId
+  user       User     @relation("UpvoteToUser", fields: [userId], references: [id])
 }
 
 model Tag {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  name        String     @unique
-  description String
-  questions   Question[] @relation("TagQuestions")
-  followers   User[]     @relation("TagFollowers")
-  createdOn   DateTime   @default(now()) @map("createdOn")
-}
-
-model Answer {
-  // other fields for Answer model
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  questionId String   @db.ObjectId
+  question   Question @relation("QuestionToTag", fields: [questionId], references: [id])
 }

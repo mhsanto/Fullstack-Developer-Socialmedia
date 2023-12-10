@@ -20,7 +20,7 @@ const UserSchema = new Schema<IUser>({
   name: { type: String, required: true },
   username: { type: String, required: true ,unique:true},
   email: { type: String, required: true, unique: true},
-  password: { type: String, required: false }, // You may want to enforce required based on your authentication logic
+  password: { type: String}, 
   bio: { type: String },
   picture: { type: String, required: true },
   location: { type: String },
@@ -30,5 +30,5 @@ const UserSchema = new Schema<IUser>({
   joinedAt: { type: Date, default: Date.now },
 });
 
-const User = models.User || model<IUser>("User", UserSchema);
+const User = models.User || model("User", UserSchema);
 export default User;
