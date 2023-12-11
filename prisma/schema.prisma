@@ -60,4 +60,5 @@ model Tag {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   questionId String   @db.ObjectId
   question   Question @relation("QuestionToTag", fields: [questionId], references: [id])
+  name String
 }

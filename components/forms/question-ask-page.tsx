@@ -42,7 +42,6 @@ export default function QuestionAskSection({
       tags: [],
     },
   });
-console.log(mongoUserId)
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -53,7 +52,7 @@ console.log(mongoUserId)
         tags: values.tags,
         author: JSON.parse(mongoUserId!),
       });
-      router.push("/");
+      // router.push("/");
     } catch (error) {
       console.log("AskQuestionPage -> error", error);
     } finally {
