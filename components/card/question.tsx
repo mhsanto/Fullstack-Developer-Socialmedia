@@ -7,7 +7,8 @@ import { getTimeStamp } from "@/lib/utils";
 
 const Question: React.FC<QuestionProps> = ({
   _id,
-  question,
+  title,
+  content,
   tags,
   upvotes,
   answers,
@@ -39,12 +40,9 @@ const Question: React.FC<QuestionProps> = ({
         </div>
       </div>
       <Link href={`/question/${_id}`} className="flex flex-col">
-        <h3 className="h3-bold pb-3">{question}</h3>
+        <h3 className="h3-bold pb-3">{title}</h3>
         <p className="text-sm text-dark500_light700">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum fugit
-          aliquid nulla, amet delectus hic praesentium explicabo tenetur dolor!
-          Culpa, expedita? Sunt vel soluta dicta explicabo necessitatibus esse,
-          repudiandae illo.
+      {content}
         </p>
       </Link>
       <div className="flex gap-3 w-full pt-6">

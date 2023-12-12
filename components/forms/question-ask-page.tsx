@@ -51,6 +51,7 @@ export default function QuestionAskSection({
         content: values.explanation,
         tags: values.tags,
         author: JSON.parse(mongoUserId!),
+        path:pathName
       });
       // router.push("/");
     } catch (error) {

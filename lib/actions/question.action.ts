@@ -2,10 +2,29 @@
 
 import Question from "@/databases/question.modal";
 import { connectToDatabase } from "./mongoose";
-import prisma from "../prisma";
 import Tag from "@/databases/tag.model";
+import { CreateQuestionParams, GetQuestionsParams } from "./shared.types";
+import User from "@/databases/user.model";
+import { revalidatePath } from "next/cache";
 
-export async function createQuestion(params: any) {
+export async function getQuestions(params: GetQuestionsParams) {
+  try {
+    await connectToDatabase();
+    const questions = await Question.find({})
+      .populate({
+        path: "tags",
+        model: Tag,
+      })
+      .populate({
+        path: "author",
+        model: User,
+      }).sort({createdAt: -1});
+    return { questions };
+  } catch (error) {
+    console.log("QUestion.action.ts: getQuestion: error: ", error);
+  }
+}
+export async function createQuestion(params: CreateQuestionParams) {
   try {
     await connectToDatabase();
     const { title, content, tags, author, path } = params;
@@ -46,6 +65,7 @@ export async function createQuestion(params: any) {
     await Question.findByIdAndUpdate(question._id, {
       $push: { tags: { $each: tagDocuments } },
     });
+    revalidatePath(path)
   } catch (error) {
     console.log("question.action.ts: createQuestion: error: ", error);
   }

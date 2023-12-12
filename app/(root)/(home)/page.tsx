@@ -6,49 +6,11 @@ import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import { SearchCode } from "lucide-react";
 import Link from "next/link";
-const questions = [
-  {
-    _id: 1,
-    question: "How to use react-query?",
-    tags: [
-      { _id: 1, name: "react" },
-      { _id: 2, name: "react-query" },
-    ],
-    upvotes: 10,
-    answers: 2,
-    views: 10,
-    author: { _id: 101, authorName: "John Doe" },
-    createdAt: new Date('2023-01-01T12:00:00'),
-  },
-  {
-    _id: 2,
-    question: "How to use CLSX in Tailwind",
-    tags: [
-      { _id: 2, name: "tailwind" },
-      { _id: 2, name: "clsx" },
-    ],
-    upvotes: 10,
-    answers: 2,
-    views: 10,
-    author: { _id: 101, authorName: "John Doe" },
-    createdAt: new Date('2023-01-01T12:00:00'),
-  },
-  {
-    _id: 3,
-    question: "How to use react-router-dom?",
-    tags: [
-      { _id: 3, name: "react" },
-      { _id: 2, name: "react-router-dom" },
-    ],
-    upvotes: 10,
-    answers: 2,
-    views: 10,
-    author: { _id: 101, authorName: "John Doe" },
-    createdAt: new Date('2023-01-01T12:00:00'),
-  },
-];
+import { getQuestions } from "@/lib/actions/question.action";
 
-const Home = () => {
+const Home = async () => {
+  const result = await getQuestions({});
+  console.log(result?.questions);
   return (
     <>
       <div className="dark:text-white w-full flex justify-between flex-col-reverse sm:flex-row sm:items-center">
@@ -78,12 +40,12 @@ const Home = () => {
         />
       </div>
       <div className="w-full mt-8">
-        {questions.length > 0 ? (
-          questions.map((question) => (
+        {result?.questions?.length ? result.questions.map((question) => (
             <Question
               key={question._id}
               _id={question._id}
-              question={question.question}
+              title={question.title}
+              content={question.content}
               tags={question.tags}
               upvotes={question.upvotes}
               answers={question.answers}
@@ -91,15 +53,15 @@ const Home = () => {
               author={question.author}
               createdAt={question.createdAt}
             />
-          ))
-        ) : (
-          <NotFoundPage
+          )):(
+            <NotFoundPage
             href="ask-question"
             title="No Questions to show"
             body="Be the first one to create a Question.Break the silence with your presence."
             linkText="Ask a question"
           />
-        )}
+          )}
+    
       </div>
       {/* filters by user selection */}
     </>
