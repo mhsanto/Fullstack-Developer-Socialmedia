@@ -48,7 +48,7 @@ export default function QuestionAskSection({
       setIsSubmitting(true);
       await createQuestion({
         title: values.title,
-        explanation: values.explanation,
+        content: values.explanation,
         tags: values.tags,
         author: JSON.parse(mongoUserId!),
       });

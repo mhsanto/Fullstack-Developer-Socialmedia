@@ -5,15 +5,15 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 const AskQuestion = async () => {
-  const { userId } = auth();
-  // const userId = "CL123456";
+  // const { userId } = auth();
+  const userId = "CL123456";
   if (!userId) redirect("/sign-in");
-  const mongoUser = await getUserById({ clerkId:userId });
+  const mongoUser = await getUserById({ userId });
   return (
     <div className="text-dark100_light900">
       <h2 className="h1-bold">Ask a question</h2>
       <div className="mt-9">
-        <QuestionAskSection mongoUserId={JSON.stringify(mongoUser._id)} />
+        <QuestionAskSection mongoUserId={JSON.stringify(mongoUser?._id)} />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import Tag from "@/databases/tag.model";
 
 export async function createQuestion(params: any) {
   try {
+    await connectToDatabase();
     const { title, content, tags, author, path } = params;
     // Create question
     // const question = await prisma?.question.create({
@@ -14,11 +15,11 @@ export async function createQuestion(params: any) {
     //     title,content,author
     //   }
     // })
-  const question  =await Question.create({
-    title,
-    content,
-    author,
-  });
+    const question = await Question.create({
+      title,
+      content,
+      author,
+    });
     const tagDocuments = [];
     // const existingTag = await prisma?.tags.upsert({
     //   where: {
@@ -33,13 +34,15 @@ export async function createQuestion(params: any) {
     //     question: { connect: { id: question?.id } }
     //   }
     // });
-    const existingTag = await Tag.findOneAndUpdate(
-      { name: { $regex: new RegExp(`^${tags}$`, "i") } },
-      { $setOnInsert: { name: tags }, $push: { question: question._id } },
-      { upsert: true, new: true }
-    );
-    
-    tagDocuments.push(existingTag.id);
+    for (const tag of tags) {
+      const existingTag = await Tag.findOneAndUpdate(
+        { name: { $regex: new RegExp(`^${tag}$`, "i") } },
+        { $setOnInsert: { name: tag }, $push: { questions: question._id } },
+        { upsert: true, new: true }
+      );
+
+      tagDocuments.push(existingTag._id);
+    }
     await Question.findByIdAndUpdate(question._id, {
       $push: { tags: { $each: tagDocuments } },
     });
