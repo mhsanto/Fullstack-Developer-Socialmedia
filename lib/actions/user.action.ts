@@ -1,6 +1,7 @@
 "use server";
 
 import User from "@/databases/user.model";
+import Question from "@/databases/question.modal";
 import { connectToDatabase } from "./mongoose";
 import {
   CreateUserParams,
@@ -9,7 +10,6 @@ import {
   UpdateUserParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
-import Question from "@/databases/question.modal";
 // If the event is user.created, create the user in the database
 export async function getUserById(params: GetUserByIdParams) {
   try {
@@ -54,18 +54,18 @@ export async function updateUser(params: UpdateUserParams) {
 
 export async function deleteUser(params: DeleteUserParams) {
   try {
-    const { clerkId } = params;
     await connectToDatabase();
-    const user = await User.findOneAndDelete({
+    const { clerkId } = params;
+    const user = await User.findOneAndUpdate({
       clerkId,
     });
 
     if (!user) {
       console.error("user.action.ts: deleteUser: error: ");
     }
-    //Delete suer from database
+    //Delete user from database
     //and questions,answers, comments,etc
-    const userQUestionIds = await Question.find({ author: user._id }).distinct(
+    const userQuestionIds = await Question.find({ author: user._id }).distinct(
       "_id"
     );
     //delete all questions
