@@ -19,17 +19,7 @@ const Navbar = () => {
       <div className="flex-between gap-5">
         <ThemeSwitcher />
         <SignedIn>
-          <UserButton
-            afterSignOutUrl="/"
-            appearance={{
-              elements: {
-                avatarBox: "h-7 w-7",
-              },
-              variables: {
-                colorPrimary: "text-primary-500",
-              },
-            }}
-          />
+          <UserButton afterSignOutUrl="/" />
         </SignedIn>
         <MobileNav />
       </div>

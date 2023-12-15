@@ -7,7 +7,7 @@ type NotFoundPageProps = {
   body: string;
   linkText: string;
 };
-const NotFoundPage = ({ href, title, body,linkText }: NotFoundPageProps) => {
+const NotFoundPage = ({ href, title, body, linkText }: NotFoundPageProps) => {
   return (
     <div className="w-full flex flex-col items-center justify-center h-full mt-7 gap-4">
       <div className="overflow-hidden rounded">
@@ -23,7 +23,7 @@ const NotFoundPage = ({ href, title, body,linkText }: NotFoundPageProps) => {
       <p className=" paragraph text-dark500_light700 max-w-md text-center">
         {body}
       </p>
-      <Link href={href} className="bg-primary-400 rounded-md dark:text-white ">
+      <Link href={href} className="bg-primary-500 rounded-md text-white ">
         <Button>{linkText}</Button>
       </Link>
     </div>
