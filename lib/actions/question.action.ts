@@ -29,18 +29,14 @@ export async function createQuestion(params: CreateQuestionParams) {
     await connectToDatabase();
     const { title, content, tags, author, path } = params;
     // Create question
-    // const question = await prisma?.question.create({
-    //   data:{
-    //     title,content,author
-    //   }
-    // })
+
     const question = await Question.create({
       title,
       content,
       author,
     });
     const tagDocuments = [];
-    // const existingTag = await prisma?.tags.upsert({
+  
     //   where: {
     //     name: { contains: tags, mode: 'insensitive' }
     //   },
