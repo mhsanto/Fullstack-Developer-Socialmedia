@@ -53,9 +53,9 @@ export default function QuestionAskSection({
         author: JSON.parse(mongoUserId!),
         path:pathName
       });
-      // router.push("/");
-    } catch (error) {
-      console.log("AskQuestionPage -> error", error);
+      router.push("/");
+    } catch (error:any) {
+      console.log("AskQuestionPage -> error", error.message);
     } finally {
       setIsSubmitting(false);
     }

@@ -70,8 +70,6 @@ const MobileNav = () => {
         side="left"
         className="h-full background-light900_dark200 border-none py-6"
       >
-        <UserButton afterSignOutUrl="/" />
-
         <Link href="/" className="flex items-center gap-1 ">
           <p className="h2-bold font-spaceGrotesk text-dark-100 tracking-tighter dark:text-light-900 ">
             SANTO

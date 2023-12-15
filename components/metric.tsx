@@ -1,7 +1,10 @@
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 type MetricProps = {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
+  imgUrl?: string;
   value: string | number;
   title: string;
   textStyles: string;
@@ -12,6 +15,7 @@ type MetricProps = {
 
 const Metric: React.FC<MetricProps> = ({
   icon,
+  imgUrl,
   value,
   title,
   textStyles,
@@ -22,7 +26,17 @@ const Metric: React.FC<MetricProps> = ({
   const metricContent = (
     <>
       <div className="flex gap-0.5">
-        {icon}
+        {imgUrl ? (
+          <Image
+            src={imgUrl || "/assets/icons/user.svg"}
+            width={20}
+            height={20}
+            alt={alt || "User Avatar"}
+            className={`object-contain ${href ? "rounded-full" : ""}`}
+          />
+        ) : (
+          <>{icon}</>
+        )}
         <p className={cn("text-xs flex items-center gap-1", textStyles)}>
           {value}
           <span className={`small-regular line-clamp-1 `}>{title}</span>

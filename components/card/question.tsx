@@ -20,7 +20,7 @@ const Question: React.FC<QuestionProps> = ({
     <div className="dark:text-white background-light800_darkgradient p-7 border-b-1 mb-2 shadow-md dark:shadow-none rounded-lg">
       <div className="user_avatar flex  items-center gap-1.5 pb-5">
         <Metric
-          icon={<User size={20} />}
+          imgUrl = {author.picture}
           value={author.authorName}
           title={` asked-${getTimeStamp(createdAt)}`}
           href={`/profile/${author.authorName}`}
@@ -41,9 +41,7 @@ const Question: React.FC<QuestionProps> = ({
       </div>
       <Link href={`/question/${_id}`} className="flex flex-col">
         <h3 className="h3-bold pb-3">{title}</h3>
-        <p className="text-sm text-dark500_light700">
-      {content}
-        </p>
+        <p className="text-sm text-dark500_light700">{content}</p>
       </Link>
       <div className="flex gap-3 w-full pt-6">
         <Metric

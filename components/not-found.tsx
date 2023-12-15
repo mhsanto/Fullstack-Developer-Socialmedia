@@ -14,9 +14,9 @@ const NotFoundPage = ({ href, title, body, linkText }: NotFoundPageProps) => {
         <Image
           src="/assets/icons/404.gif"
           width={300}
-          height={100}
+          height={300}
           alt="404 page"
-          className="object-cover"
+          className="object-cover h-auto w-auto"
         />
       </div>{" "}
       <h3 className="h3-bold dark:text-white ">{title}</h3>

@@ -10,7 +10,6 @@ import { getQuestions } from "@/lib/actions/question.action";
 
 const Home = async () => {
   const result = await getQuestions({});
-  console.log(result?.questions);
   return (
     <>
       <div className="dark:text-white w-full flex justify-between flex-col-reverse sm:flex-row sm:items-center">
@@ -40,28 +39,32 @@ const Home = async () => {
         />
       </div>
       <div className="w-full mt-8">
-        {result?.questions?.length ? result.questions.map((question) => (
-            <Question
-              key={question._id}
-              _id={question._id}
-              title={question.title}
-              content={question.content}
-              tags={question.tags}
-              upvotes={question.upvotes}
-              answers={question.answers}
-              views={question.views}
-              author={question.author}
-              createdAt={question.createdAt}
-            />
-          )):(
-            <NotFoundPage
+        {result?.questions?.length ? (
+          result.questions?.map((question) => (
+            <>
+              {console.log(question)}
+              <Question
+                key={question._id}
+                _id={question._id}
+                title={question.title}
+                content={question.content}
+                tags={question.tags}
+                upvotes={question.upvotes}
+                answers={question.answers}
+                views={question.views}
+                author={question.author}
+                createdAt={question.createdAt}
+              />
+            </>
+          ))
+        ) : (
+          <NotFoundPage
             href="ask-question"
             title="No Questions to show"
             body="Be the first one to create a Question.Break the silence with your presence."
             linkText="Ask a question"
           />
-          )}
-    
+        )}
       </div>
       {/* filters by user selection */}
     </>

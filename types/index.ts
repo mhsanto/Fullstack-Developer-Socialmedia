@@ -49,6 +49,7 @@ export type QuestionProps = {
   views: number;
   author: {
     _id: number;
+    picture: string;
     authorName: string;
   };
   createdAt: Date;
