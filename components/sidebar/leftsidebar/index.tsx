@@ -37,7 +37,7 @@ const LeftSidebar = () => {
               <p
                 className={cn(
                   "text-dark-100 dark:text-light-900 font-spaceGrotesk  text-lg max-lg:hidden ",
-                  isActive ? "font-semibold " : "font-normal"
+                  isActive ? "text-light-900 font-semibold " : "font-normal"
                 )}
               >
                 {link.label}

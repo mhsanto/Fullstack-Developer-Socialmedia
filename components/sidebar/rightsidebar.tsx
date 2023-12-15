@@ -53,7 +53,7 @@ const RightSidebar = () => {
             <Tags
               variant="default"
               customClasses="bg-primary-500/50
-              dark:bg-primary-500/30 hover:bg-primary-500/40 py-1"
+              dark:bg-primary-500/80 hover:bg-primary-500/40 py-1"
               key={tag._id}
               _id={tag._id}
               questionCount={tag.questionCount}

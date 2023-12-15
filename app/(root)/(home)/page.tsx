@@ -1,12 +1,12 @@
 import SelectFilter from "@/components/filters/select-filter";
 import NotFoundPage from "@/components/not-found";
-import Question from "@/components/card/question";
 import LocalSearchBar from "@/components/search/local-searchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import { SearchCode } from "lucide-react";
 import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
+import QuestionCard from "@/components/card/question-card";
 
 const Home = async () => {
   const result = await getQuestions({});
@@ -41,9 +41,8 @@ const Home = async () => {
       <div className="w-full mt-8">
         {result?.questions?.length ? (
           result.questions?.map((question) => (
-            <>
-              {console.log(question)}
-              <Question
+     
+              <QuestionCard
                 key={question._id}
                 _id={question._id}
                 title={question.title}
@@ -55,7 +54,7 @@ const Home = async () => {
                 author={question.author}
                 createdAt={question.createdAt}
               />
-            </>
+    
           ))
         ) : (
           <NotFoundPage

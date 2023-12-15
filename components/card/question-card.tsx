@@ -1,11 +1,11 @@
 import { QuestionProps } from "@/types";
-import { EyeIcon, Heart, LucideGitCommit, User } from "lucide-react";
+import { EyeIcon, Heart, LucideGitCommit } from "lucide-react";
 import Link from "next/link";
 import Tags from "../tags";
 import Metric from "../metric";
 import { getTimeStamp } from "@/lib/utils";
 
-const Question: React.FC<QuestionProps> = ({
+const QuestionCard: React.FC<QuestionProps> = ({
   _id,
   title,
   content,
@@ -67,4 +67,4 @@ const Question: React.FC<QuestionProps> = ({
   );
 };
 
-export default Question;
+export default QuestionCard;
