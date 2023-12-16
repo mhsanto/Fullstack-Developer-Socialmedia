@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 type TagsProps = {
-  _id: number;
+  _id: string | number;
   name: string;
   variant:
     | "default"
@@ -13,7 +13,7 @@ type TagsProps = {
     | null
     | undefined;
   questionCount?: number;
-  showCount?: boolean;
+  showCount?: boolean ;
   customClasses?: string;
 };
 const Tags: React.FC<TagsProps> = ({
@@ -31,7 +31,7 @@ const Tags: React.FC<TagsProps> = ({
     >
       <Badge
         variant={variant}
-        className={cn("  whitespace-nowrap", customClasses)}
+        className={cn("  whitespace-nowrap", customClasses)} 
       >
         {name}
       </Badge>
