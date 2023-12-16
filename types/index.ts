@@ -50,7 +50,7 @@ export type QuestionProps = {
   author: {
     _id: number;
     picture: string;
-    authorName: string;
+    name: string;
   };
   createdAt: Date;
 };
