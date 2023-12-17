@@ -28,7 +28,13 @@ const AnswerForm = () => {
     },
   });
   const handleCreateAnswer = () => {
-    
+    try {
+      setSubmitting(true)
+    } catch (error) {
+      
+    }finally{
+      setSubmitting(false)
+    }
   };
   return (
     <div>
