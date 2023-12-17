@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { number } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -16,15 +17,26 @@ export const getTimeStamp = (createdAt: Date): string => {
   const months = Math.floor(days / 30); // Approximate, not exact
 
   if (months > 0) {
-      return months === 1 ? `${months} month ago` : `${months} months ago`;
+    return months === 1 ? `${months} month ago` : `${months} months ago`;
   } else if (days > 0) {
-      return days === 1 ? `${days} day ago` : `${days} days ago`;
+    return days === 1 ? `${days} day ago` : `${days} days ago`;
   } else if (hours > 0) {
-      return hours === 1 ? `${hours} hour ago` : `${hours} hours ago`;
+    return hours === 1 ? `${hours} hour ago` : `${hours} hours ago`;
   } else if (minutes > 0) {
-      return minutes === 1 ? `${minutes} minute ago` : `${minutes} minutes ago`;
+    return minutes === 1 ? `${minutes} minute ago` : `${minutes} minutes ago`;
   } else {
-      return seconds === 1 ? `${seconds} second ago` : `${seconds} seconds ago`;
+    return seconds === 1 ? `${seconds} second ago` : `${seconds} seconds ago`;
   }
 };
 
+export const formatAndDivideNumber = (number: number) => {
+  if (number >= 1000000) {
+    const formattedNum = (number / 1000000).toFixed(1);
+    return `${formattedNum}M`;
+  } else if (number >= 1000) {
+    const formattedNum = (number / 1000).toFixed(1);
+    return `${formattedNum}K`;
+  } else {
+    return number.toString();
+  }
+};

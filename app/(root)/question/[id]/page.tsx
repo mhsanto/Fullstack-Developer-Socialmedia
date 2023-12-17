@@ -1,5 +1,7 @@
+import AnswerForm from "@/components/forms/answer-form";
 import Metric from "@/components/metric";
 import ParseHtml from "@/components/parse-html";
+import Tags from "@/components/tags";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { Clock, EyeIcon, Heart, LucideGitCommit } from "lucide-react";
 import Image from "next/image";
@@ -29,8 +31,8 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
             <Image
               src={result.author.picture}
               alt={result.author.name}
-              width={50}
-              height={50}
+              width={25}
+              height={25}
               className="rounded-full"
             />
             <p className="paragraph-semibold ">{result.author.name}</p>
@@ -41,25 +43,38 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
       </div>
       <div className="flex mb-8 mt-5 flex-wrap gap-4 ">
         <Metric
-          icon={<Clock size={20} />}
+          icon={<Clock size={16} className="dark:invert" />}
           value={`asked ${result.createdAt}`}
           title="Asked"
           textStyles="small-medium text-dark500_light700"
         />
         <Metric
-          icon={<EyeIcon size={20} />}
+          icon={<EyeIcon size={16} className="dark:invert" />}
           value={result.views}
           title=" Views"
           textStyles="small-medium text-dark500_light700"
         />
         <Metric
-          icon={<LucideGitCommit size={20} />}
+          icon={<LucideGitCommit size={16} className="dark:invert" />}
           value={result.answers.length}
           title=" Answers"
           textStyles="small-medium text-dark500_light700"
         />
       </div>
       <ParseHtml data={result.content} />
+      <div className="flex w-fit gap-4">
+        {result.tags.map((tag: any) => (
+          <Tags
+            variant="outline"
+            key={tag._id}
+            _id={tag._id}
+            name={tag.name}
+            showCount={false}
+            customClasses="dark:text-light-900  text-sm"
+          />
+        ))}
+      </div>
+      <AnswerForm />
     </>
   );
 };

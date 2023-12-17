@@ -234,7 +234,7 @@ export default function QuestionAskSection({
             </FormItem>
           )}
         />
-        <Button className="bg-primary-500 w-fit !text-light-900 " type="submit">
+        <Button disabled={isSubmitting} className="bg-primary-500 w-fit !text-light-900 " type="submit">
           {isSubmitting ? (
             <>{type === "edit" ? "Editing..." : "Posting"}</>
           ) : (

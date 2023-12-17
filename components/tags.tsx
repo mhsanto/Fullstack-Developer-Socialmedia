@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 type TagsProps = {
   _id: string | number;
   name: string;
-  variant:
+  variant?:
     | "default"
     | "destructive"
     | "outline"
@@ -13,7 +13,7 @@ type TagsProps = {
     | null
     | undefined;
   questionCount?: number;
-  showCount?: boolean ;
+  showCount?: boolean;
   customClasses?: string;
 };
 const Tags: React.FC<TagsProps> = ({
@@ -30,8 +30,8 @@ const Tags: React.FC<TagsProps> = ({
       className="flex justify-between items-center w-full group"
     >
       <Badge
-        variant={variant}
-        className={cn("  whitespace-nowrap", customClasses)} 
+        variant={variant || "default"}
+        className={cn("  whitespace-nowrap", customClasses)}
       >
         {name}
       </Badge>

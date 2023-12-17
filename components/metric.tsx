@@ -25,7 +25,7 @@ const Metric: React.FC<MetricProps> = ({
 }) => {
   const metricContent = (
     <>
-      <div className="flex gap-0.5">
+      <div className="flex gap-1">
         {imgUrl ? (
           <Image
             src={imgUrl || "/assets/icons/user.svg"}
@@ -35,9 +35,9 @@ const Metric: React.FC<MetricProps> = ({
             className={`object-contain ${href ? "rounded-full" : ""}`}
           />
         ) : (
-          <>{icon}</>
+          <> {icon}</>
         )}
-        <p className={cn("text-xs flex items-center gap-1", textStyles)}>
+        <p className={cn("text-xs flex items-center gap-2", textStyles)}>
           {value}
           <span className={`small-regular line-clamp-1 `}>{title}</span>
         </p>
