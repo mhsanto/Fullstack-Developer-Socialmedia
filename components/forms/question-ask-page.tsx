@@ -24,12 +24,15 @@ import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
 import { createQuestion } from "@/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
+import { useTheme } from "@/context/theme-provider";
 const type: any = "create";
 export default function QuestionAskSection({
   mongoUserId,
 }: {
   mongoUserId?: string | undefined;
 }) {
+  const { mode } = useTheme();
+
   const router = useRouter();
   const pathName = usePathname();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,10 +54,10 @@ export default function QuestionAskSection({
         content: values.explanation,
         tags: values.tags,
         author: JSON.parse(mongoUserId!),
-        path:pathName
+        path: pathName,
       });
       router.push("/");
-    } catch (error:any) {
+    } catch (error: any) {
       console.log("AskQuestionPage -> error", error.message);
     } finally {
       setIsSubmitting(false);
@@ -181,6 +184,8 @@ export default function QuestionAskSection({
                       "removeformat | help",
                     content_style:
                       "body { font-family:Inter,sans-serif; font-size:16px }",
+                    skin: mode === "dark" ? "oxide-dark" : "oxide",
+                    content_css: mode === "dark" ? "dark" : "default",
                   }}
                 />
               </FormControl>
@@ -234,7 +239,11 @@ export default function QuestionAskSection({
             </FormItem>
           )}
         />
-        <Button disabled={isSubmitting} className="bg-primary-500 w-fit !text-light-900 " type="submit">
+        <Button
+          disabled={isSubmitting}
+          className="bg-primary-500 w-fit !text-light-900 "
+          type="submit"
+        >
           {isSubmitting ? (
             <>{type === "edit" ? "Editing..." : "Posting"}</>
           ) : (
