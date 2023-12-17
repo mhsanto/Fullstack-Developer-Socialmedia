@@ -3,6 +3,8 @@ import Metric from "@/components/metric";
 import ParseHtml from "@/components/parse-html";
 import Tags from "@/components/tags";
 import { getQuestionById } from "@/lib/actions/question.action";
+import { getUserById } from "@/lib/actions/user.action";
+import { auth } from "@clerk/nextjs";
 import { Clock, EyeIcon, Heart, LucideGitCommit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +22,11 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
   searchParams,
 }) => {
   const result = await getQuestionById({ questionId: id });
+  const { userId: clerkId } = auth();
+  let mongoUser;
+  if (clerkId) {
+    mongoUser = await getUserById({ userId: clerkId });
+  }
   return (
     <>
       <div className="w-full flex flex-col dark:text-light-900">
@@ -74,7 +81,11 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
           />
         ))}
       </div>
-      <AnswerForm />
+      <AnswerForm
+        question={result.content}
+        questionId={JSON.stringify(result._id)}
+        authorId={JSON.stringify(mongoUser._id)}
+      />
     </>
   );
 };

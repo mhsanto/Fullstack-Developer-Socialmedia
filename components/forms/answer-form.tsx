@@ -16,9 +16,20 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useRef, useState } from "react";
 import { useTheme } from "@/context/theme-provider";
 import { Button } from "../ui/button";
-
-const AnswerForm = () => {
+import { createAnswer } from "@/lib/actions/answer.action";
+import { usePathname } from "next/navigation";
+type AnswerFormProps = {
+  authorId: string;
+  question: string;
+  questionId: string;
+};
+const AnswerForm: React.FC<AnswerFormProps> = ({
+  authorId,
+  question,
+  questionId,
+}) => {
   const [submitting, setSubmitting] = useState(false);
+  const path = usePathname();
   const editorRef = useRef(null);
   const { mode } = useTheme();
   const form = useForm<z.infer<typeof AnswerSchema>>({
@@ -27,24 +38,34 @@ const AnswerForm = () => {
       answer: "",
     },
   });
-  const handleCreateAnswer = () => {
+  const handleCreateAnswer = async (values: z.infer<typeof AnswerSchema>) => {
     try {
-      setSubmitting(true)
+      setSubmitting(true);
+      await createAnswer({
+        content: values.answer,
+        author: JSON.parse(authorId),
+        question: questionId,
+        path,
+      });
+      form.reset();
+      if (editorRef.current) {
+        const editor = editorRef.current as any;
+        editor.setContent("")
+      }
     } catch (error) {
+      console.log(`answer-form.tsx: ${error}`)
       
-    }finally{
-      setSubmitting(false)
+    } finally {
+      setSubmitting(false);
     }
   };
   return (
     <div>
       <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
-        <h4 className="paragraph dark:text-light-900">
-          Write Your Answer Here
-        </h4>
-        <Button className=" btn light-border-2 gap-1.5 rounded-md px-4 py-2 shadow-none dark:text-blue-500">
+        <div className="paragraph dark:text-light-900"></div>
+        <Button className="btn light-border-2 gap-1.5 rounded-md px-4 py-2 shadow-none dark:text-light-900  font-semibold">
           Generate Using AI
-        Ff</Button>
+        </Button>
       </div>
 
       <Form {...form}>
@@ -57,6 +78,7 @@ const AnswerForm = () => {
             name="answer"
             render={({ field }) => (
               <FormItem className="flex w-full flex-col gap-3">
+                <FormLabel className="dark:text-light-900 text-lg" htmlFor="answer">Your Answer</FormLabel>
                 <FormControl className="mt-3.5">
                   {/* todo add an editor component */}
                   <Editor
@@ -105,13 +127,13 @@ const AnswerForm = () => {
             )}
           />
           <div className="flex justify-end">
-            <Button
-              type="button"
+            <button
+              type="submit"
               className="bg-primary-500/80 dark:text-light-900"
-              disabled={submitting}
+
             >
               {submitting ? "Posting Your Answer..." : "Post Your Answer"}
-            </Button>
+            </button>
           </div>
         </form>
       </Form>
