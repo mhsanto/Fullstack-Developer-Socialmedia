@@ -127,13 +127,13 @@ const AnswerForm: React.FC<AnswerFormProps> = ({
             )}
           />
           <div className="flex justify-end">
-            <button
+            <Button
               type="submit"
               className="bg-primary-500/80 dark:text-light-900"
 
             >
               {submitting ? "Posting Your Answer..." : "Post Your Answer"}
-            </button>
+            </Button>
           </div>
         </form>
       </Form>

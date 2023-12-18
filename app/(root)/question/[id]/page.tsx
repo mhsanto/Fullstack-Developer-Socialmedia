@@ -1,7 +1,9 @@
+import AllAnswers from "@/components/all-answers";
 import AnswerForm from "@/components/forms/answer-form";
 import Metric from "@/components/metric";
 import ParseHtml from "@/components/parse-html";
 import Tags from "@/components/tags";
+import { getAllAnswers } from "@/lib/actions/answer.action";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
@@ -19,10 +21,9 @@ type QuestionPageProps = {
 };
 const QuestionPage: React.FC<QuestionPageProps> = async ({
   params: { id },
-  searchParams,
 }) => {
-  const result = await getQuestionById({ questionId: id });
   const { userId: clerkId } = auth();
+  const result = await getQuestionById({ questionId: id });
   let mongoUser;
   if (clerkId) {
     mongoUser = await getUserById({ userId: clerkId });
@@ -81,6 +82,12 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
           />
         ))}
       </div>
+      <AllAnswers
+        questionId={JSON.stringify(result._id)}
+        userId={JSON.stringify(mongoUser._id)}
+        totalAnswers={result.answers.length}
+      />
+
       <AnswerForm
         question={result.content}
         questionId={JSON.stringify(result._id)}
