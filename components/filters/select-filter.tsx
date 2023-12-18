@@ -13,8 +13,8 @@ type SelectFilterProps = {
     name: string;
     value: string;
   }[];
-  otherClasses: string;
-  containerClasses: string;
+  otherClasses?: string;
+  containerClasses?: string;
 };
 const SelectFilter: React.FC<SelectFilterProps> = ({
   filters,

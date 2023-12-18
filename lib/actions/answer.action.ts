@@ -10,7 +10,8 @@ export async function createAnswer(params: CreateAnswerParams) {
   try {
     await connectToDatabase();
     const { content, author, question, path } = params;
-    const newAnswer = new Answer({ content, author, question });
+    const newAnswer = await Answer.create({ content, author, question });
+
     await Question.findByIdAndUpdate(question, {
       $push: { answers: newAnswer._id },
     });
