@@ -44,7 +44,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({
       await createAnswer({
         content: values.answer,
         author: JSON.parse(authorId),
-        question: questionId,
+        question: JSON.parse(questionId),
         path,
       });
       form.reset();

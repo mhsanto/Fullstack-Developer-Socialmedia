@@ -81,7 +81,7 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
             customClasses="dark:text-light-900  text-sm"
           />
         ))}
-      </div> 
+      </div>
       <AllAnswers
         questionId={result._id}
         userId={JSON.stringify(mongoUser._id)}

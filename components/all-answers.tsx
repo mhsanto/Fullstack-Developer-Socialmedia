@@ -18,7 +18,7 @@ type AllAnswersProps = {
 const AllAnswers: React.FC<AllAnswersProps> = async ({
   questionId,
   userId,
-  totalAnswers,
+  totalAnswers, 
   page,
   filter,
 }) => {
