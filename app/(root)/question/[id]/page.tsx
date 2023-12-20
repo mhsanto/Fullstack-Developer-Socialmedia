@@ -3,6 +3,7 @@ import AnswerForm from "@/components/forms/answer-form";
 import Metric from "@/components/metric";
 import ParseHtml from "@/components/parse-html";
 import Tags from "@/components/tags";
+import Voting from "@/components/voting";
 import { getAllAnswers } from "@/lib/actions/answer.action";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserById } from "@/lib/actions/user.action";
@@ -23,11 +24,13 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
   params: { id },
 }) => {
   const { userId: clerkId } = auth();
-  const result = await getQuestionById({ questionId: id });
+
   let mongoUser;
   if (clerkId) {
     mongoUser = await getUserById({ userId: clerkId });
   }
+  const result = await getQuestionById({ questionId: id });
+  console.log(result);
   return (
     <>
       <div className="w-full flex flex-col dark:text-light-900">
@@ -45,7 +48,18 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
             />
             <p className="paragraph-semibold ">{result.author.name}</p>
           </Link>
-          <div className="flex justify-end">Voting</div>
+          <div className="flex justify-end">
+            <Voting
+              type="question"
+              itemId={JSON.stringify(result._id)}
+              userId={JSON.stringify(mongoUser._id)}
+              vpvotes={result.upvotes.length}
+              hasUpvoted={result?.upvotes.includes(mongoUser._id)}
+              downvotes={result?.downvotes.length}
+              hasDownvoted={result.downvotes.includes(mongoUser._id)}
+              hasSaved={mongoUser?.saved.includes(result._id)}
+            />
+          </div>
         </div>
         <h2 className="h2-semibold mt-3.5 w-full text-left">{result.title}</h2>
       </div>

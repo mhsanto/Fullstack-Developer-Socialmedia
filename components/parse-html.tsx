@@ -34,7 +34,7 @@ const ParseHtml = ({ data }: { data: string }) => {
     };
   }, []);
 
-  return <div className="">{parse(data)}</div>;
+  return <div className="dark:text-light-900">{parse(data)}</div>;
 };
 
 export default ParseHtml;
