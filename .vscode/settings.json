@@ -14,6 +14,8 @@
         "codesample",
         "forecolor",
         "formatselect",
+        "hasDownvoted",
+        "hasUpvoted",
         "hookform",
         "insertdatetime",
         "lucide",
