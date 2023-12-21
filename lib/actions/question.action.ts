@@ -7,6 +7,7 @@ import {
   CreateQuestionParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
+  QuestionVoteParams,
 } from "./shared.types";
 import User from "@/databases/user.model";
 import { revalidatePath } from "next/cache";
@@ -85,6 +86,35 @@ export async function getQuestionById(params: GetQuestionByIdParams) {
         select: "_id clerkId name picture",
       });
     return question;
+  } catch (error) {
+    console.log("question.action.ts: getQuestionById: error: ", error);
+  }
+}
+
+// upvote a question
+export async function upvoteQuestion(params: QuestionVoteParams) {
+  try {
+    await connectToDatabase();
+    const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
+    let updateQuery = {};
+
+    if (hasUpvoted) {
+      updateQuery = { $pull: { upvotes: userId } };
+    } else if (hasDownvoted) {
+      updateQuery = {
+        $pull: { downvotes: userId },
+        $push: { upvotes: userId },
+      };
+    } else {
+      updateQuery = { $addToSet: { upvotes: userId } };
+    }
+    const question = await Question.findByIdAndUpdate(
+      { questionId, updateQuery },
+      { new: true }
+    );
+    if (!question) console.error("Question not found");
+    //Increment author's reputation by +10 for upvote
+    revalidatePath(path);
   } catch (error) {
     console.log("question.action.ts: getQuestionById: error: ", error);
   }
