@@ -50,12 +50,12 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
           </Link>
           <div className="flex justify-end">
             <Voting
-              type="question"
+              type="Question"
               itemId={JSON.stringify(result._id)}
               userId={JSON.stringify(mongoUser._id)}
               upvotes={result.upvotes.length}
-              hasUpvoted={result?.upvotes.includes(mongoUser._id)}
-              downvotes={result?.downvotes.length}
+              hasUpvoted={result.upvotes.includes(mongoUser._id)}
+              downvotes={result.downvotes.length}
               hasDownvoted={result.downvotes.includes(mongoUser._id)}
               hasSaved={mongoUser?.saved.includes(result._id)}
             />

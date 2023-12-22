@@ -95,7 +95,9 @@ export async function getQuestionById(params: GetQuestionByIdParams) {
 export async function upvoteQuestion(params: QuestionVoteParams) {
   try {
     await connectToDatabase();
+
     const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
+
     let updateQuery = {};
 
     if (hasUpvoted) {
@@ -108,22 +110,35 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
     } else {
       updateQuery = { $addToSet: { upvotes: userId } };
     }
-    const question = await Question.findByIdAndUpdate(
-      { questionId, updateQuery },
-      { new: true }
-    );
-    if (!question) console.error("Question not found");
-    //Increment author's reputation by +10 for upvote
+
+    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+      new: true,
+    });
+
+    if (!question) {
+      throw new Error("Question not found");
+    }
+
+    // await User.findByIdAndUpdate(userId, {
+    //   $inc: { reputation: hasUpvoted ? -1 : 1 },
+    // });
+
+    // await User.findByIdAndUpdate(question.author, {
+    //   $inc: { reputation: hasUpvoted ? -10 : 10 },
+    // });
+
     revalidatePath(path);
   } catch (error) {
-    console.log("question.action.ts: getQuestionById: error: ", error);
+    console.log(error);
+    throw error;
   }
 }
+
 export async function downVoteQuestion(params: QuestionVoteParams) {
   try {
     await connectToDatabase();
     const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
-    let updateQuery = {}; 
+    let updateQuery = {};
 
     if (hasDownvoted) {
       updateQuery = { $pull: { downvotes: userId } };
@@ -135,10 +150,9 @@ export async function downVoteQuestion(params: QuestionVoteParams) {
     } else {
       updateQuery = { $addToSet: { upvotes: userId } };
     }
-    const question = await Question.findByIdAndUpdate(
-      { questionId, updateQuery },
-      { new: true }
-    );
+    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+      new: true,
+    });
     if (!question) console.error("Question not found");
     //Increment author's reputation by +10 for upvote
     revalidatePath(path);
