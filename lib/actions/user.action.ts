@@ -1,5 +1,5 @@
 "use server";
-
+import { FilterQuery } from "mongoose";
 import User from "@/databases/user.model";
 import Question from "@/databases/question.modal";
 import { connectToDatabase } from "./mongoose";
@@ -13,6 +13,7 @@ import {
   UpdateUserParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
+import Tag from "@/databases/tag.model";
 // If the event is user.created, create the user in the database
 export async function getUserById(params: GetUserByIdParams) {
   try {
@@ -112,7 +113,7 @@ export async function toggleSavedQuestion(params: ToggleSaveQuestionParams) {
         },
         { new: true }
       );
-    }else{
+    } else {
       //add question to saved
       await User.findByIdAndUpdate(
         userId,
@@ -122,8 +123,41 @@ export async function toggleSavedQuestion(params: ToggleSaveQuestionParams) {
         { new: true }
       );
     }
-    revalidatePath(path)
+    revalidatePath(path);
   } catch (error) {
     console.log("user.action .ts: savedQUestion: error: ", error);
   }
 }
+export async function getSavedQuestion(params: GetSavedQuestionsParams) {
+  try {
+    await connectToDatabase();
+    const { clerkId, page = 1, pageSize = 10, filter, searchQuery } = params;
+    const query: FilterQuery<typeof Question> = searchQuery
+      ? { title: { $regex: new RegExp(searchQuery, "i") } }
+      : {};
+    const user = await User.findOne({ clerkId }).populate({
+      path: "saved",
+      match: query,
+      options: {
+        sort: { createdAt: -1 },
+      },
+      populate: [
+        { path: "tags", model: Tag, select: "_id name" },
+        { path: "author", model: User, select: "_id clerkId name picture" },
+      ],
+    });
+    if (!user) throw new Error("User not found");
+    const savedQuestions = user.saved;
+    return { questions: savedQuestions };
+  } catch (error) {
+    console.error("user.action.ts: getSavedQuestion: error: ", error);
+  }
+}
+
+// export async function getSavedQuestion(){
+//   try {
+//     await connectToDatabase()
+//   } catch (error) {
+//     console.error("user.action.ts: getSavedQuestion: error: ", error)
+//   }
+// }
