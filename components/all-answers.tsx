@@ -12,13 +12,12 @@ type AllAnswersProps = {
   userId: string;
   totalAnswers: number;
   page?: number;
-
   filter?: number;
 };
 const AllAnswers: React.FC<AllAnswersProps> = async ({
   questionId,
   userId,
-  totalAnswers, 
+  totalAnswers,
   page,
   filter,
 }) => {
@@ -56,7 +55,16 @@ const AllAnswers: React.FC<AllAnswersProps> = async ({
                   </div>
                 </Link>
                 <div className="flex justify-end">
-               voting
+                  <Voting
+                    type="Answer"
+                    itemId={JSON.stringify(answer._id)}
+                    userId={JSON.stringify(userId)}
+                    upvotes={answer.upvotes.length}
+                    hasUpvoted={answer.upvotes.includes(userId)}
+                    downvotes={answer.downvotes.length}
+                    hasDownvoted={answer.downvotes.includes(userId)}
+               
+                  />
                 </div>
               </div>
             </div>

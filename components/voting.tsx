@@ -1,4 +1,5 @@
 "use client";
+import { downVoteAnswer, upVoteAnswer } from "@/lib/actions/answer.action";
 import {
   downVoteQuestion,
   upvoteQuestion,
@@ -49,13 +50,13 @@ const Voting: React.FC<VotingProps> = ({
           path
         });
       } else if (type === "Answer") {
-        // await upvoteAnswers({
-        //   answerId: JSON.parse(itemId),
-        //   userId: JSON.parse(userId),
-        //   hasupVoted,
-        //   hasdownVoted,
-        //   path: pathname,
-        // });
+        await upVoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasUpvoted,
+          hasDownvoted,
+          path,
+        });
       }
 
       // return toast({
@@ -74,13 +75,13 @@ const Voting: React.FC<VotingProps> = ({
           path,
         });
       } else if (type === "Answer") {
-        // await downvoteAnswers({
-        //   answerId: JSON.parse(itemId),
-        //   userId: JSON.parse(userId),
-        //   hasupVoted,
-        //   hasdownVoted,
-        //   path: pathname,
-        // });
+        await downVoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasUpvoted,
+          hasDownvoted,
+          path
+        });
       }
 
       // return toast({
@@ -104,7 +105,7 @@ const Voting: React.FC<VotingProps> = ({
           />
 
           <div className="flex-center  min-w-max rounded-sm p-1">
-            <p>{formatAndDivideNumber(upvotes)}</p>
+            <p className="dark:text-white">{formatAndDivideNumber(upvotes)}</p>
           </div>
         </div>
         <div className="flex-center gap-1 5">
@@ -122,7 +123,7 @@ const Voting: React.FC<VotingProps> = ({
           />
 
           <div className="flex-center  min-w-max rounded-sm p-1">
-            <p>{formatAndDivideNumber(downvotes)}</p>
+            <p className="dark:text-white">{formatAndDivideNumber(downvotes)}</p>
           </div>
         </div>
         <Bookmark
