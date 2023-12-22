@@ -4,6 +4,7 @@ import {
   downVoteQuestion,
   upvoteQuestion,
 } from "@/lib/actions/question.action";
+import { toggleSavedQuestion } from "@/lib/actions/user.action";
 import { cn, formatAndDivideNumber } from "@/lib/utils";
 import {
   Bookmark,
@@ -36,7 +37,14 @@ const Voting: React.FC<VotingProps> = ({
 }) => {
   const path = usePathname();
   const router = useRouter();
-  const handleSave = async () => {};
+  const handleSave = async () => {
+    await toggleSavedQuestion({
+      questionId: JSON.parse(itemId),
+      userId: JSON.parse(userId),
+      path,
+  
+    })
+  };
   const handleVote = async (action: string) => {
     if (!userId) return;
 
@@ -47,7 +55,7 @@ const Voting: React.FC<VotingProps> = ({
           userId: JSON.parse(userId),
           hasUpvoted,
           hasDownvoted,
-          path
+          path,
         });
       } else if (type === "Answer") {
         await upVoteAnswer({
@@ -80,7 +88,7 @@ const Voting: React.FC<VotingProps> = ({
           userId: JSON.parse(userId),
           hasUpvoted,
           hasDownvoted,
-          path
+          path,
         });
       }
 
@@ -123,18 +131,22 @@ const Voting: React.FC<VotingProps> = ({
           />
 
           <div className="flex-center  min-w-max rounded-sm p-1">
-            <p className="dark:text-white">{formatAndDivideNumber(downvotes)}</p>
+            <p className="dark:text-white">
+              {formatAndDivideNumber(downvotes)}
+            </p>
           </div>
         </div>
-        <Bookmark
-          className={cn(
-            hasSaved ? "text-transparent fill-blue-500 " : "text-blue-500",
-            "hover:fill-blue-600",
-            "cursor-pointer transition-colors duration-200 "
-          )}
-          size={20}
-          onClick={() => handleSave()}
-        />
+        {type === "Question" && (
+          <Bookmark
+            className={cn(
+              hasSaved ? "text-transparent fill-blue-500 " : "text-blue-500",
+              "hover:fill-blue-600",
+              "cursor-pointer transition-colors duration-200 "
+            )}
+            size={20}
+            onClick={() => handleSave()}
+          />
+        )}
       </div>
     </div>
   );

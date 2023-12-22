@@ -7,7 +7,9 @@ import {
   CreateUserParams,
   DeleteUserParams,
   GetAllUsersParams,
+  GetSavedQuestionsParams,
   GetUserByIdParams,
+  ToggleSaveQuestionParams,
   UpdateUserParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
@@ -86,6 +88,42 @@ export async function getAllUsers(params: GetAllUsersParams) {
     const users = await User.find({}).sort({ createdAt: -1 });
     return { users };
   } catch (error) {
-    console.log("user.action.ts: getUserById: error: ", error);
+    console.log("user.action .ts: getUserById: error: ", error);
+  }
+}
+// Saved a question to user's saved questions
+
+export async function toggleSavedQuestion(params: ToggleSaveQuestionParams) {
+  try {
+    await connectToDatabase();
+    const { userId, questionId, path } = params;
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error(
+        "user.action.ts: toggleSavedQuestion: error:User Not Found "
+      );
+    }
+    const isQuestionSaved = user.saved.includes(questionId);
+    if (isQuestionSaved) {
+      await User.findByIdAndUpdate(
+        userId,
+        {
+          $pull: { saved: questionId },
+        },
+        { new: true }
+      );
+    }else{
+      //add question to saved
+      await User.findByIdAndUpdate(
+        userId,
+        {
+          $addToSet: { saved: questionId },
+        },
+        { new: true }
+      );
+    }
+    revalidatePath(path)
+  } catch (error) {
+    console.log("user.action .ts: savedQUestion: error: ", error);
   }
 }
