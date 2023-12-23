@@ -4,7 +4,6 @@ import Metric from "@/components/metric";
 import ParseHtml from "@/components/parse-html";
 import Tags from "@/components/tags";
 import Voting from "@/components/voting";
-import { getAllAnswers } from "@/lib/actions/answer.action";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
@@ -30,7 +29,6 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
     mongoUser = await getUserById({ userId: clerkId });
   }
   const result = await getQuestionById({ questionId: id });
-  console.log(result);
   return (
     <>
       <div className="w-full flex flex-col dark:text-light-900">

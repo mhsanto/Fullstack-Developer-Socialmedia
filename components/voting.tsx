@@ -1,5 +1,6 @@
 "use client";
 import { downVoteAnswer, upVoteAnswer } from "@/lib/actions/answer.action";
+import { createInteraction } from "@/lib/actions/interaction.action";
 import {
   downVoteQuestion,
   upvoteQuestion,
@@ -10,10 +11,10 @@ import {
   Bookmark,
   Heart,
   HeartCrack,
-  ThumbsDown,
-  ThumbsUp,
+
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 type VotingProps = {
   type: string;
@@ -42,7 +43,7 @@ const Voting: React.FC<VotingProps> = ({
       questionId: JSON.parse(itemId),
       userId: JSON.parse(userId),
       path,
-  
+
     })
   };
   const handleVote = async (action: string) => {
@@ -98,6 +99,13 @@ const Voting: React.FC<VotingProps> = ({
       // });
     }
   };
+  useEffect(() => {
+
+    createInteraction({
+      questionId: JSON.parse(itemId),
+      userId: userId ? JSON.parse(userId) : undefined
+    })
+  }, [itemId, userId, path, router])
   return (
     <div className="flex gap-5">
       <div className="flex-center gap-2.5">
@@ -112,7 +120,7 @@ const Voting: React.FC<VotingProps> = ({
             onClick={() => handleVote("upvotes")}
           />
 
-          <div className="flex-center  min-w-max rounded-sm p-1">
+          <div className="flex-center min-w-max rounded-sm p-1">
             <p className="dark:text-white">{formatAndDivideNumber(upvotes)}</p>
           </div>
         </div>
