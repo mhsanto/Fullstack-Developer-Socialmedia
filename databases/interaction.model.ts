@@ -17,5 +17,5 @@ const InteractionSchema = new Schema<Interaction>({
   tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
   createdAt: { type: Date, default: Date.now },
 });
-const Question = models.Question || model("Question", InteractionSchema);
-export default Question;
+const Interaction = models.Interaction || model("Interaction", InteractionSchema);
+export default Interaction;
