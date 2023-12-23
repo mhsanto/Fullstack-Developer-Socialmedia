@@ -44,7 +44,7 @@ export type QuestionProps = {
     _id: number;
     name: string;
   }[];
-  upvotes: number;
+  upvotes: string[];
   answers: number;
   views: number;
   author: {

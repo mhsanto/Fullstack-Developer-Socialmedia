@@ -47,7 +47,7 @@ const QuestionCard: React.FC<QuestionProps> = ({
       <div className="flex gap-3 w-full pt-6">
         <Metric
           icon={<Heart size={20} />}
-          value={upvotes}
+          value={upvotes.length}
           title=" Up Votes"
           textStyles="small-medium text-dark500_light700"
         />
