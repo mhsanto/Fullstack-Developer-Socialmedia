@@ -15,9 +15,10 @@ const NotFoundPage = () => {
       <div className="overflow-hidden rounded">
         <Image
           src="/assets/icons/404.gif"
-          fill
+          width={700}
+          height={400}
           alt="404 page"
-          className="object-cover "
+          className="object-cover aspect-video"
         />
       </div>
       <div className="flex flex-col gap-2 items-center">
