@@ -154,6 +154,19 @@ export async function getSavedQuestion(params: GetSavedQuestionsParams) {
   }
 }
 
+export async function getUserInfo(params: GetUserByIdParams) {
+  try {
+    await connectToDatabase()
+    const { userId } = params
+    const user = await User.findOne({ clerkId: userId })
+    if (!user) throw new Error("User not found")
+    const totalQuestions = await Question.countDocuments({ author: user._id })
+    const totalAnswers = await Question.countDocuments({ author: user._id })
+    return { user, totalQuestions, totalAnswers };
+  } catch (error) {
+    console.error("user.action.ts: getSavedQuestion: error: ", error)
+  }
+}
 // export async function getSavedQuestion(){
 //   try {
 //     await connectToDatabase()

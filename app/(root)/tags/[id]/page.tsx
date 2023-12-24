@@ -28,7 +28,7 @@ const SingleTags: React.FC<URLProps> = async ({ params, searchParams }) => {
         </div>
         <div className="w-full mt-8">
             {result?.questions?.length ? (
-                result.questions?.map((question: IQuestion) => (
+                result.questions?.map((question: any) => (
                     <QuestionCard
                         key={question._id}
                         _id={question._id}
