@@ -40,3 +40,24 @@ export const formatAndDivideNumber = (number: number) => {
     return number.toString();
   }
 };
+
+//takes a parameter Date and return joined date
+export function getJoinedDate(inputDate: Date): string {
+  const months: string[] = [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'
+  ];
+
+  const monthIndex: number = inputDate.getMonth();
+  const year: number = inputDate.getFullYear();
+
+  const joinedDate: string = `${months[monthIndex]} ${year}`;
+
+  return joinedDate;
+}
+
+// Example usage:
+const currentDate: Date = new Date();
+const formattedDate: string = getJoinedDate(currentDate);
+console.log(formattedDate);  // Output example: "December 2023"
