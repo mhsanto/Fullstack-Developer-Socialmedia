@@ -2,8 +2,8 @@ import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
 
 type StatsProps = {
-    totalQuestions: number;
-    totalAnswers: number;
+    totalQuestions: number | undefined;
+    totalAnswers: number | undefined;
 };
 const StateCard = ({ imgUrl, title, value }: { imgUrl: string; title: string; value: number }) => {
     return (
@@ -22,13 +22,13 @@ const Stats: React.FC<StatsProps> = ({ totalQuestions, totalAnswers }) => {
                 <div className="light-border background-light900_dark300 flex flex-wrap items-center justify-evenly gap-4 rounded-md border p-6 shadow-light-200 dark:shadow-dark-200 ">
                     <div>
                         <p className="paragraph-semibold text-dark200_light900">
-                            {formatAndDivideNumber(totalQuestions)}
+                            {formatAndDivideNumber(totalQuestions ? totalQuestions : 0)}
                         </p>
                         <p className="body-medium text-dark400_light700">Questions</p>
                     </div>
                     <div>
                         <p className="paragraph-semibold text-dark200_light900">
-                            {formatAndDivideNumber(totalAnswers)}
+                            {formatAndDivideNumber(totalAnswers ? totalAnswers : 0)}
                         </p>
                         <p className="body-medium text-dark400_light700">Answers</p>
                     </div>
