@@ -1,4 +1,5 @@
 import ProfileLink from "@/components/profile-link";
+import Stats from "@/components/stats";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getUserInfo } from "@/lib/actions/user.action";
@@ -45,7 +46,7 @@ const ProfilePage = async ({ params: { id }, searchParams }: URLProps) => {
             </div>
         </div>
 
-        stats
+        <Stats totalQuestions={userInfo?.totalQuestions} totalAnswers={userInfo?.totalAnswers}/>
         <div className="mt-10 flex gap-10">
             <Tabs defaultValue="top-posts" className="flex-1">
                 <TabsList className="background-light800_dark400 min-h-[42px] p-1">

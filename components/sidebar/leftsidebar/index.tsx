@@ -80,7 +80,7 @@ const LeftSidebar = () => {
                 size={20}
                 className="dark:invert opacity-60 lg:hidden"
               />
-              <span className=" text-sm base-normal max-lg:hidden dark:text-white ">
+              <span className="text-sm base-normal max-lg:hidden dark:text-white ">
                 Sign up
               </span>
             </Button>
