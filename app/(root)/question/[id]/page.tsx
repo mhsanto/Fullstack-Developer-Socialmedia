@@ -1,9 +1,9 @@
-import AllAnswers from "@/components/all-answers";
+import AllAnswers from "@/components/shared/all-answers";
 import AnswerForm from "@/components/forms/answer-form";
-import Metric from "@/components/metric";
-import ParseHtml from "@/components/parse-html";
-import Tags from "@/components/tags";
-import Voting from "@/components/voting";
+import Metric from "@/components/shared/metric";
+import ParseHtml from "@/components/shared/parse-html";
+import Tags from "@/components/shared/tags";
+import Voting from "@/components/shared/voting";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";

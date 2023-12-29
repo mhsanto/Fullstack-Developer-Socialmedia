@@ -1,4 +1,4 @@
-import QuestionAskSection from "@/components/forms/question-ask-page";
+import QuestionAskSection from "@/components/forms/question-ask-form";
 import { getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
 

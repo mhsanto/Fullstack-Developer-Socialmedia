@@ -232,8 +232,7 @@ export default function QuestionAskSection({
                 </>
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
-                Be specific and imagine you &apos;re asking a question to
-                another person
+                Add up to 3 tags to describe what your question is about
               </FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>

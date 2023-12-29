@@ -1,5 +1,5 @@
 import QuestionCard from "@/components/card/question-card";
-import NotFoundPage from "@/components/not-found";
+import NotFoundPage from "@/components/shared/not-found";
 import LocalSearchBar from "@/components/search/local-searchbar";
 import { IQuestion } from "@/databases/question.modal";
 import { getQuestionByTagId } from "@/lib/actions/tag.action";

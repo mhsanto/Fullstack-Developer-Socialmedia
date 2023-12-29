@@ -1,6 +1,6 @@
 import UserCard from "@/components/card/user-card";
 import SelectFilter from "@/components/filters/select-filter";
-import NotFoundPage from "@/components/not-found";
+import NotFoundPage from "@/components/shared/not-found";
 import LocalSearchBar from "@/components/search/local-searchbar";
 import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";

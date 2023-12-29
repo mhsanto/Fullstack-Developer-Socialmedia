@@ -40,6 +40,7 @@ export type QuestionProps = {
   _id: string | number;
   title: string;
   content: string;
+  clerkId?: string;
   tags: {
     _id: number;
     name: string;

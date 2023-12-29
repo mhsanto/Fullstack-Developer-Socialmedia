@@ -8,7 +8,7 @@ import "prismjs/components/prism-cpp";
 import "prismjs/components/prism-csharp";
 import "prismjs/components/prism-aspnet";
 import "prismjs/components/prism-sass";
-import "../styles/prism.css";
+import  "../../styles/prism.css";
 import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-solidity";

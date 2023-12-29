@@ -1,5 +1,5 @@
 import SelectFilter from "@/components/filters/select-filter";
-import NotFoundPage from "@/components/not-found";
+import NotFoundPage from "@/components/shared/not-found";
 import LocalSearchBar from "@/components/search/local-searchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";

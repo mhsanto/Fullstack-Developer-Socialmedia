@@ -1,5 +1,5 @@
 import { AnswerFilters } from "@/constants/filters";
-import SelectFilter from "./filters/select-filter";
+import SelectFilter from "../filters/select-filter";
 import { getAllAnswers } from "@/lib/actions/answer.action";
 import Link from "next/link";
 import Image from "next/image";

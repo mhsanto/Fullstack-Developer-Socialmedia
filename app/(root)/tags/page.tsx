@@ -1,7 +1,7 @@
 import SelectFilter from "@/components/filters/select-filter";
-import NotFoundPage from "@/components/not-found";
+import NotFoundPage from "@/components/shared/not-found";
 import LocalSearchBar from "@/components/search/local-searchbar";
-import Tags from "@/components/tags";
+import Tags from "@/components/shared/tags";
 import { UserFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.action";
 import { SearchCode } from "lucide-react";

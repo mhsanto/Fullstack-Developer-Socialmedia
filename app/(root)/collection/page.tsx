@@ -1,4 +1,4 @@
-import NotFoundPage from "@/components/not-found";
+import NotFoundPage from "@/components/shared/not-found";
 import LocalSearchBar from "@/components/search/local-searchbar";
 import { SearchCode } from "lucide-react";
 import QuestionCard from "@/components/card/question-card";
@@ -27,7 +27,7 @@ const Home = async () => {
       </div>
       <div className="w-full mt-8">
         {result?.questions?.length ? (
-          result.questions?.map((question) => (
+          result.questions?.map((question:any) => (
             <QuestionCard
               key={question._id}
               _id={question._id}

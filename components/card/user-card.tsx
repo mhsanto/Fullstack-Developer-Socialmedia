@@ -1,7 +1,7 @@
 import { getTopInteractedTagsParams } from "@/lib/actions/tag.action";
 import Image from "next/image";
 import Link from "next/link";
-import Tags from "../tags";
+import Tags from "../shared/tags";
 import { Badge } from "../ui/badge";
 
 type UserCardProps = {
