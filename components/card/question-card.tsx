@@ -48,7 +48,9 @@ const QuestionCard: React.FC<QuestionProps> = ({
           <h3 className="h3-bold pb-3">{title}</h3>
         </Link>
       </div>
-      <SignedIn>{ <EditDeleteAction />}</SignedIn>
+      <SignedIn>
+        {<EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />}
+      </SignedIn>
       <div className="flex gap-3 w-full pt-6">
         <Metric
           icon={<Heart size={20} />}
