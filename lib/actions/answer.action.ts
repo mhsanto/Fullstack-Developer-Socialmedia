@@ -2,9 +2,10 @@
 
 import Answer from "@/databases/answer.modal";
 import { connectToDatabase } from "./mongoose";
-import { AnswerVoteParams, CreateAnswerParams, GetAnswersParams } from "./shared.types";
+import { AnswerVoteParams, CreateAnswerParams, DeleteAnswerParams, GetAnswersParams } from "./shared.types";
 import Question from "@/databases/question.modal";
 import { revalidatePath } from "next/cache";
+import Interaction from "@/databases/interaction.model";
 
 export async function createAnswer(params: CreateAnswerParams) {
   try {
@@ -122,3 +123,24 @@ export async function downVoteAnswer(params: AnswerVoteParams) {
     throw error;
   }
 }
+//delete an answer by id
+export async function deleteanswer(params: DeleteAnswerParams) {
+  try {
+    await connectToDatabase();
+    const { answerId, path } = params;
+    const answer = await Answer.findById(answerId)
+    if(!answer) throw new Error("Answer not found")
+
+    await answer.deleteOne({ _id: answerId }); //delete all answers related to the answer
+    
+  await Question.updateMany(
+      { _id:answer.question },
+      { $pull: { answers: answerId } }
+    );//delete the answer from the tags
+    await Interaction.deleteMany({ answer: answerId }); //delete all interactions related to the answer
+    revalidatePath(path);
+  } catch (error) {
+    console.error(` answer.action.ts: deleteanswer: error: ${error}`);
+  }
+}
+
