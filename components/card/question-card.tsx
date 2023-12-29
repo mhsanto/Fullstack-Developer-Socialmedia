@@ -19,7 +19,7 @@ const QuestionCard: React.FC<QuestionProps> = ({
   author,
   createdAt,
 }) => {
-  // const showActionButtons = clerkId && clerkId === author.clerkId
+  // const showActionButtons = clerkId && clerkId === author._id
   return (
     <>
       <div className="dark:text-white background-light800_darkgradient p-7 border-b-1 mb-2 shadow-md dark:shadow-none rounded-lg">
@@ -48,11 +48,7 @@ const QuestionCard: React.FC<QuestionProps> = ({
           <h3 className="h3-bold pb-3">{title}</h3>
         </Link>
       </div>
-<SignedIn>
-  {showActionButtons && (
-    <EditDeleteAction />
-  )}
-</SignedIn>
+      <SignedIn>{ <EditDeleteAction />}</SignedIn>
       <div className="flex gap-3 w-full pt-6">
         <Metric
           icon={<Heart size={20} />}

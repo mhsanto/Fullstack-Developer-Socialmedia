@@ -36,7 +36,7 @@ const SingleTags: React.FC<URLProps> = async ({ params, searchParams }) => {
                         content={question.content}
                         tags={question.tags}
                         upvotes={question.upvotes}
-                        answers={question.answers}
+                        answers={question.answers.length}
                         views={question.views}
                         author={question.author}
                         createdAt={question.createdAt}
