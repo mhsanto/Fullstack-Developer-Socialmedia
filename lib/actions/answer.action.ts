@@ -124,7 +124,7 @@ export async function downVoteAnswer(params: AnswerVoteParams) {
   }
 }
 //delete an answer by id
-export async function deleteanswer(params: DeleteAnswerParams) {
+export async function deleteAnswer(params: DeleteAnswerParams) {
   try {
     await connectToDatabase();
     const { answerId, path } = params;

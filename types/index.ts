@@ -50,6 +50,7 @@ export type QuestionProps = {
   views: number;
   author: {
     _id: number;
+    clerkId: string;
     picture: string;
     name: string;
   };

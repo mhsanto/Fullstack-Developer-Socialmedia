@@ -1,22 +1,31 @@
+/* eslint-disable @next/next/no-async-client-component */
 "use client";
+import { deleteAnswer } from "@/lib/actions/answer.action";
+import { deleteQuestion } from "@/lib/actions/question.action";
 import { DeleteIcon, Edit } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 type EditDeleteActionProps = {
   type: string;
   itemId: string;
 };
 
-const EditDeleteAction: React.FC<EditDeleteActionProps> = ({
+const EditDeleteAction: React.FC<EditDeleteActionProps> =async ({
   type,
   itemId,
 }) => {
-  const handleEdit = () => {
-    console.log("Edit");
+  const path = usePathname();
+
+  const handleEdit = async () => {
+
   };
-  const handleDelete = () => {
+
+
+  const handleDelete = async() => {
     if (type === "Question") {
-      console.log("Delete Question");
+        await deleteQuestion({ questionId: JSON.parse(itemId), path });
     } else if (type === "Answer") {
+        await deleteAnswer({ answerId: JSON.parse(itemId), path });
     }
   };
   return (

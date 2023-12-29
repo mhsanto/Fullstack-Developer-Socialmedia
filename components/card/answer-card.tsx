@@ -1,8 +1,9 @@
 import { formatAndDivideNumber, getTimeStamp } from "@/lib/utils";
-import { SignIn } from "@clerk/nextjs";
+import { SignIn, SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
 import Metric from "../shared/metric";
 import { Heart } from "lucide-react";
+import EditDeleteAction from "../shared/edit-delete-action";
 
 type AnswerCardProps = {
   clerkId?: string | null;
@@ -21,6 +22,8 @@ const AnswerCard: React.FC<AnswerCardProps> = ({
   upvotes,
   createdAt,
 }) => {
+  const showActionButtons = clerkId && clerkId === author.clerkId;
+
   return (
     <Link
       href={`/question/${question._id}/#${_id}`}
@@ -36,9 +39,11 @@ const AnswerCard: React.FC<AnswerCardProps> = ({
             {question.title}
           </h3>
         </div>
-        {/* <SignIn>
-                
-            </SignIn> */}
+        <SignedIn>
+          {showActionButtons && (
+            <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
+          )}
+        </SignedIn>
         <div className="flex-between mt-6 w-full flex-wrap gap-3">
           <Metric
             imgUrl={author.picture}
