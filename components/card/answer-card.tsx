@@ -41,7 +41,7 @@ const AnswerCard: React.FC<AnswerCardProps> = ({
         </div>
         <SignedIn>
           {showActionButtons && (
-            <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
+            <EditDeleteAction type="Answer" itemId={JSON.stringify(_id)} />
           )}
         </SignedIn>
         <div className="flex-between mt-6 w-full flex-wrap gap-3">

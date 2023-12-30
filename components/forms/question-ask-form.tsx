@@ -25,12 +25,16 @@ import { X } from "lucide-react";
 import { createQuestion } from "@/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/context/theme-provider";
-const type: any = "create";
-export default function QuestionAskSection({
+type QuestionFormProps = {
+  type?: string;
+  mongoUserId: string | undefined;
+  questionDetails?: string;
+};
+export default function QuestionForm({
+  type,
   mongoUserId,
-}: {
-  mongoUserId?: string | undefined;
-}) {
+  questionDetails,
+}: QuestionFormProps) {
   const { mode } = useTheme();
 
   const router = useRouter();
@@ -244,9 +248,9 @@ export default function QuestionAskSection({
           type="submit"
         >
           {isSubmitting ? (
-            <>{type === "edit" ? "Editing..." : "Posting"}</>
+            <>{type === "Edit" ? "Editing..." : "Posting"}</>
           ) : (
-            <>{type === "edit" ? "Edit a Question" : "Ask a Question"}</>
+            <>{type === "Edit" ? "Edit a Question" : "Ask a Question"}</>
           )}
         </Button>
       </form>
