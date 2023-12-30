@@ -38,7 +38,7 @@ export default function QuestionForm({
   const { mode } = useTheme();
 
   const router = useRouter();
-  const pathName = usePathname();
+  const path = usePathname();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRef = useRef(null);
   const parsedQuestion = JSON.parse(questionDetails || "");
@@ -56,7 +56,12 @@ export default function QuestionForm({
     try {
       setIsSubmitting(true);
       if (type === "Edit") {
-        await editQuestion();
+        await editQuestion({
+          questionId: parsedQuestion._id,
+          title: values.title,
+          content: values.explanation,
+          path
+        });
         router.push(`/question/${parsedQuestion._id}`);
       } else {
         await createQuestion({
@@ -64,7 +69,7 @@ export default function QuestionForm({
           content: values.explanation,
           tags: values.tags,
           author: JSON.parse(mongoUserId!),
-          path: pathName,
+          path,
         });
       }
       router.push("/");
