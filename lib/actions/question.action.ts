@@ -6,6 +6,7 @@ import Tag from "@/databases/tag.model";
 import {
   CreateQuestionParams,
   DeleteQuestionParams,
+  EditQuestionParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams,
@@ -33,6 +34,8 @@ export async function getQuestions(params: GetQuestionsParams) {
     console.log("QUestion.action.ts: getQuestion: error: ", error);
   }
 }
+
+//create a Question by
 export async function createQuestion(params: CreateQuestionParams) {
   try {
     await connectToDatabase();
@@ -73,6 +76,23 @@ export async function createQuestion(params: CreateQuestionParams) {
     revalidatePath(path);
   } catch (error) {
     console.log("question.action.ts: createQuestion: error: ", error);
+  }
+}
+//Edit a Question by questionId title content tags
+export async function editQuestion(params: EditQuestionParams) {
+  try {
+    await connectToDatabase();
+    const { content, path, questionId, title } = params;
+
+    let question = await Question.findById(questionId).populate("tags");
+    if (!question) throw new Error("Question not found");
+
+    question.title = title;
+    question.content = content;
+    question.save()
+    revalidatePath(path);
+  } catch (error) {
+    console.log(`Edit a Question in Question.action.ts ${error} `);
   }
 }
 
@@ -137,6 +157,7 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
   }
 }
 
+//rate a question donwvote
 export async function downVoteQuestion(params: QuestionVoteParams) {
   try {
     await connectToDatabase();
@@ -175,7 +196,7 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
     await Tag.updateMany(
       { questions: questionId },
       { $pull: { questions: questionId } }
-    );//delete the question from the tags
+    ); //delete the question from the tags
     revalidatePath(path);
   } catch (error) {
     console.error(` question.action.ts: deleteQuestion: error: ${error}`);

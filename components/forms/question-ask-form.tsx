@@ -22,7 +22,7 @@ import { Editor } from "@tinymce/tinymce-react";
 
 import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
-import { createQuestion } from "@/lib/actions/question.action";
+import { createQuestion, editQuestion } from "@/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/context/theme-provider";
 type QuestionFormProps = {
@@ -41,25 +41,32 @@ export default function QuestionForm({
   const pathName = usePathname();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRef = useRef(null);
+  const parsedQuestion = JSON.parse(questionDetails || "");
+  const groupTags = parsedQuestion.tags.map((tag: any) => tag.name);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      explanation: "",
-      tags: [],
+      title: parsedQuestion.title ? parsedQuestion.title : "",
+      explanation: parsedQuestion.content ? parsedQuestion.content : "",
+      tags: groupTags || [],
     },
   });
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setIsSubmitting(true);
-      await createQuestion({
-        title: values.title,
-        content: values.explanation,
-        tags: values.tags,
-        author: JSON.parse(mongoUserId!),
-        path: pathName,
-      });
+      if (type === "Edit") {
+        await editQuestion();
+        router.push(`/question/${parsedQuestion._id}`);
+      } else {
+        await createQuestion({
+          title: values.title,
+          content: values.explanation,
+          tags: values.tags,
+          author: JSON.parse(mongoUserId!),
+          path: pathName,
+        });
+      }
       router.push("/");
     } catch (error: any) {
       console.log("AskQuestionPage -> error", error.message);
@@ -160,7 +167,7 @@ export default function QuestionForm({
                   }
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue=""
+                  initialValue={parsedQuestion.content || ""}
                   init={{
                     height: 350,
                     menubar: false,
@@ -213,6 +220,7 @@ export default function QuestionForm({
                 <>
                   <Input
                     className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border "
+                    disabled={type === "Edit"}
                     placeholder="add tags..."
                     onKeyDown={(e) => handleKeyDown(e, field)}
                   />
@@ -222,13 +230,20 @@ export default function QuestionForm({
                         <Badge
                           key={tag}
                           className="text-dark300_light700 bg-primary-500/80 flex items-center text-white gap-1 py-1 text-sm capitalize justify-center"
+                          onClick={() => {
+                            type !== "Edit"
+                              ? handleRemove(tag, field)
+                              : () => {};
+                          }}
                         >
                           {tag}
-                          <X
-                            size={16}
-                            onClick={() => handleRemove(tag, field)}
-                            cursor="pointer"
-                          />
+                          {type !== "Edit" && (
+                            <X
+                              size={16}
+                              onClick={() => handleRemove(tag, field)}
+                              cursor="pointer"
+                            />
+                          )}
                         </Badge>
                       ))}
                     </div>
