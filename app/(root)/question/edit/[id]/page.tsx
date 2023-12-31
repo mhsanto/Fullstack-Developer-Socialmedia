@@ -9,13 +9,14 @@ const QuestionEditPage = async ({ params: { id } }: ParamsProps) => {
   if (!userId) return null;
   const mongoUser = await getUserById({ userId });
   const result = await getQuestionById({ questionId: id });
+ 
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">Edit Question</h1>
       <div className="mt-9">
         <QuestionForm
           type="Edit"
-          mongoUserId={mongoUser?.id}
+          mongoUserId={mongoUser?._id}
           questionDetails={JSON.stringify(result)}
         />
       </div>

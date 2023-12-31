@@ -36,18 +36,17 @@ export default function QuestionForm({
   questionDetails,
 }: QuestionFormProps) {
   const { mode } = useTheme();
-
   const router = useRouter();
   const path = usePathname();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRef = useRef(null);
-  const parsedQuestion = JSON.parse(questionDetails || "");
-  const groupTags = parsedQuestion.tags.map((tag: any) => tag.name);
+  const parsedQuestion =JSON.parse(questionDetails || "");
+  const groupTags = parsedQuestion?.tags.map((tag: any) => tag.name);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: parsedQuestion.title ? parsedQuestion.title : "",
-      explanation: parsedQuestion.content ? parsedQuestion.content : "",
+      title:parsedQuestion.title ||  "",
+      explanation: parsedQuestion.content || "",
       tags: groupTags || [],
     },
   });
@@ -60,7 +59,7 @@ export default function QuestionForm({
           questionId: parsedQuestion._id,
           title: values.title,
           content: values.explanation,
-          path
+          path,
         });
         router.push(`/question/${parsedQuestion._id}`);
       } else {

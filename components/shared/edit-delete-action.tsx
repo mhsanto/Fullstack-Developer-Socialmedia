@@ -1,8 +1,7 @@
-/* eslint-disable @next/next/no-async-client-component */
 "use client";
 import { deleteAnswer } from "@/lib/actions/answer.action";
 import { deleteQuestion } from "@/lib/actions/question.action";
-import { DeleteIcon, Edit } from "lucide-react";
+import { CloudCog, Edit, Trash } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 type EditDeleteActionProps = {
@@ -10,15 +9,16 @@ type EditDeleteActionProps = {
   itemId: string;
 };
 
-const EditDeleteAction: React.FC<EditDeleteActionProps> = async ({
+const EditDeleteAction: React.FC<EditDeleteActionProps> = ({
   type,
   itemId,
 }) => {
   const path = usePathname();
   const router = useRouter();
-
+  const itemIdIs = JSON.parse(itemId)
+  console.log(JSON.parse(itemId));
   const handleEdit = async () => {
-    router.push(`/question/edit/${JSON.parse(itemId)}}`);
+    router.push(`/question/edit/${itemIdIs}`);
   };
 
   const handleDelete = async () => {
@@ -30,8 +30,10 @@ const EditDeleteAction: React.FC<EditDeleteActionProps> = async ({
   };
   return (
     <div className="flex items-center justify-end gap-3 max-sm:w-full">
-      {type === "Question" && <Edit onClick={handleEdit} cursor="pointer" />}
-      <DeleteIcon onClick={handleDelete} cursor="pointer" />
+      {type === "Question" && (
+        <Edit size={15} onClick={handleEdit} cursor="pointer" />
+      )}
+      <Trash onClick={handleDelete} size={15} cursor="pointer" />
     </div>
   );
 };
