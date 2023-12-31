@@ -200,10 +200,3 @@ export async function getUserAnswers(params: GetUserStatsParams) {
     console.error("user.action.ts: getUserAnswers: error: ", error);
   }
 }
-// export async function getSavedQuestion(){
-//   try {
-//     await connectToDatabase()
-//   } catch (error) {
-//     console.error("user.action.ts: getSavedQuestion: error: ", error)
-//   }
-// }

@@ -16,7 +16,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import { useState } from "react";
 import { ProfileSchema } from "@/types/validations";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { updateUser } from "@/lib/actions/user.action";
 
 type ProfileFormProps = {
   clerkId: string;
@@ -24,7 +25,8 @@ type ProfileFormProps = {
 };
 
 const ProfileForm: React.FC<ProfileFormProps> = ({ clerkId, user }) => {
-  const router = useRouter()
+  const router = useRouter();
+  const path = usePathname();
   const parsedUser = JSON.parse(user);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof ProfileSchema>>({
@@ -38,11 +40,22 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ clerkId, user }) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof ProfileSchema>) {
+  async function onSubmit(values: z.infer<typeof ProfileSchema>) {
     try {
       setIsSubmitting(true);
       //update a User using form data
-      router.back()
+      await updateUser({
+        clerkId,
+        updateData: {
+          name: values.name,
+          username: values.username,
+          portfolio: values.portfolio,
+          location: values.location,
+          bio: values.bio,
+        },
+        path,
+      });
+      router.back();
     } catch (error) {
       console.log(`profile-form.tsx: ${error}`);
     } finally {
