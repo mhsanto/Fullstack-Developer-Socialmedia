@@ -16,7 +16,7 @@ const QuestionEditPage = async ({ params: { id } }: ParamsProps) => {
       <div className="mt-9">
         <QuestionForm
           type="Edit"
-          mongoUserId={mongoUser?._id}
+          mongoUserId={JSON.stringify(mongoUser._id)}
           questionDetails={JSON.stringify(result)}
         />
       </div>

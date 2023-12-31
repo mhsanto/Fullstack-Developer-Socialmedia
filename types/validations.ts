@@ -7,3 +7,10 @@ export const formSchema = z.object({
 export const AnswerSchema = z.object({
   answer: z.string().min(30).max(1000),
 });
+export const ProfileSchema = z.object({
+  name: z.string().min(3).max(50),
+  username: z.string().min(3).max(50),
+  portfolio: z.string().url().min(3),
+  location: z.string().min(3).max(50),
+  bio: z.string().min(10).max(500),
+});
