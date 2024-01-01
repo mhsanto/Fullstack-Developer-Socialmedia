@@ -89,7 +89,7 @@ export async function editQuestion(params: EditQuestionParams) {
 
     question.title = title;
     question.content = content;
-    question.save()
+    question.save();
     revalidatePath(path);
   } catch (error) {
     console.log(`Edit a Question in Question.action.ts ${error} `);
@@ -200,5 +200,19 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
     revalidatePath(path);
   } catch (error) {
     console.error(` question.action.ts: deleteQuestion: error: ${error}`);
+  }
+}
+
+// get the most recent questions
+
+export async function getHotQuestions() {
+  try {
+    await connectToDatabase();
+    const hotQuestions = await Question.find({})
+      .sort({ views: -1, upvotes: -1 })
+      .limit(5);
+    return hotQuestions;
+  } catch (error) {
+    console.log("QUestion.action.ts: hotQuestions: error: ", error);
   }
 }
