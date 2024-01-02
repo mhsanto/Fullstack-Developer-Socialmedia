@@ -31,7 +31,7 @@ const Tags: React.FC<TagsProps> = ({
     >
       <Badge
         variant={variant || "default"}
-        className={cn("  whitespace-nowrap", customClasses)}
+        className={cn("text-light-900 tracking-wide whitespace-nowrap", customClasses)}
       >
         {name}
       </Badge>

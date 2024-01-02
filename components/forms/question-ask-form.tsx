@@ -40,13 +40,13 @@ export default function QuestionForm({
   const path = usePathname();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRef = useRef(null);
-  const parsedQuestion =JSON.parse(questionDetails || "");
+  const parsedQuestion =questionDetails && JSON.parse(questionDetails || "");
   const groupTags = parsedQuestion?.tags.map((tag: any) => tag.name);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title:parsedQuestion.title ||  "",
-      explanation: parsedQuestion.content || "",
+      title:parsedQuestion?.title ||  "",
+      explanation: parsedQuestion?.content || "",
       tags: groupTags || [],
     },
   });
@@ -171,7 +171,7 @@ export default function QuestionForm({
                   }
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue={parsedQuestion.content || ""}
+                  initialValue={parsedQuestion?.content || ""}
                   init={{
                     height: 350,
                     menubar: false,
@@ -263,7 +263,7 @@ export default function QuestionForm({
         />
         <Button
           disabled={isSubmitting}
-          className="bg-primary-500 w-fit !text-light-900 "
+          className="bg-primary-500/80 w-fit !text-light-900 "
           type="submit"
         >
           {isSubmitting ? (

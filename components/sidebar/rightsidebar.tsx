@@ -4,11 +4,10 @@ import Tags from "../shared/tags";
 import { getHotQuestions } from "@/lib/actions/question.action";
 import { getPopularTags } from "@/lib/actions/tag.action";
 
-
 const RightSidebar = async () => {
   const hotQuestions = await getHotQuestions();
-  const topTags = await getPopularTags()
-
+  const topTags = await getPopularTags();
+  console.log(topTags);
   return (
     <div className="background-light800_darkgradient light-border custom-scrollbar text-dark300_light900 sticky right-0 top-0  flex flex-col items-start overflow-y-auto border-l p-6 max-lg:px-2 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden lg:w-[290px] ">
       <div>
@@ -34,12 +33,12 @@ const RightSidebar = async () => {
           {topTags?.map((tag) => (
             <Tags
               variant="default"
-              customClasses="bg-primary-500/50
-              dark:bg-primary-500/80 hover:bg-primary-500/40 py-1"
+              customClasses="
+            bg-primary-500/80 hover:bg-primary-400/40 py-1"
               key={tag._id}
               _id={tag._id}
-              questionCount={tag.numberOfQuestions}
-              name={tag.tag}
+              questionCount={tag.numberofQuestions}
+              name={tag.name}
               showCount
             />
           ))}

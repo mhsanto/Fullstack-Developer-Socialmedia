@@ -7,21 +7,27 @@ import { SearchCode } from "lucide-react";
 import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
 import QuestionCard from "@/components/card/question-card";
+import { SearchParams } from "@/lib/actions/shared.types";
+import { SearchParamsProps } from "@/types";
 
-const Home = async () => {
-  const result = await getQuestions({});
+const Home = async ({searchParams}: SearchParamsProps) => {
+  const result = await getQuestions({
+    searchQuery: searchParams?.value,
+  });
   return (
     <>
       <div className="dark:text-white w-full flex justify-between flex-col-reverse sm:flex-row sm:items-center">
         <h2 className="h2-bold">Hot Topics </h2>
         <Link
           href={`/ask-question`}
-          className="bg-primary-500 dark:bg-primary-400
+          className="bg-primary-500/80
         hover:bg-primary-400/90
           transition-colors duration-200 
-         fon-semibold flex items-center rounded-md max-sm:w-max self-end  justify-end text-slate-200"
+         fon-semibold flex items-center rounded-md max-sm:w-max self-end  justify-end "
         >
-          <Button className="max-w-max">Ask a question</Button>
+          <Button className="max-w-max text-light-900 text-base">
+            Ask a question
+          </Button>
         </Link>
       </div>
       <div className="mt-10 flex items-center gap-3 ">
@@ -30,7 +36,7 @@ const Home = async () => {
           iconsPosition="left"
           searchIcons={<SearchCode className="dark:invert" />}
           placeholder="Search your questions"
-          otherClasses=""
+          otherClasses="flex-1"
         />
         <SelectFilter
           filters={HomePageFilters}
@@ -41,20 +47,18 @@ const Home = async () => {
       <div className="w-full mt-8">
         {result?.questions?.length ? (
           result.questions?.map((question) => (
-     
-              <QuestionCard
-                key={question._id}
-                _id={question._id}
-                title={question.title}
-                content={question.content}
-                tags={question.tags}
-                upvotes={question.upvotes}
-                answers={question.answers.length}
-                views={question.views}
-                author={question.author}
-                createdAt={question.createdAt}
-              />
-    
+            <QuestionCard
+              key={question._id}
+              _id={question._id}
+              title={question.title}
+              content={question.content}
+              tags={question.tags}
+              upvotes={question.upvotes}
+              answers={question.answers.length}
+              views={question.views}
+              author={question.author}
+              createdAt={question.createdAt}
+            />
           ))
         ) : (
           <NotFoundPage
