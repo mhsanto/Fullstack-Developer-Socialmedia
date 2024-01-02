@@ -5,10 +5,12 @@ import LocalSearchBar from "@/components/search/local-searchbar";
 import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
 import { SearchCode } from "lucide-react";
-import Image from "next/image";
+import { SearchParamsProps } from "@/types";
 
-const Community = async () => {
-  const result = await getAllUsers({});
+const Community = async ({searchParams}:SearchParamsProps) => {
+  const result = await getAllUsers({
+    searchQuery:searchParams.value
+  });
   return (
     <>
       <h1 className="h1-bold dark:text-white">Community </h1>

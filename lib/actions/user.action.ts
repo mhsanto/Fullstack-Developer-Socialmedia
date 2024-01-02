@@ -83,15 +83,23 @@ export async function deleteUser(params: DeleteUserParams) {
     console.log("user.action.ts: getUserById: error: ", error);
   }
 }
-//get all users
+//get all the users from database
 export async function getAllUsers(params: GetAllUsersParams) {
   try {
     await connectToDatabase();
-    // const { page = 1, pageSize = 20, filter, searchQuery } = params;
-    const users = await User.find({}).sort({ createdAt: -1 });
+    const { page = 1, pageSize = 20, filter, searchQuery } = params;
+    const query: FilterQuery<typeof User> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { name: { $regex: new RegExp(searchQuery, "i") } },
+        { username: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+    const users = await User.find(query).sort({ createdAt: -1 });
     return { users };
   } catch (error) {
-    console.log("user.action .ts: getUserById: error: ", error);
+    console.log("user.action .ts: getallthe Users: error: ", error);
   }
 }
 // Saved a question to user's saved questions
