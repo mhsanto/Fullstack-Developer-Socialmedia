@@ -4,11 +4,14 @@ import { SearchCode } from "lucide-react";
 import QuestionCard from "@/components/card/question-card";
 import { getSavedQuestion } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
+import { SearchParamsProps } from "@/types";
 
-const Home = async () => {
+const Home = async ({ searchParams }: SearchParamsProps) => {
   const { userId } = auth();
   if (!userId) return null;
-  const result = await getSavedQuestion({clerkId:userId
+  const result = await getSavedQuestion({
+    clerkId: userId,
+    searchQuery: searchParams.value,
   });
 
   return (
@@ -27,7 +30,7 @@ const Home = async () => {
       </div>
       <div className="w-full mt-8">
         {result?.questions?.length ? (
-          result.questions?.map((question:any) => (
+          result.questions?.map((question: any) => (
             <QuestionCard
               key={question._id}
               _id={question._id}

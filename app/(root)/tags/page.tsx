@@ -6,9 +6,10 @@ import { UserFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.action";
 import { SearchCode } from "lucide-react";
 import Link from "next/link";
+import { SearchParamsProps } from "@/types";
 
-const TagsPage = async () => {
-  const result = await getAllTags({});
+const TagsPage = async ({ searchParams }: SearchParamsProps) => {
+  const result = await getAllTags({ searchQuery: searchParams.value });
   return (
     <>
       <h1 className="h1-bold dark:text-white">Tags</h1>
@@ -41,7 +42,6 @@ const TagsPage = async () => {
                 variant="outline"
                 customClasses="bg-primary-500/80 text-2xl"
               />
-       
             </Link>
           ))
         ) : (

@@ -10,7 +10,7 @@ import { URLProps } from "@/types";
 const SingleTags: React.FC<URLProps> = async ({ params, searchParams }) => {
     const result = await getQuestionByTagId({
         tagId: params.id,
-        page: 1, searchQuery: searchParams.q
+        page: 1, searchQuery: searchParams.value
 
     })
     return (<>

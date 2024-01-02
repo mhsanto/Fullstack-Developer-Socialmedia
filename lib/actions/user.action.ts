@@ -138,6 +138,7 @@ export async function toggleSavedQuestion(params: ToggleSaveQuestionParams) {
     console.log("user.action .ts: savedQUestion: error: ", error);
   }
 }
+//Get saved questions for specific user
 export async function getSavedQuestion(params: GetSavedQuestionsParams) {
   try {
     await connectToDatabase();
