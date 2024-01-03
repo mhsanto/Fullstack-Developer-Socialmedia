@@ -7,12 +7,13 @@ import { SearchCode } from "lucide-react";
 import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
 import QuestionCard from "@/components/card/question-card";
-import { SearchParams } from "@/lib/actions/shared.types";
+
 import { SearchParamsProps } from "@/types";
 
 const Home = async ({searchParams}: SearchParamsProps) => {
   const result = await getQuestions({
     searchQuery: searchParams?.value,
+    filter: searchParams?.filter,
   });
   return (
     <>
