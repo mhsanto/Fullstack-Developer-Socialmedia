@@ -2,7 +2,12 @@
 
 import Answer from "@/databases/answer.modal";
 import { connectToDatabase } from "./mongoose";
-import { AnswerVoteParams, CreateAnswerParams, DeleteAnswerParams, GetAnswersParams } from "./shared.types";
+import {
+  AnswerVoteParams,
+  CreateAnswerParams,
+  DeleteAnswerParams,
+  GetAnswersParams,
+} from "./shared.types";
 import Question from "@/databases/question.modal";
 import { revalidatePath } from "next/cache";
 import Interaction from "@/databases/interaction.model";
@@ -27,17 +32,33 @@ export async function createAnswer(params: CreateAnswerParams) {
 export async function getAllAnswers(params: GetAnswersParams) {
   try {
     await connectToDatabase();
-    const { questionId } = params;
+    const { questionId, sortBy } = params;
+    let sortOptions = {};
+    switch (sortBy) {
+      case "highestUpvotes":
+        sortOptions = { upvotes: -1 };
+        break;
+      case "lowestUpvotes":
+        sortOptions = { upvotes: 1 };
+        break;
+      case "recent":
+        sortOptions = { createAt: -1 };
+        break;
+      case "old":
+        sortOptions = { createAt: 1 };
+        break;
 
+      default:
+        break;
+    }
     const answers = await Answer.find({ question: questionId })
       .populate("author", "_id clerkId name picture")
-      .sort({ createdAt: -1 });
+      .sort(sortOptions);
     return { answers };
   } catch (error) {
     console.error(`Error getting all answers: ${error}`);
   }
 }
-
 
 // UpVote An Answer action
 export async function upVoteAnswer(params: AnswerVoteParams) {
@@ -62,7 +83,7 @@ export async function upVoteAnswer(params: AnswerVoteParams) {
     const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, {
       new: true,
     });
- 
+
     if (!answer) {
       console.error("Answer not found");
     }
@@ -104,7 +125,7 @@ export async function downVoteAnswer(params: AnswerVoteParams) {
     const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, {
       new: true,
     });
- 
+
     if (!answer) {
       console.error("Answer not found");
     }
@@ -128,19 +149,18 @@ export async function deleteAnswer(params: DeleteAnswerParams) {
   try {
     await connectToDatabase();
     const { answerId, path } = params;
-    const answer = await Answer.findById(answerId)
-    if(!answer) throw new Error("Answer not found")
+    const answer = await Answer.findById(answerId);
+    if (!answer) throw new Error("Answer not found");
 
     await answer.deleteOne({ _id: answerId }); //delete all answers related to the answer
-    
-  await Question.updateMany(
-      { _id:answer.question },
+
+    await Question.updateMany(
+      { _id: answer.question },
       { $pull: { answers: answerId } }
-    );//delete the answer from the tags
+    ); //delete the answer from the tags
     await Interaction.deleteMany({ answer: answerId }); //delete all interactions related to the answer
     revalidatePath(path);
   } catch (error) {
     console.error(` answer.action.ts: deleteanswer: error: ${error}`);
   }
 }
-

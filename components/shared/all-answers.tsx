@@ -11,8 +11,8 @@ type AllAnswersProps = {
   questionId: string;
   userId: string;
   totalAnswers: number;
-  page?: number;
-  filter?: number;
+  page?: string;
+  filter?: string;
 };
 const AllAnswers: React.FC<AllAnswersProps> = async ({
   questionId,
@@ -21,7 +21,11 @@ const AllAnswers: React.FC<AllAnswersProps> = async ({
   page,
   filter,
 }) => {
-  const result = await getAllAnswers({ questionId });
+  const result = await getAllAnswers({
+    questionId,
+    page: page ? +page : 1,
+    sortBy: filter,
+  });
   return (
     <div className="mt-11">
       <div className="flex items-center justify-between">
@@ -63,7 +67,6 @@ const AllAnswers: React.FC<AllAnswersProps> = async ({
                     hasUpvoted={answer.upvotes.includes(userId)}
                     downvotes={answer.downvotes.length}
                     hasDownvoted={answer.downvotes.includes(userId)}
-               
                   />
                 </div>
               </div>

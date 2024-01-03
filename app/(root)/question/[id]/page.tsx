@@ -10,17 +10,17 @@ import { auth } from "@clerk/nextjs";
 import { Clock, EyeIcon, Heart, LucideGitCommit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { SearchParamsProps } from "@/types";
 
 type QuestionPageProps = {
   params: {
     id: string;
   };
-  searchParams: {
-    id: string;
-  };
+  searchParams: { [key: string]: string | undefined };
 };
 const QuestionPage: React.FC<QuestionPageProps> = async ({
   params: { id },
+  searchParams,
 }) => {
   const { userId: clerkId } = auth();
 
@@ -98,6 +98,8 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
         questionId={result._id}
         userId={mongoUser._id}
         totalAnswers={result.answers.length}
+        page={searchParams?.page}
+        filter={searchParams?.filter}
       />
 
       <AnswerForm
