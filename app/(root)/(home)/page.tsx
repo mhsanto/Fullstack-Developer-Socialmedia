@@ -15,6 +15,8 @@ const Home = async ({searchParams}: SearchParamsProps) => {
     searchQuery: searchParams?.value,
     filter: searchParams?.filter,
   });
+
+  //fetch reccomended questions
   return (
     <>
       <div className="dark:text-white w-full flex justify-between flex-col-reverse sm:flex-row sm:items-center">

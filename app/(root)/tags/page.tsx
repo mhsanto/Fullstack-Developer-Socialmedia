@@ -14,7 +14,7 @@ const TagsPage = async ({ searchParams }: SearchParamsProps) => {
     <>
       <h1 className="h1-bold dark:text-white">Tags</h1>
 
-      <div className="mt-10 flex items-center gap-3 ">
+      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 ">
         <LocalSearchBar
           route="/tags"
           iconsPosition="left"
@@ -25,7 +25,7 @@ const TagsPage = async ({ searchParams }: SearchParamsProps) => {
         <SelectFilter
           filters={UserFilters}
           otherClasses=""
-          containerClasses=""
+          containerClasses="hidden max-md:flex"
         />
       </div>
       <section className="mt-12 flex flex-wrap gap-4">
@@ -40,7 +40,7 @@ const TagsPage = async ({ searchParams }: SearchParamsProps) => {
                 _id={tag._id}
                 name={tag.name}
                 variant="outline"
-                customClasses="bg-primary-500/80 text-2xl"
+                customClasses="bg-primary-500/80 text-xl px-4"
               />
             </Link>
           ))

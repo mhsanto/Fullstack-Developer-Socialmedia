@@ -5,6 +5,8 @@ import QuestionCard from "@/components/card/question-card";
 import { getSavedQuestion } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
 import { SearchParamsProps } from "@/types";
+import SelectFilter from "@/components/filters/select-filter";
+import { QuestionFilters } from "@/constants/filters";
 
 const Home = async ({ searchParams }: SearchParamsProps) => {
   const { userId } = auth();
@@ -12,6 +14,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
   const result = await getSavedQuestion({
     clerkId: userId,
     searchQuery: searchParams.value,
+    filter: searchParams.filter,
   });
 
   return (
@@ -19,14 +22,15 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
       <div className="dark:text-white w-full flex justify-between flex-col-reverse sm:flex-row sm:items-center">
         <h2 className="h2-bold">Saved Questions</h2>
       </div>
-      <div className="mt-10 flex items-center gap-3 ">
+      <div className="mt-10 flex items-center gap-3 justify-between max-sm:flex-col sm:items-center ">
         <LocalSearchBar
           route="/"
           iconsPosition="left"
           searchIcons={<SearchCode className="dark:invert" />}
           placeholder="Search your questions"
-          otherClasses=""
+          otherClasses="flex-1"
         />
+        <SelectFilter filters={QuestionFilters} otherClasses="" />
       </div>
       <div className="w-full mt-8">
         {result?.questions?.length ? (

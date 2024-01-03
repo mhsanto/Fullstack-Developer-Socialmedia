@@ -7,26 +7,27 @@ import { getAllUsers } from "@/lib/actions/user.action";
 import { SearchCode } from "lucide-react";
 import { SearchParamsProps } from "@/types";
 
-const Community = async ({searchParams}:SearchParamsProps) => {
+const Community = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUsers({
-    searchQuery:searchParams.value
+    searchQuery: searchParams.value,
+    filter: searchParams.filter,
   });
   return (
     <>
       <h1 className="h1-bold dark:text-white">Community </h1>
 
-      <div className="mt-10 flex items-center gap-3 ">
+      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 ">
         <LocalSearchBar
           route="/community"
           iconsPosition="left"
           searchIcons={<SearchCode className="dark:invert" />}
           placeholder="Search for a community member"
-          otherClasses=""
+          otherClasses="flex-1"
         />
         <SelectFilter
           filters={UserFilters}
           otherClasses=""
-          containerClasses=""
+          containerClasses="hidden max-md:flex"
         />
       </div>
       <section className="mt-12 flex flex-wrap gap-4">
