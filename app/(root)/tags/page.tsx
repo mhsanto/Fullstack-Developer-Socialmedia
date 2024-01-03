@@ -2,14 +2,17 @@ import SelectFilter from "@/components/filters/select-filter";
 import NotFoundPage from "@/components/shared/not-found";
 import LocalSearchBar from "@/components/search/local-searchbar";
 import Tags from "@/components/shared/tags";
-import { UserFilters } from "@/constants/filters";
+import { TagFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.action";
 import { SearchCode } from "lucide-react";
 import Link from "next/link";
 import { SearchParamsProps } from "@/types";
 
 const TagsPage = async ({ searchParams }: SearchParamsProps) => {
-  const result = await getAllTags({ searchQuery: searchParams.value });
+  const result = await getAllTags({
+    searchQuery: searchParams.value,
+    filter: searchParams.filter,
+  });
   return (
     <>
       <h1 className="h1-bold dark:text-white">Tags</h1>
@@ -23,7 +26,7 @@ const TagsPage = async ({ searchParams }: SearchParamsProps) => {
           otherClasses=""
         />
         <SelectFilter
-          filters={UserFilters}
+          filters={TagFilters}
           otherClasses=""
           containerClasses="hidden max-md:flex"
         />
