@@ -16,7 +16,7 @@ const TagsPage = async ({ searchParams }: SearchParamsProps) => {
 
       <div className="mt-10 flex items-center gap-3 ">
         <LocalSearchBar
-          route="/community"
+          route="/tags"
           iconsPosition="left"
           searchIcons={<SearchCode className="dark:invert" />}
           placeholder="Search for Tags..."

@@ -67,7 +67,7 @@ export function getJoinedDate(inputDate: Date): string {
 type FormUrlQueryParams = {
   params: string;
   key: string;
-  value: string;
+  value: string | null;
 };
 export function formUrlQuery({ params, key, value }: FormUrlQueryParams) {
   const currentUrl = qs.parse(params);

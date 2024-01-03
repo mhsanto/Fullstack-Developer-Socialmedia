@@ -19,7 +19,7 @@ const SingleTags: React.FC<URLProps> = async ({ params, searchParams }) => {
         </div>
         <div className="mt-10 w-full">
             <LocalSearchBar
-                route="/"
+                route={`/tags/${params.id}`}
                 iconsPosition="left"
                 searchIcons={<SearchCode className="dark:invert" />}
                 placeholder="Search for tag related questions"

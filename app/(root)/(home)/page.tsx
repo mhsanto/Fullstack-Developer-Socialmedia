@@ -30,18 +30,18 @@ const Home = async ({searchParams}: SearchParamsProps) => {
           </Button>
         </Link>
       </div>
-      <div className="mt-10 flex items-center gap-3 ">
+      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 ">
         <LocalSearchBar
           route="/"
           iconsPosition="left"
           searchIcons={<SearchCode className="dark:invert" />}
           placeholder="Search your questions"
-          otherClasses="flex-1"
+          otherClasses="flex-1 "
         />
         <SelectFilter
           filters={HomePageFilters}
           otherClasses=""
-          containerClasses=""
+          containerClasses="hidden max-md:flex"
         />
       </div>
       <div className="w-full mt-8">
