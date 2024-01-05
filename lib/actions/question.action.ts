@@ -20,7 +20,9 @@ import { FilterQuery } from "mongoose";
 export async function getQuestions(params: GetQuestionsParams) {
   try {
     await connectToDatabase();
-    const { searchQuery, filter } = params;
+    const { searchQuery, filter, page = 1, pageSize = 20 } = params;
+    // calculate number of posts to skip based on page number and page size
+    const skipAmount = (page - 1) * pageSize;
     const query: FilterQuery<typeof Question> = {};
     if (searchQuery) {
       query.$or = [{ title: { $regex: new RegExp(searchQuery, "i") } }];
@@ -28,7 +30,7 @@ export async function getQuestions(params: GetQuestionsParams) {
     let sortOptions = {};
     switch (filter) {
       case "newest":
-         sortOptions = { createdAt: -1 };
+        sortOptions = { createdAt: -1 };
         break;
       case "frequent":
         sortOptions = { views: -1 };
@@ -49,6 +51,8 @@ export async function getQuestions(params: GetQuestionsParams) {
         path: "author",
         model: User,
       })
+      .skip(skipAmount)
+      .limit(pageSize)
       .sort(sortOptions);
     return { questions };
   } catch (error) {
