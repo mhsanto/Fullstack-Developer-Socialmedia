@@ -88,6 +88,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
   try {
     await connectToDatabase();
     const { page = 1, pageSize = 20, filter, searchQuery } = params;
+    const skipAmount = (page - 1) * pageSize;
     const query: FilterQuery<typeof User> = {};
 
     if (searchQuery) {
@@ -113,8 +114,10 @@ export async function getAllUsers(params: GetAllUsersParams) {
         break;
     }
 
-    const users = await User.find(query).sort(sortOptions);
-    return { users };
+    const users = await User.find(query).skip(skipAmount).sort(sortOptions);
+    const totalUsers = await User.countDocuments(query);
+    let isNext = totalUsers > skipAmount + users.length;
+    return { users, isNext };
   } catch (error) {
     console.log("user.action .ts: getallthe Users: error: ", error);
   }
@@ -175,7 +178,7 @@ export async function getSavedQuestion(params: GetSavedQuestionsParams) {
         sortOptions = { upvotes: -1 };
         break;
       case "most_viewed":
-          sortOptions = { views: -1 };
+        sortOptions = { views: -1 };
         break;
       case "most_answered":
         sortOptions = { answers: -1 };

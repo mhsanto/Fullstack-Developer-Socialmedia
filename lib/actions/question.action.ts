@@ -54,7 +54,9 @@ export async function getQuestions(params: GetQuestionsParams) {
       .skip(skipAmount)
       .limit(pageSize)
       .sort(sortOptions);
-    return { questions };
+    const totalQuestion = await Question.countDocuments(query);
+    let isNext = totalQuestion > skipAmount + questions.length;
+    return { questions, isNext };
   } catch (error) {
     console.log("QUestion.action.ts: getQuestion: error: ", error);
   }
