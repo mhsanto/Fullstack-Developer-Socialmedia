@@ -36,12 +36,13 @@ export async function getTopInteractedTagsParams({
 export async function getAllTags(params: GetAllTagsParams) {
   try {
     await connectToDatabase();
-    const { searchQuery ,filter} = params;
+    const { searchQuery, filter, page = 1, pageSize = 20 } = params;
     const query: FilterQuery<typeof Tag> = {};
+    const skipAmount = (page - 1) * pageSize;
     if (searchQuery) {
       query.$or = [{ name: { $regex: new RegExp(searchQuery, "i") } }];
     }
-    let sortOptions ={}
+    let sortOptions = {};
     switch (filter) {
       case "popular":
         sortOptions = { questions: -1 };
@@ -58,8 +59,13 @@ export async function getAllTags(params: GetAllTagsParams) {
       default:
         break;
     }
-    const tags = await Tag.find(query).sort(sortOptions);
-    return { tags };
+    const countTags = await Tag.countDocuments(query);
+    const tags = await Tag.find(query)
+      .sort(sortOptions)
+      .skip(skipAmount)
+      .limit(pageSize);
+    const isNext = countTags > skipAmount + tags.length;
+    return { tags, isNext };
   } catch (error) {
     console.error(` Error in getUserCreatedTags: ${error}`);
   }
