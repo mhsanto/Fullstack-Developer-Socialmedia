@@ -1,5 +1,4 @@
 import ProfileForm from "@/components/forms/profile-form";
-import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { ParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
