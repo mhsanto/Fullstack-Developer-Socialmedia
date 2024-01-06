@@ -14,42 +14,44 @@ const Community = async ({ searchParams }: SearchParamsProps) => {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
-  <>
-    <h1 className="h1-bold dark:text-white">Community </h1>
+  return (
+    <>
+      <h1 className="h1-bold dark:text-white">Community </h1>
 
-    <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 ">
-      <LocalSearchBar
-        route="/community"
-        iconsPosition="left"
-        searchIcons={<SearchCode className="dark:invert" />}
-        placeholder="Search for a community member"
-        otherClasses="flex-1"
-      />
-      <SelectFilter
-        filters={UserFilters}
-        otherClasses=""
-        containerClasses="hidden max-md:flex"
-      />
-    </div>
-    <section className="mt-12 flex flex-wrap gap-4">
-      {result?.users.length && result.users.length > 0 ? (
-        result?.users.map((user) => <UserCard key={user._id} user={user} />)
-      ) : (
-        <NotFoundPage
-          href="/sign-up"
-          linkText="Go to Sign-up"
-          title="No Users Found"
-          body="Become the First Member of this platform by creating an account"
+      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 ">
+        <LocalSearchBar
+          route="/community"
+          iconsPosition="left"
+          searchIcons={<SearchCode className="dark:invert" />}
+          placeholder="Search for a community member"
+          otherClasses="flex-1"
         />
-      )}
-    </section>
-    <div className="mt-10">
-      <Pagination
-        pageNumber={searchParams.page ? +searchParams.page : 1}
-        isNext={result?.isNext || false}
-      />
-    </div>
-  </>;
+        <SelectFilter
+          filters={UserFilters}
+          otherClasses=""
+          containerClasses="hidden max-md:flex"
+        />
+      </div>
+      <section className="mt-12 flex flex-wrap gap-4">
+        {result?.users.length && result.users.length > 0 ? (
+          result?.users.map((user) => <UserCard key={user._id} user={user} />)
+        ) : (
+          <NotFoundPage
+            href="/sign-up"
+            linkText="Go to Sign-up"
+            title="No Users Found"
+            body="Become the First Member of this platform by creating an account"
+          />
+        )}
+      </section>
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams.page ? +searchParams.page : 1}
+          isNext={result?.isNext || false}
+        />
+      </div>
+    </>
+  );
 };
 
 export default Community;

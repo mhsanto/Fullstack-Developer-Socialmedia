@@ -18,7 +18,6 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
     // filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
-console.log(result)
   return (
     <>
       <div className="dark:text-white w-full flex justify-between flex-col-reverse sm:flex-row sm:items-center">
