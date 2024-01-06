@@ -7,6 +7,7 @@ import { auth } from "@clerk/nextjs";
 import { SearchParamsProps } from "@/types";
 import SelectFilter from "@/components/filters/select-filter";
 import { QuestionFilters } from "@/constants/filters";
+import Pagination from "@/components/shared/pagination";
 
 const Home = async ({ searchParams }: SearchParamsProps) => {
   const { userId } = auth();
@@ -14,15 +15,16 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
   const result = await getSavedQuestion({
     clerkId: userId,
     searchQuery: searchParams.value,
-    filter: searchParams.filter,
+    // filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   });
-
+console.log(result)
   return (
     <>
       <div className="dark:text-white w-full flex justify-between flex-col-reverse sm:flex-row sm:items-center">
         <h2 className="h2-bold">Saved Questions</h2>
       </div>
-      <div className="mt-10 flex items-center gap-3 justify-between max-sm:flex-col sm:items-center ">
+      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 ">
         <LocalSearchBar
           route="/"
           iconsPosition="left"
@@ -30,7 +32,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
           placeholder="Search your questions"
           otherClasses="flex-1"
         />
-        <SelectFilter filters={QuestionFilters} otherClasses="" />
+        <SelectFilter filters={QuestionFilters} otherClasses="hidden max-md:flex" />
       </div>
       <div className="w-full mt-8">
         {result?.questions?.length ? (
@@ -57,7 +59,12 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
           />
         )}
       </div>
-      {/* filters by user selection */}
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams.page ? +searchParams.page : 1}
+          isNext={result?.isNext || false}
+        />
+      </div>
     </>
   );
 };

@@ -1,3 +1,4 @@
+"use client";
 import {
   Select,
   SelectContent,
@@ -38,7 +39,7 @@ const SelectFilter: React.FC<SelectFilterProps> = ({
     <>
       <div className={cn("relative", containerClasses)}>
         <Select
-          onValueChange={handleUpdateParams}
+          onValueChange={(value) => handleUpdateParams(value)}
           defaultValue={paramFilter || undefined}
         >
           <SelectTrigger

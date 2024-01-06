@@ -38,10 +38,10 @@ const HomeFilters = () => {
         <Button
           key={filter.value}
           onClick={() => handleClicked(filter.value)}
-          className={`body-medium rounded-lg px-6 py-3 capitalize shadow-none ${
+          className={`body-medium rounded-lg px-6 py-3 capitalize shadow-none  ${
             active === filter.value
               ? "bg-primary-500/80 font-semibold text-light-900"
-              : " bg-slate-200 dark:text-light-700"
+              : " background-light800_darkgradient  dark:text-light-900"
           }`}
         >
           {filter.name}

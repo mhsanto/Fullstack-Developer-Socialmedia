@@ -16,7 +16,6 @@ const EditDeleteAction: React.FC<EditDeleteActionProps> = ({
   const path = usePathname();
   const router = useRouter();
   const itemIdIs = JSON.parse(itemId)
-  console.log(JSON.parse(itemId));
   const handleEdit = async () => {
     router.push(`/question/edit/${itemIdIs}`);
   };
