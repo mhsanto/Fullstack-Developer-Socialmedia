@@ -231,12 +231,16 @@ export async function getUserQuestion(params: GetUserStatsParams) {
   try {
     await connectToDatabase();
     const { userId, page = 1, pageSize = 10 } = params;
+    const skipAmount = (page - 1) * pageSize;
     const totalQuestion = await Question.countDocuments({ author: userId });
     const userQuestions = await Question.find({ author: userId })
       .sort({ views: -1, upvotes: -1 })
+      .skip(skipAmount)
+      .limit(pageSize)
       .populate("tags", "_id name")
       .populate("author", "_id clerkId name picture");
-    return { totalQuestion, questions: userQuestions };
+    const isNext = totalQuestion > skipAmount + userQuestions.length;
+    return { totalQuestion, questions: userQuestions, isNext };
   } catch (error) {
     console.error("user.action.ts: getUserQuestion: error: ", error);
   }
@@ -246,12 +250,18 @@ export async function getUserAnswers(params: GetUserStatsParams) {
   try {
     await connectToDatabase();
     const { userId, page = 1, pageSize = 10 } = params;
+    const skipAmount = (page - 1) * pageSize;
     const totalAnswers = await Answer.countDocuments({ author: userId });
+
     const userAnswers = await Answer.find({ author: userId })
       .sort({ upvotes: -1 })
+      .skip(skipAmount)
+      .limit(pageSize)
       .populate("question", "_id title")
       .populate("author", "_id clerkId name picture");
-    return { totalAnswers, answers: userAnswers };
+      
+    const isNext = totalAnswers > skipAmount + userAnswers.length;
+    return { totalAnswers, answers: userAnswers, isNext };
   } catch (error) {
     console.error("user.action.ts: getUserAnswers: error: ", error);
   }
