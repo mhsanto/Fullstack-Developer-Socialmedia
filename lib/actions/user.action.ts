@@ -234,7 +234,7 @@ export async function getUserQuestion(params: GetUserStatsParams) {
     const skipAmount = (page - 1) * pageSize;
     const totalQuestion = await Question.countDocuments({ author: userId });
     const userQuestions = await Question.find({ author: userId })
-      .sort({ views: -1, upvotes: -1 })
+      .sort({ createdAt: -1, views: -1, upvotes: -1 })
       .skip(skipAmount)
       .limit(pageSize)
       .populate("tags", "_id name")
@@ -259,7 +259,7 @@ export async function getUserAnswers(params: GetUserStatsParams) {
       .limit(pageSize)
       .populate("question", "_id title")
       .populate("author", "_id clerkId name picture");
-      
+
     const isNext = totalAnswers > skipAmount + userAnswers.length;
     return { totalAnswers, answers: userAnswers, isNext };
   } catch (error) {

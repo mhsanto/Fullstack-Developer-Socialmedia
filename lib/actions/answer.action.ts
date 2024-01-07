@@ -11,6 +11,7 @@ import {
 import Question from "@/databases/question.modal";
 import { revalidatePath } from "next/cache";
 import Interaction from "@/databases/interaction.model";
+import User from "@/databases/user.model";
 
 export async function createAnswer(params: CreateAnswerParams) {
   try {
@@ -18,10 +19,19 @@ export async function createAnswer(params: CreateAnswerParams) {
     const { content, author, question, path } = params;
     const newAnswer = await Answer.create({ content, author, question });
 
-    await Question.findByIdAndUpdate(question, {
+    const questionObj = await Question.findByIdAndUpdate(question, {
       $push: { answers: newAnswer._id },
     });
 
+    await Interaction.create({
+      user: author,
+      action: "answer",
+      question,
+      answer: newAnswer._id,
+      tags: questionObj.tags,
+    });
+    //increase user reputation by 10 points
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 10 } });
     revalidatePath(path);
   } catch (error) {
     console.error(`Error creating answer: ${error}`);
@@ -93,14 +103,14 @@ export async function upVoteAnswer(params: AnswerVoteParams) {
     if (!answer) {
       console.error("Answer not found");
     }
-
-    // await User.findByIdAndUpdate(userId, {
-    //   $inc: { reputation: hasUpvoted ? -1 : 1 },
-    // });
-
-    // await User.findByIdAndUpdate(question.author, {
-    //   $inc: { reputation: hasUpvoted ? -10 : 10 },
-    // });
+//increase user reputation by 2 points
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasUpvoted ? -2 : 2},
+    });
+//increase question author reputation by 10 points
+    await User.findByIdAndUpdate(answer.author, {
+      $inc: { reputation: hasUpvoted ? -10 : 10 },
+    });
 
     revalidatePath(path);
   } catch (error) {
@@ -135,14 +145,14 @@ export async function downVoteAnswer(params: AnswerVoteParams) {
     if (!answer) {
       console.error("Answer not found");
     }
-
-    // await User.findByIdAndUpdate(userId, {
-    //   $inc: { reputation: hasUpvoted ? -1 : 1 },
-    // });
-
-    // await User.findByIdAndUpdate(question.author, {
-    //   $inc: { reputation: hasUpvoted ? -10 : 10 },
-    // });
+//increase user reputation by 1 point
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasUpvoted ? -2 : 2 },
+    });
+//increase question author reputation by 10 points
+    await User.findByIdAndUpdate(answer.author, {
+      $inc: { reputation: hasUpvoted ? -10 : 10 },
+    });
 
     revalidatePath(path);
   } catch (error) {
