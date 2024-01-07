@@ -11,7 +11,7 @@ const HomeFilters = () => {
   const [active, setActive] = useState("");
 
   const router = useRouter();
-  const query = searchParams.get("value");
+
 
   const handleClicked = (value: string) => {
     if (active === value) {

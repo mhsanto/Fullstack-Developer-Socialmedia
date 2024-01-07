@@ -6,6 +6,7 @@ import Image from "next/image";
 import { getTimeStamp } from "@/lib/utils";
 import ParseHtml from "./parse-html";
 import Voting from "./voting";
+import Pagination from "./pagination";
 
 type AllAnswersProps = {
   questionId: string;
@@ -75,6 +76,12 @@ const AllAnswers: React.FC<AllAnswersProps> = async ({
           </article>
         ))}
       </div>
+      <div className="mt-10">
+        <Pagination
+          pageNumber={page ? +page : 1}
+          isNext={result?.isNext || false}
+        />
+        </div>
     </div>
   );
 };
