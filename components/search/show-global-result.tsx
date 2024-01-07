@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import GlobalSearchFilters from "./global-search-filter";
+import { globalSearch } from "@/lib/actions/global.action";
 
 const ShowGlobalResult = () => {
   const searchParams = useSearchParams();
@@ -21,7 +22,8 @@ const ShowGlobalResult = () => {
   const type = searchParams.get("type");
   useEffect(() => {
     const fetchResult = async () => {
-      setResult([]);
+      const res = await globalSearch({ query: global, type });
+      setResult(JSON.parse(res!));
       setIsLoading(true);
       try {
       } catch (error) {
@@ -30,10 +32,25 @@ const ShowGlobalResult = () => {
         setIsLoading(false);
       }
     };
+    if (global) {
+      fetchResult();
+    }
   }, [global, type]);
 
   const renderLink = (type: string, id: string) => {
-    return "";
+    switch (type) {
+      case "question":
+        return `/question/${id}`;
+      case "answer":
+        return `/question/${id}`;
+      case "user":
+        return `/profile/${id}`;
+      case "tag":
+        return `/tags/${id}`;
+
+      default:
+        return "/";
+    }
   };
   return (
     <div className="absolute top-full z-10 mt-3 w-full rounded-xl bg-light-900 py-5 shadow-sm dark:bg-dark-400  dark:text-light-900">
@@ -57,7 +74,7 @@ const ShowGlobalResult = () => {
             {result.length > 0 ? (
               result.map((item, index) => (
                 <Link
-                  href={renderLink("type", "id")}
+                  href={renderLink(item.type, item.id)}
                   key={item.type + item.id + index}
                   className="flex w-full cursor-pointer items-start gap-3 px-5 py-3 hover:bg-light-800/50 dark:hover:bg-dark-500/50 rounded-xl"
                 >
