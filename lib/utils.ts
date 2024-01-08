@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
+import { BADGE_CRITERIA } from "@/constants";
+import { BadgeCounts } from "@/types";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -104,3 +106,30 @@ export function removeKeysFromQuery({
     }
   );
 }
+//a function assignBadges that calculates how many badges of each type (GOLD, SILVER, BRONZE) should be assigned based on certain criteria.
+type BadegeParams = {
+  criteria: Array<{
+    type: keyof typeof BADGE_CRITERIA;
+    count: number;
+  }>;
+};
+
+export const assignBadges = (params: BadegeParams) => {
+  const badgeCounts: BadgeCounts = {
+    GOLD: 0,
+    SILVER: 0,
+    BRONZE: 0,
+  };
+  const { criteria } = params;
+
+  criteria.forEach((element) => {
+    const { type, count } = element;
+    const badgeLevels = BADGE_CRITERIA[type];
+    Object.keys(badgeLevels).forEach((badgeLevel) => {
+      const badgeCriteria = badgeLevels[badgeLevel as keyof BadgeCounts];
+      if (count >= badgeCriteria) {
+        badgeCounts[badgeLevel as keyof BadgeCounts] += 1;
+      }
+    });
+  });
+};
