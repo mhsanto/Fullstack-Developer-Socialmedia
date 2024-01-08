@@ -71,8 +71,10 @@ const ProfilePage = async ({ params: { id }, searchParams }: URLProps) => {
       </div>
 
       <Stats
+        reputation={userInfo?.reputation}
         totalQuestions={userInfo?.totalQuestions}
         totalAnswers={userInfo?.totalAnswers}
+        badges={userInfo?.badgeCounts!}
       />
       <div className="mt-10 flex gap-10">
         <Tabs defaultValue="top-posts" className="flex-1 text-dark200_light900">
@@ -92,15 +94,16 @@ const ProfilePage = async ({ params: { id }, searchParams }: URLProps) => {
             />
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
-            <AnswersTab searchParams={searchParams}
+            <AnswersTab
+              searchParams={searchParams}
               clerkId={userId!}
-              userId={userInfo?.user.id}/>
-               </TabsContent>
+              userId={userInfo?.user.id}
+            />
+          </TabsContent>
         </Tabs>
       </div>
     </>
   );
 };
- 
 
 export default ProfilePage;
