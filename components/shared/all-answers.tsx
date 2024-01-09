@@ -29,9 +29,10 @@ const AllAnswers: React.FC<AllAnswersProps> = async ({
   });
   return (
     <div className="mt-11">
-      <div className="flex items-center justify-between">
-        <h3 className="text-blue-500">{totalAnswers} Answers</h3>
-        <SelectFilter filters={AnswerFilters} />
+  <div className="flex items-center justify-between">
+        <h3 className="primary-text-gradient">{totalAnswers} Answers</h3>
+
+        <SelectFilter filters={AnswerFilters} containerClasses="hidden max-md:flex" />
       </div>
       <div>
         {result?.answers.map((answer) => (

@@ -23,6 +23,7 @@ export async function POST(req: Request, res: Response) {
     });
     const responseJson = await response.json();
     const reply = responseJson.choices[0].message.content;
+    console.log(response);
     return NextResponse.json({ reply });
   } catch (error) {
     console.log(` Post Route Error ${error}`);
