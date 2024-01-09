@@ -17,6 +17,8 @@ const StateCard = ({
   title: string;
   value: number;
 }) => {
+  console.log("value", value);
+
   return (
     <div className="light-border background-light900_dark300 flex flex-wrap items-center justify-start gap-3 rounded-md border p-6 shadow-light-200 dark:shadow-dark-200 ">
       <Image src={imgUrl} width={40} height={40} alt={title} />
@@ -32,10 +34,12 @@ const Stats: React.FC<StatsProps> = ({
   badges,
   reputation,
 }) => {
+  console.log("na", badges);
+  
   return (
     <div className="mt-10">
       <h3 className="h3-semibold text-dark200_light900 ">
-        Stats- {reputation}
+        Stats - {reputation}
       </h3>
       <div className="mt-5 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-5">
         <div className="light-border background-light900_dark300 flex flex-wrap items-center justify-evenly gap-4 rounded-md border p-6 shadow-light-200 dark:shadow-dark-200 ">
@@ -54,17 +58,17 @@ const Stats: React.FC<StatsProps> = ({
         </div>
         <StateCard
           imgUrl="/assets/icons/prime_badge.svg"
-          value={badges.GOLD}
+          value={badges?.GOLD}
           title="Master Badge"
         />
         <StateCard
           imgUrl="/assets/icons/silver_badge.svg"
-          value={badges.SILVER}
+          value={badges?.SILVER}
           title="Silver Badge"
         />
         <StateCard
           imgUrl="/assets/icons/bronze_badge.svg"
-          value={badges.BRONZE}
+          value={badges?.BRONZE}
           title="Bronze Badge"
         />
       </div>

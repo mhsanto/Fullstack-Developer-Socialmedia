@@ -18,6 +18,7 @@ import { useTheme } from "@/context/theme-provider";
 import { Button } from "../ui/button";
 import { createAnswer } from "@/lib/actions/answer.action";
 import { usePathname } from "next/navigation";
+import { StarOffIcon } from "lucide-react";
 type AnswerFormProps = {
   authorId: string;
   question: string;
@@ -29,6 +30,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({
   questionId,
 }) => {
   const [submitting, setSubmitting] = useState(false);
+  const [isSubmittinAI, setIsSubmittinAI] = useState(false);
   const path = usePathname();
   const editorRef = useRef(null);
   const { mode } = useTheme();
@@ -50,21 +52,42 @@ const AnswerForm: React.FC<AnswerFormProps> = ({
       form.reset();
       if (editorRef.current) {
         const editor = editorRef.current as any;
-        editor.setContent("")
+        editor.setContent("");
       }
     } catch (error) {
-      console.log(`answer-form.tsx: ${error}`)
-      
+      console.log(`answer-form.tsx: ${error}`);
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const generateAIFunction = async () => {
+    if (!authorId) return;
+    setIsSubmittinAI(true);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
+        {
+          method: "POST",
+          body: JSON.stringify({ question }),
+        }
+      );
+
+      const aiAnswer = await res.json();
+      alert(aiAnswer.reply);
+    } catch (error) {
+      console.error(`answer-form generateAiFunction ${error}`);
     }
   };
   return (
     <div>
       <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
         <div className="paragraph dark:text-light-900"></div>
-        <Button className="btn light-border-2 gap-1.5 rounded-md px-4 py-2 shadow-none dark:text-light-900  font-semibold">
-          Generate Using AI
+        <Button
+          className="btn light-border-2 gap-1.5 rounded-md px-4 py-2 shadow-none dark:text-light-900  font-semibold"
+          onClick={generateAIFunction}
+        >
+          <StarOffIcon size={12} /> Generate Using AI
         </Button>
       </div>
 
@@ -78,7 +101,12 @@ const AnswerForm: React.FC<AnswerFormProps> = ({
             name="answer"
             render={({ field }) => (
               <FormItem className="flex w-full flex-col gap-3">
-                <FormLabel className="dark:text-light-900 text-lg" htmlFor="answer">Your Answer</FormLabel>
+                <FormLabel
+                  className="dark:text-light-900 text-lg"
+                  htmlFor="answer"
+                >
+                  Your Answer
+                </FormLabel>
                 <FormControl className="mt-3.5">
                   {/* todo add an editor component */}
                   <Editor
@@ -130,7 +158,6 @@ const AnswerForm: React.FC<AnswerFormProps> = ({
             <Button
               type="submit"
               className="bg-primary-500/80 dark:text-light-900"
-
             >
               {submitting ? "Posting Your Answer..." : "Post Your Answer"}
             </Button>

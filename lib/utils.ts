@@ -108,10 +108,10 @@ export function removeKeysFromQuery({
 }
 //a function assignBadges that calculates how many badges of each type (GOLD, SILVER, BRONZE) should be assigned based on certain criteria.
 type BadegeParams = {
-  criteria: Array<{
+  criteria:{
     type: keyof typeof BADGE_CRITERIA;
     count: number;
-  }>;
+  }[];
 };
 
 export const assignBadges = (params: BadegeParams) => {
@@ -124,12 +124,13 @@ export const assignBadges = (params: BadegeParams) => {
 
   criteria.forEach((element) => {
     const { type, count } = element;
-    const badgeLevels = BADGE_CRITERIA[type];
+    const badgeLevels:any = BADGE_CRITERIA[type];
     Object.keys(badgeLevels).forEach((badgeLevel) => {
-      const badgeCriteria = badgeLevels[badgeLevel as keyof BadgeCounts];
-      if (count >= badgeCriteria) {
+      
+      if (count >= badgeLevels[badgeLevel]) {
         badgeCounts[badgeLevel as keyof BadgeCounts] += 1;
       }
     });
   });
+  return badgeCounts
 };

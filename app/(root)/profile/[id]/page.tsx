@@ -14,6 +14,7 @@ import Image from "next/image";
 const ProfilePage = async ({ params: { id }, searchParams }: URLProps) => {
   const { userId } = auth();
   const userInfo = await getUserInfo({ userId: id });
+  console.log(userInfo);
   return (
     <>
       <div className="flex flex-col-reverse items-start justify-between sm:flex-row dark:text-light-900">
