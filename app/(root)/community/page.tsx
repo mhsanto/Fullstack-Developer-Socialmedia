@@ -7,8 +7,12 @@ import { getAllUsers } from "@/lib/actions/user.action";
 import { SearchCode } from "lucide-react";
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/pagination";
-import CommunityLoadingPage from "./loading";
-
+import { Metadata } from "next";
+export const metaData: Metadata = {
+  title: "Community | Developer Medium",
+  description:
+    "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
+};
 const Community = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUsers({
     searchQuery: searchParams.value,

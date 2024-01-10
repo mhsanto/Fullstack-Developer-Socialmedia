@@ -8,7 +8,12 @@ import { SearchParamsProps } from "@/types";
 import SelectFilter from "@/components/filters/select-filter";
 import { QuestionFilters } from "@/constants/filters";
 import Pagination from "@/components/shared/pagination";
-
+import { Metadata } from "next";
+export const metaData: Metadata = {
+  title: "Collection | Developer Medium",
+  description:
+    "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
+};
 const Home = async ({ searchParams }: SearchParamsProps) => {
   const { userId } = auth();
   if (!userId) return null;

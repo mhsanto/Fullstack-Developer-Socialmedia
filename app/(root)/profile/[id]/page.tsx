@@ -9,8 +9,13 @@ import { getJoinedDate } from "@/lib/utils";
 import { URLProps } from "@/types";
 import { SignedIn, auth } from "@clerk/nextjs";
 import { CalendarCheck, Link, LocateIcon } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
-
+export const metaData: Metadata = {
+  title: "User Profile | Developer Medium",
+  description:
+    "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
+};
 const ProfilePage = async ({ params: { id }, searchParams }: URLProps) => {
   const { userId } = auth();
   const userInfo = await getUserInfo({ userId: id });

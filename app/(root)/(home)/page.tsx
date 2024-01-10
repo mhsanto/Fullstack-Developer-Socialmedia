@@ -10,7 +10,13 @@ import QuestionCard from "@/components/card/question-card";
 
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/pagination";
+import { Metadata } from "next";
 
+export const metaData: Metadata = {
+  title: "Home | Developer Medium",
+  description:
+    "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
+};
 const Home = async ({ searchParams }: SearchParamsProps) => {
   const result = await getQuestions({
     searchQuery: searchParams?.value,
@@ -75,12 +81,12 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
         )}
       </div>
       {/* filters by user selection */}
-    <div className="mt-10">
-    <Pagination
-        pageNumber={searchParams.page ? +searchParams.page : 1}
-        isNext={result?.isNext || false}
-      />
-    </div>
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams.page ? +searchParams.page : 1}
+          isNext={result?.isNext || false}
+        />
+      </div>
     </>
   );
 };

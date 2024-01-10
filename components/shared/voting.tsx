@@ -7,14 +7,10 @@ import {
 } from "@/lib/actions/question.action";
 import { toggleSavedQuestion } from "@/lib/actions/user.action";
 import { cn, formatAndDivideNumber } from "@/lib/utils";
-import {
-  Bookmark,
-  Heart,
-  HeartCrack,
-
-} from "lucide-react";
+import { Bookmark, Heart, HeartCrack } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { toast } from "../ui/use-toast";
 
 type VotingProps = {
   type: string;
@@ -43,11 +39,21 @@ const Voting: React.FC<VotingProps> = ({
       questionId: JSON.parse(itemId),
       userId: JSON.parse(userId),
       path,
-
-    })
+    });
+    return toast({
+      title: `Question ${
+        !hasSaved ? "Successfully" : "Removed from collection"
+      }`,
+      variant: !hasSaved ? "default" : "destructive",
+    });
   };
   const handleVote = async (action: string) => {
-    if (!userId) return;
+    if (!userId) {
+      return toast({
+        title: "Please Sign in using Sign in button",
+        description: "You must be logged in user to use this feature",
+      });
+    }
 
     if (action === "upvotes") {
       if (type === "Question") {
@@ -58,6 +64,10 @@ const Voting: React.FC<VotingProps> = ({
           hasDownvoted,
           path,
         });
+        return toast({
+          title: `Upvote Question ${!hasUpvoted ? "Successful" : "Removed"}`,
+          variant: !hasUpvoted ? "default" : "destructive",
+        });
       } else if (type === "Answer") {
         await upVoteAnswer({
           answerId: JSON.parse(itemId),
@@ -66,12 +76,11 @@ const Voting: React.FC<VotingProps> = ({
           hasDownvoted,
           path,
         });
+        return toast({
+          title: `Upvoted Answer ${!hasUpvoted ? "Successful" : "Removed"}`,
+          variant: !hasUpvoted ? "default" : "destructive",
+        });
       }
-
-      // return toast({
-      //   title: `Upvote ${!hasUpvoted ? "Successful" : "Removed"}`,
-      //   variant: !hasupVoted ? "default" : "destructive",
-      // });
     }
 
     if (action === "downvotes") {
@@ -83,6 +92,10 @@ const Voting: React.FC<VotingProps> = ({
           hasDownvoted,
           path,
         });
+        return toast({
+          title: `Downvoted Question ${!hasUpvoted ? "Successful" : "Removed"}`,
+          variant: !hasUpvoted ? "default" : "destructive",
+        });
       } else if (type === "Answer") {
         await downVoteAnswer({
           answerId: JSON.parse(itemId),
@@ -91,21 +104,19 @@ const Voting: React.FC<VotingProps> = ({
           hasDownvoted,
           path,
         });
+        return toast({
+          title: `Downvoted Answer ${!hasUpvoted ? "Successful" : "Removed"}`,
+          variant: !hasUpvoted ? "default" : "destructive",
+        });
       }
-
-      // return toast({
-      //   title: `Downvote ${!hasdownVoted ? "Successful" : "Removed"}`,
-      //   variant: !hasupVoted ? "default" : "destructive",
-      // });
     }
   };
   useEffect(() => {
-
     createInteraction({
       questionId: JSON.parse(itemId),
-      userId: userId ? JSON.parse(userId) : undefined
-    })
-  }, [itemId, userId, path, router])
+      userId: userId ? JSON.parse(userId) : undefined,
+    });
+  }, [itemId, userId, path, router]);
   return (
     <div className="flex gap-5">
       <div className="flex-center gap-2.5">
