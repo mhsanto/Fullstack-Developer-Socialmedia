@@ -2,7 +2,6 @@ import Navbar from "@/components/nav/nav";
 import LeftSidebar from "@/components/sidebar/leftsidebar";
 import RightSidebar from "@/components/sidebar/rightsidebar";
 import React from "react";
-
 const LayoutDesign = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className=" background-light850_dark100 relative">
@@ -16,7 +15,7 @@ const LayoutDesign = ({ children }: { children: React.ReactNode }) => {
   
       </div>
       {/* toaster */}
-      
+
     </main>
   );
 };

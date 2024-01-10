@@ -42,7 +42,7 @@ const Voting: React.FC<VotingProps> = ({
     });
     return toast({
       title: `Question ${
-        !hasSaved ? "Successfully" : "Removed from collection"
+        !hasSaved ? " added to collection successfully" : "Removed from collection"
       }`,
       variant: !hasSaved ? "default" : "destructive",
     });
@@ -65,7 +65,9 @@ const Voting: React.FC<VotingProps> = ({
           path,
         });
         return toast({
-          title: `Upvote Question ${!hasUpvoted ? "Successful" : "Removed"}`,
+          title: `Upvoted  ${
+            !hasUpvoted ? "Question Successfully" : "Removed"
+          }`,
           variant: !hasUpvoted ? "default" : "destructive",
         });
       } else if (type === "Answer") {
@@ -77,7 +79,7 @@ const Voting: React.FC<VotingProps> = ({
           path,
         });
         return toast({
-          title: `Upvoted Answer ${!hasUpvoted ? "Successful" : "Removed"}`,
+          title: !hasUpvoted ? "Upvoted Answer Successful" : "Upvote Removed",
           variant: !hasUpvoted ? "default" : "destructive",
         });
       }
@@ -93,7 +95,9 @@ const Voting: React.FC<VotingProps> = ({
           path,
         });
         return toast({
-          title: `Downvoted Question ${!hasUpvoted ? "Successful" : "Removed"}`,
+          title: !hasUpvoted
+            ? "Downvoted Question Successful"
+            : "Downvote Removed",
           variant: !hasUpvoted ? "default" : "destructive",
         });
       } else if (type === "Answer") {
@@ -105,7 +109,9 @@ const Voting: React.FC<VotingProps> = ({
           path,
         });
         return toast({
-          title: `Downvoted Answer ${!hasUpvoted ? "Successful" : "Removed"}`,
+          title: !hasUpvoted
+            ? "Downvoted Answer Successful"
+            : "Downvote Removed",
           variant: !hasUpvoted ? "default" : "destructive",
         });
       }

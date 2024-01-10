@@ -17,7 +17,7 @@ const ThemeSwitcher = () => {
   return (
     <Menubar className="bg-transparent shadow-none relative border-0 outline-none">
       <MenubarMenu>
-        <MenubarTrigger >
+        <MenubarTrigger>
           {mode === "light" ? (
             <Image
               src="/assets/icons/lightmode.svg"
@@ -36,7 +36,7 @@ const ThemeSwitcher = () => {
             />
           )}
         </MenubarTrigger>
-        <MenubarContent>
+        <MenubarContent className="bg-light-900 dark:border-dark-400 dark:bg-dark-300">
           {themes.map((theme) => (
             <MenubarItem
               key={theme.id}

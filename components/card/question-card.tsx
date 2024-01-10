@@ -21,9 +21,9 @@ const QuestionCard: React.FC<QuestionProps> = ({
 }) => {
   const showActionButtons = clerkId && clerkId === author.clerkId;
   return (
-    <>
-      <div className="dark:text-white background-light800_darkgradient p-7 border-b-1 mb-2 shadow-md dark:shadow-none rounded-lg">
-        <div className="user_avatar flex  items-center gap-1.5 pb-5">
+    <div className="dark:text-white background-light800_darkgradient p-7 border-b-1 shadow-sm dark:shadow-none rounded-lg mb-4 w-full">
+      <div className="flex flex-col">
+        <div className="user_avatar flex  items-center justify-between gap-1.5 pb-5 w-full">
           <Metric
             imgUrl={author.picture}
             value={author.name}
@@ -32,29 +32,22 @@ const QuestionCard: React.FC<QuestionProps> = ({
             isAuthor={true}
             textStyles="body-medium text-dark500_light700"
           />
-          <div className="flex items-center gap-2">
-            {tags.map((tag) => (
-              <Tags
-                key={tag._id}
-                _id={tag._id}
-                name={tag.name}
-                variant="outline"
-                customClasses="text-xs"
-              />
-            ))}
-          </div>
+          <SignedIn>
+            {showActionButtons && (
+              <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
+            )}
+          </SignedIn>
         </div>
-        <Link href={`/question/${_id}`} className="flex flex-col">
-          <h3 className="h3-bold pb-3">{title}</h3>
-        </Link>
+        <div>
+          <Link href={`/question/${_id}`} className="h3-bold pb-3">
+            {title}
+          </Link>
+        </div>
       </div>
-      <SignedIn>
-        {showActionButtons && (
-          <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
-        )}
-      </SignedIn>
-      <div className="flex gap-3 w-full pt-6">
-        <Metric
+
+      <div className="flex items-center gap-3 pt-6 justify-between w-full">
+       <div className="flex items-center gap-3">
+       <Metric
           icon={<Heart size={20} />}
           value={upvotes.length}
           title=" Up Votes"
@@ -72,8 +65,20 @@ const QuestionCard: React.FC<QuestionProps> = ({
           title=" Answers"
           textStyles="small-medium text-dark500_light700"
         />
+       </div>
+        <div className="flex items-center gap-2">
+          {tags.map((tag) => (
+            <Tags
+              key={tag._id}
+              _id={tag._id}
+              name={tag.name}
+              variant="outline"
+              customClasses="text-xs"
+            />
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

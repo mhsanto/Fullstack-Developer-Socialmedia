@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/context/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
@@ -36,6 +37,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
           <ThemeProvider>{children}</ThemeProvider>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
