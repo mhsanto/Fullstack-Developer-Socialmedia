@@ -7,6 +7,7 @@ import { getAllUsers } from "@/lib/actions/user.action";
 import { SearchCode } from "lucide-react";
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/pagination";
+import CommunityLoadingPage from "./loading";
 
 const Community = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUsers({
@@ -14,6 +15,7 @@ const Community = async ({ searchParams }: SearchParamsProps) => {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
+
   return (
     <>
       <h1 className="h1-bold dark:text-white">Community </h1>

@@ -30,8 +30,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({
   questionId,
 }) => {
   const [submitting, setSubmitting] = useState(false);
-  const [isSubmittinAI, setIsSubmittinAI] = useState(false);
-  const path = usePathname();
+   const path = usePathname();
   const editorRef = useRef(null);
   const { mode } = useTheme();
   const form = useForm<z.infer<typeof AnswerSchema>>({
@@ -61,36 +60,10 @@ const AnswerForm: React.FC<AnswerFormProps> = ({
     }
   };
 
-  const generateAIFunction = async () => {
-    if (!authorId) return;
-    setIsSubmittinAI(true);
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
-        {
-          method: "POST",
-          body: JSON.stringify({ question }),
-        }
-      );
-
-      const aiAnswer = await res.json();
-      alert(aiAnswer.reply);
-    } catch (error) {
-      console.error(`answer-form generateAiFunction ${error}`);
-    }
-  };
+ 
   return (
-    <div>
-      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
-        <div className="paragraph dark:text-light-900"></div>
-        <Button
-          className="btn light-border-2 gap-1.5 rounded-md px-4 py-2 shadow-none dark:text-light-900  font-semibold"
-          onClick={generateAIFunction}
-        >
-          <StarOffIcon size={12} /> Generate Using AI
-        </Button>
-      </div>
 
+      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
       <Form {...form}>
         <form
           className="mt-6 flex w-full flex-col gap-10"
@@ -105,7 +78,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({
                   className="dark:text-light-900 text-lg"
                   htmlFor="answer"
                 >
-                  Your Answer
+                  Write Your Answer Here
                 </FormLabel>
                 <FormControl className="mt-3.5">
                   {/* todo add an editor component */}
