@@ -27,7 +27,7 @@ const NavContent = () => {
               href={link.route}
               className={cn(
                 isActive
-                  ? "bg-blue-500/70 text-light-900  rounded-lg hover:ring-0 "
+                  ? "bg-blue-500/80 text-light-900  rounded-lg hover:ring-0 "
                   : "text-dark300_light900 bg-transparent",
                 "flex items-center justify-start gap-3  py-3 px-3 hover:ring-2 rounded-lg "
               )}
@@ -63,7 +63,7 @@ const MobileNav = () => {
           width={20}
           height={20}
           alt="Menu"
-          className="invert cursor-pointer"
+          className="invert cursor-pointer sm:hidden"
         />
       </SheetTrigger>
       <SheetContent
