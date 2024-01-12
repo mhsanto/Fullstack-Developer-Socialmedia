@@ -10,8 +10,12 @@ import { auth } from "@clerk/nextjs";
 import { Clock, EyeIcon, Heart, LucideGitCommit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { SearchParamsProps } from "@/types";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Question | Developer Medium",
+  description:
+    "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
+};
 type QuestionPageProps = {
   params: {
     id: string;

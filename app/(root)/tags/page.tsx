@@ -8,7 +8,12 @@ import { SearchCode } from "lucide-react";
 import Link from "next/link";
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/pagination";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Question | Developer Medium",
+  description:
+    "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
+};
 const TagsPage = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllTags({
     searchQuery: searchParams.value,

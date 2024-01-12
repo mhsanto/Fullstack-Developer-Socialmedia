@@ -5,24 +5,43 @@ import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import { SearchCode } from "lucide-react";
 import Link from "next/link";
-import { getQuestions } from "@/lib/actions/question.action";
+import {
+  getQuestions,
+  getRecommendedQuestions,
+} from "@/lib/actions/question.action";
 import QuestionCard from "@/components/card/question-card";
 
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/pagination";
 import { Metadata } from "next";
+import { auth } from "@clerk/nextjs";
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: "Home | Developer Medium",
   description:
     "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
 };
 const Home = async ({ searchParams }: SearchParamsProps) => {
-  const result = await getQuestions({
-    searchQuery: searchParams?.value,
-    filter: searchParams?.filter,
-    page: searchParams.page ? +searchParams.page : 1,
-  });
+  const { userId } = auth();
+  let result;
+  if (searchParams.filter === "recommended") {
+    if (userId) {
+      result = await getRecommendedQuestions({
+        searchQuery: searchParams?.value,
+
+        page: searchParams.page ? +searchParams.page : 1,
+        userId,
+      });
+    } else {
+      result = { questions: [], isNext: false };
+    }
+  } else {
+    result = await getQuestions({
+      searchQuery: searchParams?.value,
+      filter: searchParams?.filter,
+      page: searchParams.page ? +searchParams.page : 1,
+    });
+  }
 
   //fetch reccomended questions
   return (

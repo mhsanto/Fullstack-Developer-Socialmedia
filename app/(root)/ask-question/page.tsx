@@ -1,9 +1,14 @@
 import QuestionAskSection from "@/components/forms/question-ask-form";
 import { getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
+import { Metadata } from "next";
 
 import { redirect } from "next/navigation";
-
+export const metadata: Metadata = {
+  title: "Ask Question | Developer Medium",
+  description:
+    "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
+};
 const AskQuestion = async () => {
   const { userId } =  auth();
   if (!userId) redirect("/sign-in");
