@@ -9,10 +9,7 @@ import { formUrlQuery } from "@/lib/utils";
 const HomeFilters = () => {
   const searchParams = useSearchParams();
   const [active, setActive] = useState("");
-
   const router = useRouter();
-
-
   const handleClicked = (value: string) => {
     if (active === value) {
       setActive("");

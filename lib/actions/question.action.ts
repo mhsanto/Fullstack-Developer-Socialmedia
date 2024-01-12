@@ -10,6 +10,7 @@ import {
   GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams,
+  RecommendedParams,
 } from "./shared.types";
 import User from "@/databases/user.model";
 import { revalidatePath } from "next/cache";
@@ -257,5 +258,55 @@ export async function getHotQuestions() {
     return hotQuestions;
   } catch (error) {
     console.log("QUestion.action.ts: hotQuestions: error: ", error);
+  }
+}
+// get recommended questions
+
+export async function getRecommendedQuestions(params: RecommendedParams) {
+  try {
+    await connectToDatabase();
+    const { userId, page = 1, pageSize = 20, searchQuery } = params;
+    const user = await User.findOne({ clerkId: userId });
+    if (!user) throw new Error("User not found");
+    const skipAmount = (page - 1) * pageSize;
+
+    //FIND THE USER INTERACTIONS
+    const userInteractions = await Interaction.find({ user: user._id })
+      .populate("tags")
+      .exec();
+    //EXTRACT TAGS FROM USER'S INTERACTIONS
+    const userTags = userInteractions.reduce((tags, interaction) => {
+      if (interaction.tags) {
+        tags = tags.concat(interaction.tags);
+      }
+      return tags;
+    }, []);
+    //get distinct tag ids from user's interactions
+    const distinctUserTagsIds = [
+      ...new Set(userTags.map((tag: any) => tag._id)),
+    ];
+    const query: FilterQuery<typeof Question> = {
+      $and: [
+        { tags: { $in: distinctUserTagsIds } }, //Questions user's tags
+        { author: { $ne: user._id } }, //Exclude user's own questions]
+      ],
+    };
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: searchQuery, $options: "i" } },
+        { content: { $regex: searchQuery, $options: "i" } },
+      ];
+    }
+    const totalQuestions = await Question.countDocuments(query);
+    const recommendedQuestions = await Question.find(query)
+      .populate({ path: "tags", model: Tag })
+      .populate({ path: "author", model: User })
+      .skip(skipAmount)
+      .limit(pageSize)
+      .sort({ createdAt: -1 });
+    const isNext = totalQuestions > skipAmount + recommendedQuestions.length;
+    return { questions: recommendedQuestions, isNext };
+  } catch (error) {
+    console.log("QUestion.action.ts:  hotQuestions: error: ", error);
   }
 }

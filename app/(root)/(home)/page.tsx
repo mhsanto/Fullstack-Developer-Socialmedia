@@ -28,7 +28,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
   return (
     <>
       <div className="dark:text-white w-full flex justify-between flex-col-reverse sm:flex-row sm:items-center">
-        <h2 className="h2-bold">Hot Topics </h2>
+        <h2 className="h2-bold">Hot Topics</h2>
         <Link
           href={`/ask-question`}
           className="bg-primary-500/80
@@ -41,7 +41,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
           </Button>
         </Link>
       </div>
-      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 ">
+      <div className="mt-10 flex justify-between flex-col max-md:flex-row max-md:flex-wrap sm:items-start  gap-3 ">
         <LocalSearchBar
           route="/"
           iconsPosition="left"
