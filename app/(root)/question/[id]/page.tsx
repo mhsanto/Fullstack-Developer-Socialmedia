@@ -10,12 +10,20 @@ import { auth } from "@clerk/nextjs";
 import { Clock, EyeIcon, Heart, LucideGitCommit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Question | Developer Medium",
-  description:
-    "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
+
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
+export async function generateMetadata({ params }: Props) {
+  const result = await getQuestionById({ questionId: params.id });
+
+  return {
+    title: `${result.title} | Developer Medium`,
+    description: result.content,
+  };
+}
+
 type QuestionPageProps = {
   params: {
     id: string;

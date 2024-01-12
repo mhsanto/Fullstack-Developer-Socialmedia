@@ -28,13 +28,13 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
       <div className="dark:text-white w-full flex justify-between flex-col-reverse sm:flex-row sm:items-center">
         <h2 className="h2-bold">Saved Questions</h2>
       </div>
-      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 ">
+      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start flex-wrap gap-3 w-full">
         <LocalSearchBar
           route="/"
           iconsPosition="left"
           searchIcons={<SearchCode className="dark:invert" />}
           placeholder="Search your questions"
-          otherClasses="flex-1"
+          otherClasses="flex-1 w-full"
         />
         <SelectFilter filters={QuestionFilters} otherClasses="hidden max-md:flex" />
       </div>

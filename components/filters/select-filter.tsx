@@ -37,19 +37,19 @@ const SelectFilter: React.FC<SelectFilterProps> = ({
   }
   return (
     <>
-      <div className={cn("relative", containerClasses)}>
+      <div className={cn("relative w-full ", containerClasses)}>
         <Select
           onValueChange={(value) => handleUpdateParams(value)}
           defaultValue={paramFilter || undefined}
-        >
+          >
           <SelectTrigger
             className={cn(
-              "w-[180px] body-regular light-border background-light800_dark300 text-dark500_light700 border px-5 py-2.5",
+              "min-w-[180px] body-regular light-border background-light800_dark300 text-dark500_light700 border px-5  flex-1 ",
               otherClasses
             )}
           >
-            <div className="line-clamp-1 flex-1 text-left">
-              <SelectValue placeholder="Post options" />
+            <div className="line-clamp-1 flex-1 text-left py-4">
+              <SelectValue placeholder="Select your favourite" />
             </div>
           </SelectTrigger>
           <SelectContent className="background-light800_dark300 text-dark500_light700 border-none">

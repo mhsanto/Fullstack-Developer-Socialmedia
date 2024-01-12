@@ -39,7 +39,7 @@ const Metric: React.FC<MetricProps> = ({
         )}
         <p className={cn("text-xs flex items-center gap-2", textStyles)}>
           {value}
-          <span className={`small-regular line-clamp-1 `}>{title}</span>
+          <span className={`small-regular line-clamp-1 hidden xs:flex `}>{title}</span>
         </p>
       </div>
     </>

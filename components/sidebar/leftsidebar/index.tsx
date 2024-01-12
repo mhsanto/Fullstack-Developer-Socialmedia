@@ -12,7 +12,7 @@ const LeftSidebar = () => {
     const pathname = usePathname();
     const { userId } = useAuth()
     return (
-      <section className="flex flex-col h-full gap-3.5 w-full">
+      <section className="flex flex-col h-full gap-4 w-full">
         {sidebarLinks.map((link) => {
           const isActive =
             (pathname.includes(link.route) && link.route.length > 1) ||
@@ -28,20 +28,20 @@ const LeftSidebar = () => {
               href={link.route}
               className={cn(
                 isActive
-                  ? "bg-blue-500/80  rounded-lg "
+                  ? "bg-primary-500/80  rounded-lg "
                   : "bg-transparent ring-0",
                 "flex items-center text-lg justify-start gap-3 py-2 ring-0 shadow-none  px-2.5 hover:ring-2 rounded-lg cursor-pointer "
               )}
             >
               <Image
                 src={link.imgURL}
-                width={20}
-                height={20}
+                width={16}
+                height={16}
                 alt={link.label}
               />
               <p
                 className={cn(
-                  "text-dark-100 dark:text-light-900 font-spaceGrotesk  text-lg max-lg:hidden ",
+                  "text-dark-100 text-lg dark:text-light-900 font-spaceGrotesk  text-xl max-lg:hidden ",
                   isActive ? "text-light-900 font-semibold " : "font-normal"
                 )}
               >

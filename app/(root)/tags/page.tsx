@@ -24,7 +24,7 @@ const TagsPage = async ({ searchParams }: SearchParamsProps) => {
     <>
       <h1 className="h1-bold dark:text-white">Tags</h1>
 
-      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 ">
+      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 flex-wrap">
         <LocalSearchBar
           route="/tags"
           iconsPosition="left"

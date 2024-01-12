@@ -16,7 +16,7 @@ const NavContent = () => {
   const pathname = usePathname();
 
   return (
-    <section className="flex flex-col h-full gap-2 pt-16 pb-8">
+    <section className="flex flex-col h-full gap-3 pt-16 pb-8">
       {sidebarLinks.map((link) => {
         const isActive =
           (pathname.includes(link.route) && link.route.length > 1) ||

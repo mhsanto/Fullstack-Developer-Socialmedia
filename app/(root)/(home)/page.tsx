@@ -66,12 +66,12 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
           iconsPosition="left"
           searchIcons={<SearchCode className="dark:invert" />}
           placeholder="Search your questions"
-          otherClasses="flex-1 "
+          otherClasses="flex-1"
         />
         <SelectFilter
           filters={HomePageFilters}
           otherClasses=""
-          containerClasses="hidden max-md:flex"
+          containerClasses="hidden max-md:flex "
         />
       </div>
       <div className="w-full mt-8">
@@ -79,6 +79,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
           result.questions?.map((question) => (
             <QuestionCard
               key={question._id}
+              
               _id={question._id}
               title={question.title}
               content={question.content}

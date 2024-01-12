@@ -18,10 +18,10 @@ const RightSidebar = async () => {
               href={`/question/${question._id}`}
               className="flex justify-between items-end  w-full"
             >
-              <p className="text-sm font-normal dark:text-light-900 hover:opacity-90">
+              <p className="text-sm font-normal flex items-end gap-2 dark:text-light-900 hover:opacity-90">
                 {question.title}
+                <ArrowRightIcon size={16} className="flex-shrink-0" />
               </p>
-              <ArrowRightIcon />
             </Link>
           ))}
         </div>

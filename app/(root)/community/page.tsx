@@ -9,9 +9,9 @@ import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/pagination";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Home | Developer Medium",
+  title: "Community | Developer Medium",
   description:
-    "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
+    "Welcome to the community page of Developer Medium.Here you can find all the members of this platform and connect with them.",
 };
 const Community = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUsers({
@@ -24,7 +24,7 @@ const Community = async ({ searchParams }: SearchParamsProps) => {
     <>
       <h1 className="h1-bold dark:text-white">Community </h1>
 
-      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 ">
+      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 flex-wrap">
         <LocalSearchBar
           route="/community"
           iconsPosition="left"
@@ -35,7 +35,7 @@ const Community = async ({ searchParams }: SearchParamsProps) => {
         <SelectFilter
           filters={UserFilters}
           otherClasses=""
-          containerClasses="hidden max-md:flex"
+          containerClasses="hidden max-md:flex flex-1"
         />
       </div>
       <section className="mt-12 flex flex-wrap gap-4">
