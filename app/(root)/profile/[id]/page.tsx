@@ -11,71 +11,88 @@ import { SignedIn, auth } from "@clerk/nextjs";
 import { CalendarCheck, Link, LocateIcon } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
-export const metadata: Metadata = {
-  title: "User Profile | Developer Medium",
-  description:
-    "A social media platform for developers.where you share your ideas and thoughts with other developers.Speak what's in your mind no need to worry about what others will think about it",
+// export const metadata: Metadata = {
+//   title: "User Profile | Developer Medium",
+//   description:
+//     "Profile page of a user. See their top posts, answers, badges and more.",
+// };
+export const generateMetadata = async ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+  const userInfo = await getUserInfo({ userId: id });
+  return {
+    title: `${userInfo?.user?.name || "User Profile"} | Developer Medium`,
+    description:
+      userInfo?.user.bio ||
+      "Profile page of a user. See their top posts, answers, badges and more.",
+    image: userInfo?.user.picture,
+  };
 };
 const ProfilePage = async ({ params: { id }, searchParams }: URLProps) => {
   const { userId } = auth();
   const userInfo = await getUserInfo({ userId: id });
-  console.log(userInfo);
+  console.log(`ProfilePage -> userInfo ${userInfo}`);
+
   return (
     <>
-      <div className="flex flex-col-reverse items-start justify-between sm:flex-row dark:text-light-900">
-        <div className="flex flex-col items-start gap-4 lg:flex-row ">
-          <Image
-            src={userInfo?.user.picture}
-            width={200}
-            height={200}
-            alt={userInfo?.user.name || "User Profile Picture"}
-            className="rounded-full object-cover"
-          />
-          <div className="mt-3">
-            <h2 className="h2-bold text-dark100_light900">
-              {userInfo?.user.name}
-            </h2>
-            <p className="paragraph-regular text-dark200_light800">
-              {userInfo?.user.username}
-            </p>
-            <div className="mt-5 flex flex-wrap items-center justify-start gap-1">
-              {userInfo?.user.location && (
-                <ProfileLink
-                  icons={<LocateIcon />}
-                  title={userInfo.user.location}
-                />
+      <div className="flex  items-start justify-between sm:flex-row dark:text-light-900">
+        {/* <div className="flex flex-col items-start gap-4 sm:flex-row"> */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 justify-center gap-4">
+          <div className="flex gap-5 items-center sm:items-start">
+            <Image
+              src={userInfo?.user.picture}
+              width={200}
+              height={200}
+              alt={userInfo?.user.name || "User Profile Picture"}
+              className="rounded-full object-cover"
+            />
+            <div className="mt-3">
+              <h2 className="h2-bold text-dark100_light900">
+                {userInfo?.user.name}
+              </h2>
+              <p className="text-sm text-muted">@{userInfo?.user.username}</p>
+              <div className="mt-2.5 flex flex-wrap items-center justify-start gap-1 ">
+                {userInfo?.user.location && (
+                  <ProfileLink
+                    icons={<LocateIcon size={14} />}
+                    title={userInfo.user.location}
+                  />
+                )}
+                {userInfo?.user.portfolioWebsite && (
+                  <ProfileLink
+                    icons={<Link />}
+                    href={userInfo.user.portfolioWebsite}
+                    title="Portfolio"
+                  />
+                )}
+                {userInfo?.user.joinedAt && (
+                  <ProfileLink
+                    icons={<CalendarCheck size={14} />}
+                    title={`Joined ${getJoinedDate(userInfo?.user.joinedAt)}`}
+                  />
+                )}
+              </div>
+              <div className="mt-5 flex flex-wrap items-center justify-start gap-5"></div>
+              {userInfo?.user.bio && (
+                <p className="paragraph-regular text-dark400_light900 mt-8">
+                  {userInfo?.user.bio}
+                </p>
               )}
-              {userInfo?.user.portfolioWebsite && (
-                <ProfileLink
-                  icons={<Link />}
-                  href={userInfo.user.portfolioWebsite}
-                  title="Portfolio"
-                />
-              )}
-              <ProfileLink
-                icons={<CalendarCheck />}
-                title={`Joined ${getJoinedDate(userInfo?.user.joinedAt)}`}
-              />
             </div>
-            <div className="mt-5 flex flex-wrap items-center justify-start gap-5"></div>
-            {userInfo?.user.bio && (
-              <p className="paragraph-regular text-dark400_light900 mt-8">
-                {userInfo?.user.bio}
-              </p>
-            )}
+          </div>
+          <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3 w-full">
+            <SignedIn>
+              {userId === userInfo?.user.clerkId && (
+                <Button className="paragraph-medium  text-dark300_light900 bg-primary-500/80 px-4 md:px-7 w-full sm:w-max">
+                  Edit Profile
+                </Button>
+              )}
+            </SignedIn>
           </div>
         </div>
-        <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
-          <SignedIn>
-            {userId === userInfo?.user.clerkId && (
-              <Button className="paragraph-medium px-4 text-dark300_light900 bg-primary-500/80">
-                Edit Profile
-              </Button>
-            )}
-          </SignedIn>
-        </div>
       </div>
-
       <Stats
         reputation={userInfo?.reputation}
         totalQuestions={userInfo?.totalQuestions}

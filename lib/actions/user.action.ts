@@ -220,7 +220,8 @@ export async function getUserInfo(params: GetUserByIdParams) {
   try {
     await connectToDatabase();
     const { userId } = params;
-    const user = await User.findOne({ clerkId: userId });
+
+    const user = await User?.findOne({ clerkId: userId });
 
     if (!user) throw new Error("User not found");
 
@@ -259,7 +260,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
       },
       {
         type: "TOTAL_VIEWS" as BadgeCriteriaType,
-        count: viewsQuestion.totalViews || 0,
+        count: viewsQuestion?.totalViews || 0,
       },
     ];
 

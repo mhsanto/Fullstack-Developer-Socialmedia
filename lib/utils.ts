@@ -59,8 +59,8 @@ export function getJoinedDate(inputDate: Date): string {
     "December",
   ];
 
-  const monthIndex: number = inputDate.getMonth();
-  const year: number = inputDate.getFullYear();
+  const monthIndex: number = inputDate?.getMonth();
+  const year: number = inputDate?.getFullYear();
 
   const joinedDate: string = `${months[monthIndex]} ${year}`;
 
