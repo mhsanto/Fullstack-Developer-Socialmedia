@@ -37,10 +37,10 @@ const ProfilePage = async ({ params: { id }, searchParams }: URLProps) => {
 
   return (
     <>
-      <div className="flex  items-start justify-between sm:flex-row dark:text-light-900">
+      <div className="flex items-start justify-center  sm:justify-between sm:flex-row dark:text-light-900">
         {/* <div className="flex flex-col items-start gap-4 sm:flex-row"> */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 justify-center gap-4">
-          <div className="flex gap-5 items-center sm:items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 justify-center gap-1 xs:gap-4">
+          <div className="flex gap-2 xs:gap-5 items-center sm:items-start flex-col xs:flex-row justify-center">
             <Image
               src={userInfo?.user.picture}
               width={200}
@@ -48,7 +48,7 @@ const ProfilePage = async ({ params: { id }, searchParams }: URLProps) => {
               alt={userInfo?.user.name || "User Profile Picture"}
               className="rounded-full object-cover"
             />
-            <div className="mt-3">
+            <div className="mt-3 text-center xs:text-start">
               <h2 className="h2-bold text-dark100_light900">
                 {userInfo?.user.name}
               </h2>
