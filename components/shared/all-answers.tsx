@@ -30,7 +30,7 @@ const AllAnswers: React.FC<AllAnswersProps> = async ({
   return (
     <div className="mt-11">
    
-      <div className=" items-center justify-between grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="items-center justify-between grid grid-cols-1 sm:grid-cols-2 gap-3">
         <h3 className="primary-text-gradient">{totalAnswers} Answers</h3>
         <SelectFilter
           filters={AnswerFilters}
@@ -43,23 +43,23 @@ const AllAnswers: React.FC<AllAnswersProps> = async ({
             <div className="flex items-center justify-between">
               <div className="mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2 dark:text-light-900ss">
                 <Link
-                  href={`/profile/${answer.author.clerkId}`}
-                  className="flex flex-1 items-start gap-1 sm:items-center"
+                  href={`/profile/${answer?.author.clerkId}`}
+                  className="flex flex-1 items-start gap-1.5 sm:items-center"
                 >
                   <Image
-                    src={answer.author.picture}
-                    alt={answer.author.name}
-                    width={25}
-                    height={25}
+                    src={answer?.author?.picture}
+                    alt={answer?.author?.name}
+                    width={32}
+                    height={32}
                     className="rounded-full object-cover max-sm:mt-0.5"
                   />
                   <div className="flex flex-col sm:flex-row sm:items-center">
                     <p className="body-semibold text-dark300_light700">
-                      {answer.author.name}
+                      {answer?.author.name}
                     </p>
-                    <p className="small-regular text-light-400_light500 mt-0.5 line-clamp-1 ml-0.5">
-                      <span className="max-sm:hidden">- </span>answered{" "}
-                      {getTimeStamp(answer.createdAt)}
+                    <p className="small-regular dark:text-white mt-0.5 line-clamp-1 ml-0.5">
+                      <span className="max-sm:hiddendark:text-white  ">- </span>answered{" "}
+                      {getTimeStamp(answer?.createdAt)}
                     </p>
                   </div>
                 </Link>
