@@ -24,7 +24,7 @@ const Community = async ({ searchParams }: SearchParamsProps) => {
     <>
       <h1 className="h1-bold dark:text-white">Community </h1>
 
-      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 flex-wrap">
+      <div className="mt-7 flex justify-between gap-5 max-sm:flex-col sm:items-center mb-4">
         <LocalSearchBar
           route="/community"
           iconsPosition="left"
@@ -34,11 +34,10 @@ const Community = async ({ searchParams }: SearchParamsProps) => {
         />
         <SelectFilter
           filters={UserFilters}
-          otherClasses=""
-          containerClasses="hidden max-md:flex flex-1"
+          otherClasses="min-h-[56px]  sm:min-w-[190px]"
         />
       </div>
-      <section className="mt-12 flex flex-wrap gap-4">
+      <section className="mt-8 flex flex-wrap gap-4">
         {result?.users.length && result.users.length > 0 ? (
           result?.users.map((user) => <UserCard key={user._id} user={user} />)
         ) : (

@@ -15,6 +15,7 @@ import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/pagination";
 import { Metadata } from "next";
 import { auth } from "@clerk/nextjs";
+import HomeFilters from "@/components/filters/home-filters";
 
 export const metadata: Metadata = {
   title: "Home | Developer Medium",
@@ -60,7 +61,8 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
           </Button>
         </Link>
       </div>
-      <div className="mt-10 flex justify-between flex-col max-md:flex-row max-md:flex-wrap sm:items-start  gap-3 ">
+      {/* <div className="mt-10 flex justify-between max-sm:flex-col  max-md:flex-row max-md:flex-wrap sm:items-start  gap-3 "> */}
+      <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center mb-4">
         <LocalSearchBar
           route="/"
           iconsPosition="left"
@@ -70,11 +72,14 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
         />
         <SelectFilter
           filters={HomePageFilters}
-          otherClasses=""
+          otherClasses="min-h-[50px] sm:min-w-[170px]"
           containerClasses="hidden max-md:flex "
         />
       </div>
-      <div className="w-full mt-8">
+
+      <HomeFilters />
+
+      <div className="w-full mt-6">
         {result?.questions?.length ? (
           result.questions?.map((question) => (
             <QuestionCard

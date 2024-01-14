@@ -29,10 +29,13 @@ const AllAnswers: React.FC<AllAnswersProps> = async ({
   });
   return (
     <div className="mt-11">
-  <div className="flex items-center justify-between">
+   
+      <div className=" items-center justify-between grid grid-cols-1 sm:grid-cols-2 gap-3">
         <h3 className="primary-text-gradient">{totalAnswers} Answers</h3>
-
-        <SelectFilter filters={AnswerFilters} containerClasses="hidden max-md:flex" />
+        <SelectFilter
+          filters={AnswerFilters}
+          otherClasses="min-h-[50px] sm:min-w-[200px]"
+        />
       </div>
       <div>
         {result?.answers.map((answer) => (
@@ -82,7 +85,7 @@ const AllAnswers: React.FC<AllAnswersProps> = async ({
           pageNumber={page ? +page : 1}
           isNext={result?.isNext || false}
         />
-        </div>
+      </div>
     </div>
   );
 };

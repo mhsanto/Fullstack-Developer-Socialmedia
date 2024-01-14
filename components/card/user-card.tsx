@@ -16,7 +16,7 @@ type UserCardProps = {
 const UserCard: React.FC<UserCardProps> = async ({ user }) => {
   const interactedTags = await getTopInteractedTagsParams({ userId: user._id });
   return (
-    <article className="relative isolate flex flex-col justify-end items-center overflow-hidden rounded-2xl px-5 pb-8 pt-40 max-w-sm w-[190px] mx-auto mt-7">
+    <article className="relative isolate flex flex-col justify-end items-center overflow-hidden rounded-2xl px-5 pb-8 pt-40 max-w-sm w-[190px] mt-7">
       <Image
         src={user.picture}
         alt={user.name}

@@ -30,7 +30,7 @@ const HomeFilters = () => {
     }
   };
   return (
-    <div className="mt-2 hidden flex-wrap gap-3 md:flex">
+    <div className="mt-4 hidden flex-wrap gap-3 md:flex">
       {HomePageFilters.map((filter) => (
         <Button
           key={filter.value}

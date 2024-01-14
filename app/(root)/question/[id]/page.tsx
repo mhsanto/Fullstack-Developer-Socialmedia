@@ -71,7 +71,7 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
             />
           </div>
         </div>
-        <h2 className="h2-semibold mt-3.5 w-full text-left">{result.title}</h2>
+        <h2 className="text-xl sm:text-2xl font-semibold mt-3.5 w-full text-left">{result.title}</h2>
       </div>
       <div className="flex mb-8 mt-5 flex-wrap gap-4 ">
         <Metric
@@ -89,7 +89,7 @@ const QuestionPage: React.FC<QuestionPageProps> = async ({
         <Metric
           icon={<LucideGitCommit size={16} className="dark:invert" />}
           value={result.answers.length}
-          title=" Answers"
+          title="Answers"
           textStyles="small-medium text-dark500_light700"
         />
       </div>

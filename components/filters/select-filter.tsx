@@ -67,7 +67,6 @@ const SelectFilter: React.FC<SelectFilterProps> = ({
           </SelectContent>
         </Select>
       </div>
-      <HomeFilters />
     </>
   );
 };

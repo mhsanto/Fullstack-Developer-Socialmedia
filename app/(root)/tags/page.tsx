@@ -24,7 +24,8 @@ const TagsPage = async ({ searchParams }: SearchParamsProps) => {
     <>
       <h1 className="h1-bold dark:text-white">Tags</h1>
 
-      <div className="mt-10 flex justify-between flex-col max-md:flex-row sm:items-start  gap-3 flex-wrap">
+      <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center mb-4">
+
         <LocalSearchBar
           route="/tags"
           iconsPosition="left"
@@ -34,8 +35,7 @@ const TagsPage = async ({ searchParams }: SearchParamsProps) => {
         />
         <SelectFilter
           filters={TagFilters}
-          otherClasses=""
-          containerClasses="hidden max-md:flex"
+          otherClasses="min-h-[50px] sm:min-w-[190px]"
         />
       </div>
       <section className="mt-12 flex flex-wrap gap-4">
