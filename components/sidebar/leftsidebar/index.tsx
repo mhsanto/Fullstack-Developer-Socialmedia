@@ -1,5 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { sidebarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
 import { SignedOut, useAuth } from "@clerk/nextjs";
@@ -10,7 +16,7 @@ import { usePathname } from "next/navigation";
 const LeftSidebar = () => {
   const NavContent = () => {
     const pathname = usePathname();
-    const { userId } = useAuth()
+    const { userId } = useAuth();
     return (
       <section className="flex flex-col h-full gap-4 w-full">
         {sidebarLinks.map((link) => {
@@ -19,8 +25,8 @@ const LeftSidebar = () => {
             pathname === link.route;
           if (link.route === "/profile") {
             if (userId) {
-              link.route = `/profile/${userId}`
-            } else return null
+              link.route = `/profile/${userId}`;
+            } else return null;
           }
           return (
             <Link
@@ -30,23 +36,34 @@ const LeftSidebar = () => {
                 isActive
                   ? "bg-primary-500/80  rounded-lg "
                   : "bg-transparent ring-0",
-                "flex items-center text-lg justify-start gap-3 py-2 ring-0 shadow-none  px-2.5 hover:ring-2 rounded-lg cursor-pointer "
+                "  py-2 ring-0 shadow-none  px-2.5 hover:ring-2 rounded-lg cursor-pointer "
               )}
             >
-              <Image
-                src={link.imgURL}
-                width={16}
-                height={16}
-                alt={link.label}
-              />
-              <p
-                className={cn(
-                  "text-dark-100 text-lg dark:text-light-900 font-spaceGrotesk  text-xl max-lg:hidden ",
-                  isActive ? "text-light-900 font-semibold " : "font-normal"
-                )}
-              >
-                {link.label}
-              </p>
+              <TooltipProvider>
+                <Tooltip delayDuration={0}>
+                  <TooltipTrigger className="flex items-center text-lg justify-start gap-3     ">
+                    <Image
+                      src={link.imgURL}
+                      width={16}
+                      height={16}
+                      alt={link.label}
+                    />
+                    <p
+                      className={cn(
+                        "text-dark-100 text-lg dark:text-light-900 font-spaceGrotesk max-lg:hidden ",
+                        isActive
+                          ? "text-light-900 font-semibold "
+                          : "font-normal"
+                      )}
+                    >
+                      {link.label}
+                    </p>
+                  </TooltipTrigger>
+                  <TooltipContent side="right" className="hidden max-lg:flex">
+                    <p>{link.label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </Link>
           );
         })}

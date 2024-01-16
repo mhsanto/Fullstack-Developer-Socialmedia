@@ -21,7 +21,7 @@ const QuestionCard: React.FC<QuestionProps> = ({
 }) => {
   const showActionButtons = clerkId && clerkId === author.clerkId;
   return (
-    <div className="dark:text-white background-light800_darkgradient p-5 sm:p-7 border-b-1 shadow-sm dark:shadow-none rounded-lg mb-4 w-full">
+    <div className="text-dark100_light900 background-light800_darkgradient p-5 sm:p-7 border-b-1 shadow-sm dark:shadow-none rounded-lg mb-4 w-full">
       <div className="flex flex-col">
         <div className="user_avatar flex  items-center justify-between gap-1.5 pb-5 w-full">
           <Metric

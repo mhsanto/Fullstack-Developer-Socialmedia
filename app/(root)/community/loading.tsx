@@ -12,7 +12,7 @@ const CommunityLoadingPage = () => {
         {Array(6)
           .fill(1)
           .map((_, i) => (
-            <Skeleton key={i} className="h-64 w-full rounded-2xl sm:w-[250px] " />
+            <Skeleton key={i} className="h-[270px] rounded-2xl w-[200px] " />
           ))}
       </div>
     </section>
